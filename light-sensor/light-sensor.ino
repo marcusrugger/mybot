@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include <Arduino.h>
 
+#include "scheduler.h"
 #include "subject.h"
 
 
@@ -43,51 +44,12 @@ private:
 mCoreLightSensor lightSensor(8, A7);
 
 
-class Looper
-{
-public:
-
-    void Setup(void)
-    {
-        Serial.begin(9600);
-    }
-
-    void Loop(void)
-    {
-        Serial.print("light sensor: ");
-        Serial.println(lightSensor.read());
-
-        delay(5000);
-    }
-
-    // void Loop(void)
-    // {
-    //     if (flag = !flag)
-    //         lightSensor.lightOn();
-    //     else
-    //         lightSensor.lightOff();
-
-    //     delay(5000);
-    // }
-
-
-private:
-
-    bool flag = false;
-
-};
-
-
-Looper looper;
-
-
 void setup()
 {
-    looper.Setup();
 }
 
 
 void loop()
 {
-    looper.Loop();
+    Scheduler::instance()->tick();
 }

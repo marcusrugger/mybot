@@ -16,3 +16,7 @@ Scheduler *Scheduler::instance(void)
 
 Scheduler::Scheduler(void)
 {}
+
+
+void Scheduler::tick(void)
+{}

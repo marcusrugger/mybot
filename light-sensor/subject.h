@@ -2,15 +2,8 @@
 #define SUBJECT_H
 
 #include <Arduino.h>
+#include "scheduler.h"
 #include "observer.h"
-
-class Tickable
-{
-public:
-
-    virtual void tick(void) = 0;
-
-};
 
 class Subject
 {
