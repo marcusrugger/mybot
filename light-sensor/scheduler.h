@@ -1,6 +1,7 @@
 #ifndef SCHEDULER_H
 #define SCHEDULER_H
 
+
 class Tickable
 {
 public:
@@ -9,20 +10,31 @@ public:
 
 };
 
-class Scheduler : public Tickable
+
+class Scheduler
 {
 public:
 
-    static Scheduler *instance(void);
+    virtual void schedule(Tickable *task) = 0;
+
+};
+
+
+class TaskRunner : public Tickable,
+                   public Scheduler
+{
+public:
+
+    static TaskRunner *instance(void);
 
     void tick(void);
     void schedule(Tickable *task);
 
 private:
 
-    Scheduler(void);
+    TaskRunner(void);
 
-    static Scheduler *_instance;
+    static TaskRunner *_instance;
 
     static const unsigned int MAX_TASKS = 8;
     Tickable *_tasks[MAX_TASKS];

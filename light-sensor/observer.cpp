@@ -6,16 +6,17 @@ void Observer::update(void)
 {}
 
 
-mCoreButtonObserver::mCoreButtonObserver(void)
+mCoreButtonObserver::mCoreButtonObserver(ButtonSubject *subject)
+:   _subject(subject)
 {
-    mCoreButtonSubject::instance()->attach(this);
+    _subject->attach(this);
 }
 
 void mCoreButtonObserver::update(void)
 {
-    mCoreButtonSubject::ButtonState state = mCoreButtonSubject::instance()->getState();
+    ButtonSubject::ButtonState state = _subject->getState();
 
-    if (mCoreButtonSubject::BUTTON_UP == state)
+    if (ButtonSubject::BUTTON_UP == state)
         Serial.println("Button changed state: up");
     else
         Serial.println("Button changed state: down");

@@ -31,12 +31,13 @@ public:
     PinState(uint8_t pin)
     :   _pin(pin)
     {
-        pinMode(_pin, INPUT);
+        pinMode(_pin, INPUT_PULLUP);
     }
 
     int16_t readPin(void)
     {
         return analogRead(_pin);
+        // return 125;
     }
 
 private:
@@ -45,8 +46,9 @@ private:
 
 };
 
-class mCoreButtonSubject : public Subject,
-                           public Tickable
+
+class ButtonSubject : public Subject,
+                      public Tickable
 {
 public:
 
@@ -56,14 +58,6 @@ public:
         BUTTON_DOWN
     };
 
-    static mCoreButtonSubject *instance(void)
-    {
-        if (NULL == _instance)
-            _instance = new mCoreButtonSubject();
-
-        return _instance;
-    }
-
     ButtonState getState(void)
     {
         return _pin.readPin() > 100 ? BUTTON_UP : BUTTON_DOWN;
@@ -71,9 +65,9 @@ public:
 
 protected:
 
-    mCoreButtonSubject(void) : _pin(A7)
+    ButtonSubject(uint8_t pin) : _pin(pin)
     {
-        Scheduler::instance()->schedule(this);
+        TaskRunner::instance()->schedule(this);
     }
 
     void tick(void)
@@ -88,9 +82,32 @@ protected:
 
 private:
 
-    static mCoreButtonSubject *_instance;
     PinState _pin;
     ButtonState _state;
+
+};
+
+
+class mCoreButtonSubject : public ButtonSubject
+{
+public:
+
+    static ButtonSubject *instance(void)
+    {
+        if (NULL == _instance)
+            _instance = new mCoreButtonSubject();
+
+        return _instance;
+    }
+
+protected:
+
+    mCoreButtonSubject(void) : ButtonSubject(A7)
+    {}
+
+private:
+
+    static mCoreButtonSubject *_instance;
 
 };
 

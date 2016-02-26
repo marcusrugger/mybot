@@ -1,7 +1,7 @@
 #ifndef OBSERVER_H
 #define OBSERVER_H
 
-class mCoreButtonSubject;
+class ButtonSubject;
 
 class Observer
 {
@@ -15,11 +15,13 @@ class mCoreButtonObserver : public Observer
 {
 public:
 
-    mCoreButtonObserver(void);
+    mCoreButtonObserver(ButtonSubject *subject);
 
 private:
 
     void update(void);
+
+    ButtonSubject *_subject;
 
 };
 

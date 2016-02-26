@@ -1,7 +1,7 @@
 #include "subject.h"
 
 
-mCoreButtonSubject *mCoreButtonSubject::_instance;
+mCoreButtonSubject *mCoreButtonSubject::_instance = NULL;
 
 
 void Subject::attach(Observer *observer)

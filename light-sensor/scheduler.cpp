@@ -2,29 +2,31 @@
 #include "scheduler.h"
 
 
-Scheduler *Scheduler::_instance;
+TaskRunner *TaskRunner::_instance = NULL;
 
 
-Scheduler *Scheduler::instance(void)
+TaskRunner *TaskRunner::instance(void)
 {
     if (NULL == _instance)
-        _instance = new Scheduler();
+        _instance = new TaskRunner();
 
     return _instance;
 }
 
 
-Scheduler::Scheduler(void)
+TaskRunner::TaskRunner(void)
 :   _count(0)
 {}
 
 
-void Scheduler::tick(void)
+void TaskRunner::tick(void)
 {
+    for (unsigned int i = 0; i < _count; ++i)
+        _tasks[i]->tick();
 }
 
 
-void Scheduler::schedule(Tickable *task)
+void TaskRunner::schedule(Tickable *task)
 {
     if (_count < MAX_TASKS)
         _tasks[_count++] = task;
