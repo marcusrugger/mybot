@@ -43,13 +43,23 @@ private:
 
 mCoreLightSensor lightSensor(8, A7);
 
+mCoreButtonObserver *button;
+
 
 void setup()
 {
+    button = new mCoreButtonObserver();
 }
 
 
 void loop()
 {
+    const uint16_t tick_delay = 100;
+    uint16_t enter_tick = millis();
+
     Scheduler::instance()->tick();
+
+    uint16_t tick_time = millis() - enter_tick;
+    if (tick_time < tick_delay)
+        delay(tick_delay - tick_time);
 }

@@ -71,7 +71,10 @@ public:
 
 protected:
 
-    mCoreButtonSubject(void) : _pin(A7) {}
+    mCoreButtonSubject(void) : _pin(A7)
+    {
+        Scheduler::instance()->schedule(this);
+    }
 
     void tick(void)
     {

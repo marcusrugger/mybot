@@ -15,8 +15,17 @@ Scheduler *Scheduler::instance(void)
 
 
 Scheduler::Scheduler(void)
+:   _count(0)
 {}
 
 
 void Scheduler::tick(void)
-{}
+{
+}
+
+
+void Scheduler::schedule(Tickable *task)
+{
+    if (_count < MAX_TASKS)
+        _tasks[_count++] = task;
+}
