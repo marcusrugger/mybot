@@ -49,17 +49,14 @@ mCoreButtonObserver *button;
 void setup()
 {
     Serial.begin(9600);
-
-    delay(1000);
-
-    button = new mCoreButtonObserver(mCoreButtonSubject::instance());
+    button = new mCoreButtonObserver(MCoreButtonSubject::instance());
     Serial.println("Setup complete.");
 }
 
 
 void loop()
 {
-    const uint16_t tick_delay = 10;
+    const uint16_t tick_delay = 100;
     uint16_t enter_tick = millis();
 
     TaskRunner::instance()->tick();

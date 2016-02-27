@@ -37,7 +37,6 @@ public:
     int16_t readPin(void)
     {
         return analogRead(_pin);
-        // return 125;
     }
 
 private:
@@ -88,26 +87,26 @@ private:
 };
 
 
-class mCoreButtonSubject : public ButtonSubject
+class MCoreButtonSubject : public ButtonSubject
 {
 public:
 
     static ButtonSubject *instance(void)
     {
         if (NULL == _instance)
-            _instance = new mCoreButtonSubject();
+            _instance = new MCoreButtonSubject();
 
         return _instance;
     }
 
 protected:
 
-    mCoreButtonSubject(void) : ButtonSubject(A7)
+    MCoreButtonSubject(void) : ButtonSubject(A7)
     {}
 
 private:
 
-    static mCoreButtonSubject *_instance;
+    static MCoreButtonSubject *_instance;
 
 };
 
