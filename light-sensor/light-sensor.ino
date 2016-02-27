@@ -7,6 +7,8 @@
 
 #include "scheduler.h"
 #include "subject.h"
+#include "motor.h"
+#include "motion.h"
 
 
 class mCoreLightSensor
@@ -49,7 +51,14 @@ mCoreButtonObserver *button;
 void setup()
 {
     Serial.begin(9600);
-    button = new mCoreButtonObserver(MCoreButtonSubject::instance());
+
+    Motor *motorLeft  = new MBotMotor(6, 7);
+    Motor *motorRight = new MBotMotor(5, 4, true);
+
+    Moveable *move = new MBotMotion(motorLeft, motorRight);
+
+    button = new mCoreButtonObserver(MCoreButtonSubject::instance(), move);
+
     Serial.println("Setup complete.");
 }
 

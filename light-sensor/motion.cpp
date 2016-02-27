@@ -1,41 +1,41 @@
 #include "motion.h"
 
 
-Motion::Motion(Motor *motorLeft, Motor *motorRight)
+MBotMotion::MBotMotion(Motor *motorLeft, Motor *motorRight)
 :   _motorLeft(motorLeft),
     _motorRight(motorRight)
 {}
 
 
-void Motion::forward(void)
+void MBotMotion::forward(void)
 {
-    _motorLeft->run(Motor::MAX_SPEED);
-    _motorRight->run(Motor::MAX_SPEED);
+    _motorLeft->run(Motor::MAX_FORWARD);
+    _motorRight->run(Motor::MAX_FORWARD);
 }
 
 
-void Motion::backward(void)
+void MBotMotion::backward(void)
 {
-    _motorLeft->run(-Motor::MAX_SPEED);
-    _motorRight->run(-Motor::MAX_SPEED);
+    _motorLeft->run(Motor::MAX_REVERSE);
+    _motorRight->run(Motor::MAX_REVERSE);
 }
 
 
-void Motion::rotateLeft(void)
+void MBotMotion::rotateLeft(void)
 {
-    _motorLeft->run(-Motor::MAX_SPEED);
-    _motorRight->run(Motor::MAX_SPEED);
+    _motorLeft->run(Motor::MAX_REVERSE);
+    _motorRight->run(Motor::MAX_FORWARD);
 }
 
 
-void Motion::rotateRight(void)
+void MBotMotion::rotateRight(void)
 {
-    _motorLeft->run(Motor::MAX_SPEED);
-    _motorRight->run(-Motor::MAX_SPEED);
+    _motorLeft->run(-Motor::MAX_FORWARD);
+    _motorRight->run(-Motor::MAX_REVERSE);
 }
 
 
-void Motion::stop(void)
+void MBotMotion::stop(void)
 {
     _motorLeft->stop();
     _motorRight->stop();

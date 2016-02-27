@@ -19,11 +19,11 @@ public:
 };
 
 
-class Motion : public Moveable
+class MBotMotion : public Moveable
 {
 public:
 
-    Motion(Motor *motorLeft, Motor *motorRight);
+    MBotMotion(Motor *motorLeft, Motor *motorRight);
 
     void forward(void);
     void backward(void);

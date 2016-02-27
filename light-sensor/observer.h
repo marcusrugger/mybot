@@ -2,6 +2,7 @@
 #define OBSERVER_H
 
 class ButtonSubject;
+class Moveable;
 
 class Observer
 {
@@ -15,13 +16,14 @@ class mCoreButtonObserver : public Observer
 {
 public:
 
-    mCoreButtonObserver(ButtonSubject *subject);
+    mCoreButtonObserver(ButtonSubject *subject, Moveable *move);
 
 private:
 
     void update(void);
 
     ButtonSubject *_subject;
+    Moveable *_move;
 
 };
 
