@@ -7,14 +7,14 @@ void Observer::update(void)
 {}
 
 
-mCoreButtonObserver::mCoreButtonObserver(ButtonSubject *subject, Moveable *move)
+ButtonObserver::ButtonObserver(ButtonSubject *subject, Moveable *move)
 :   _subject(subject),
     _move(move)
 {
     _subject->attach(this);
 }
 
-void mCoreButtonObserver::update(void)
+void ButtonObserver::update(void)
 {
     ButtonSubject::ButtonState state = _subject->getState();
 

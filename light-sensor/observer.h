@@ -12,11 +12,11 @@ public:
 
 };
 
-class mCoreButtonObserver : public Observer
+class ButtonObserver : public Observer
 {
 public:
 
-    mCoreButtonObserver(ButtonSubject *subject, Moveable *move);
+    ButtonObserver(ButtonSubject *subject, Moveable *move);
 
 private:
 

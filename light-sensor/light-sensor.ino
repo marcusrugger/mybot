@@ -45,7 +45,7 @@ private:
 
 mCoreLightSensor lightSensor(8, A7);
 
-mCoreButtonObserver *button;
+ButtonObserver *button;
 
 
 void setup()
@@ -57,7 +57,7 @@ void setup()
 
     Moveable *move = new MBotMotion(motorLeft, motorRight);
 
-    button = new mCoreButtonObserver(MCoreButtonSubject::instance(), move);
+    button = new ButtonObserver(MCoreButtonSubject::instance(), move);
 
     Serial.println("Setup complete.");
 }
