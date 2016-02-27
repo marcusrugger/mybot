@@ -9,6 +9,8 @@ class Motor
 {
 public:
 
+    static const int MAX_SPEED = 255;
+
     Motor(uint8_t pinPwm, uint8_t pinDir);
 
     void run(int speed);

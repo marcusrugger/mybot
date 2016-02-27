@@ -20,7 +20,7 @@ void Motor::run(int speed)
 
 uint8_t Motor::limitSpeed(int speed)
 {
-    return speed > 255 ? 255 : speed;
+    return speed > MAX_SPEED ? MAX_SPEED : speed;
 }
 
 
