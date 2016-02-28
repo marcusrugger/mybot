@@ -2,6 +2,7 @@
 #define SUBJECT_H
 
 #include <Arduino.h>
+#include "mcore.h"
 #include "scheduler.h"
 #include "observer.h"
 
@@ -24,27 +25,6 @@ private:
 
 };
 
-class PinState
-{
-public:
-
-    PinState(uint8_t pin)
-    :   _pin(pin)
-    {
-        pinMode(_pin, INPUT_PULLUP);
-    }
-
-    int16_t readPin(void)
-    {
-        return analogRead(_pin);
-    }
-
-private:
-
-    uint8_t _pin;
-
-};
-
 
 class ButtonSubject : public Subject,
                       public Tickable
@@ -59,12 +39,12 @@ public:
 
     ButtonState getState(void)
     {
-        return _pin.readPin() > 100 ? BUTTON_UP : BUTTON_DOWN;
+        return _pin->readPin() > 100 ? BUTTON_UP : BUTTON_DOWN;
     }
 
 protected:
 
-    ButtonSubject(uint8_t pin) : _pin(pin)
+    ButtonSubject(PinReadable *pin) : _pin(pin)
     {
         TaskRunner::instance()->schedule(this);
     }
@@ -81,7 +61,7 @@ protected:
 
 private:
 
-    PinState _pin;
+    PinReadable *_pin;
     ButtonState _state;
 
 };
@@ -101,7 +81,7 @@ public:
 
 protected:
 
-    MCoreButtonSubject(void) : ButtonSubject(A7)
+    MCoreButtonSubject(void) : ButtonSubject(new ControllerPin(PIN_MCORE_BUTTON, INPUT_PULLUP))
     {}
 
 private:

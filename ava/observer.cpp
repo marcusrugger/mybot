@@ -21,11 +21,11 @@ void ButtonObserver::update(void)
     if (ButtonSubject::BUTTON_UP == state)
     {
         Serial.println("Button changed state: up");
-        _move->stop();
+        _move->rotateRight();
     }
     else
     {
         Serial.println("Button changed state: down");
-        _move->rotateRight();
+        _move->stop();
     }
 }
