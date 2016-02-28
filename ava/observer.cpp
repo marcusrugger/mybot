@@ -4,6 +4,39 @@
 #include "motion.h"
 #include "scheduler.h"
 
+
+
+
+class Mover : public Tickable
+{
+public:
+
+    static Tickable *forward(void);
+    static Tickable *backward(void);
+    static Tickable *rotateLeft(void);
+    static Tickable *rotateRight(void);
+
+    void Tick(void)
+    {
+        // motorLeft->run(speedLeft);
+        // motorRight->run(speedRight);
+    }
+
+protected:
+
+private:
+
+    int speedLeft;
+    int speedRight;
+
+};
+
+
+
+
+
+
+
 void Observer::update(void)
 {}
 
@@ -23,8 +56,8 @@ void ButtonObserver::update(void)
     if (ButtonSubject::BUTTON_UP == state && NULL == _timer)
     {
         Serial.println("Button changed state: up");
-        _move->rotateRight();
-        _timer = new Timer(this, 280);
+        _move->forward();
+        _timer = new Timer(this, 5000);
         TaskRunner::instance()->schedule(_timer);
     }
     else if (ButtonSubject::BUTTON_DOWN == state)

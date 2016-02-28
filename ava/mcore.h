@@ -66,14 +66,22 @@ const uint8_t PIN_MOTOR_LEFT_PWM    = 6;
 const uint8_t PIN_MOTOR_LEFT_DIR    = 7;
 
 // Motor directions
-const bool MOTOR_RIGHT_REVERSE      = true;
-const bool MOTOR_LEFT_REVERSE       = false;
+const bool MOTOR_RIGHT_REVERSE      = false;
+const bool MOTOR_LEFT_REVERSE       = true;
 
 
-const uint8_t PIN_MCORE_LIGHT_SENSOR    = A6;
-const uint8_t PIN_MCORE_BUTTON          = A7;
+const uint8_t PIN_MCORE_ULTRASONIC_SENSOR   = A3;
+const uint8_t PIN_MCORE_LIGHT_SENSOR        = A6;
+const uint8_t PIN_MCORE_BUTTON              = A7;
 
-const uint8_t PIN_MCORE_BUZZER          = 8;   // unverified
+const uint8_t PIN_MCORE_BUZZER              = 8;   // unverified
+
+
+inline void enableInterrupts(void)
+{ interrupts(); }
+
+inline void disableInterrupts(void)
+{ noInterrupts(); }
 
 
 class PinReadable

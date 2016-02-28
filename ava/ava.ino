@@ -10,21 +10,44 @@
 #include "subject.h"
 #include "motor.h"
 #include "motion.h"
+#include "ultrasonic.h"
 
 
+Moveable *movement;
 ButtonObserver *button;
+MBotUltrasonicObserver *ultrasonic_observer;
+
+
+void createMotors(void)
+{
+    Motor *motorLeft    = new MBotMotor(PIN_MOTOR_LEFT_PWM, PIN_MOTOR_LEFT_DIR, MOTOR_LEFT_REVERSE);
+    Motor *motorRight   = new MBotMotor(PIN_MOTOR_RIGHT_PWM, PIN_MOTOR_RIGHT_DIR, MOTOR_RIGHT_REVERSE);
+    movement            = new MBotMotion(motorLeft, motorRight);
+}
+
+
+void createButtonObserver(void)
+{
+    button = new ButtonObserver(MCoreButtonSubject::instance(), movement);
+}
+
+
+void createUltrasonicObserver(void)
+{
+    TaskRunner::instance()->schedule(MBotUltrasonicSubject::instance());
+
+    ultrasonic_observer = new MBotUltrasonicObserver(movement);
+    MBotUltrasonicSubject::instance()->attach(ultrasonic_observer);
+}
 
 
 void setup()
 {
     Serial.begin(9600);
 
-    Motor *motorLeft  = new MBotMotor(PIN_MOTOR_LEFT_PWM, PIN_MOTOR_LEFT_DIR, MOTOR_LEFT_REVERSE);
-    Motor *motorRight = new MBotMotor(PIN_MOTOR_RIGHT_PWM, PIN_MOTOR_RIGHT_DIR, MOTOR_RIGHT_REVERSE);
-
-    Moveable *move = new MBotMotion(motorLeft, motorRight);
-
-    button = new ButtonObserver(MCoreButtonSubject::instance(), move);
+    createMotors();
+    createButtonObserver();
+    createUltrasonicObserver();
 
     Serial.println("Setup complete.");
 }
