@@ -46,9 +46,14 @@ const uint16_t timer_resolution = 1000;
 const uint16_t tick_delay       = 10;
 const uint16_t ticks_per_second = timer_resolution / tick_delay;
 
+inline uint16_t milli_to_ticks(uint16_t milliseconds)
+{
+    return milliseconds / tick_delay;
+}
+
 
 // Timings for motor control
-const uint16_t rotation_time    = 850 * tick_delay / timer_resolution;
+const uint16_t rotation_time    = 850 * tick_delay;
 const uint16_t turn_full        = rotation_time;
 const uint16_t turn_half        = rotation_time / 2;
 const uint16_t turn_quarter     = rotation_time / 4;

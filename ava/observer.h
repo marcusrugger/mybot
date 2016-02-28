@@ -12,7 +12,8 @@ public:
 
 };
 
-class ButtonObserver : public Observer
+class ButtonObserver : public Observer,
+                       public Tickable
 {
 public:
 
@@ -21,9 +22,11 @@ public:
 private:
 
     void update(void);
+    void tick(void);
 
     ButtonSubject *_subject;
     Moveable *_move;
+    Timer *_timer;
 
 };
 

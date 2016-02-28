@@ -31,3 +31,21 @@ void TaskRunner::schedule(Tickable *task)
     if (_count < MAX_TASKS)
         _tasks[_count++] = task;
 }
+
+
+void TaskRunner::unschedule(Tickable *task)
+{
+    unsigned int is, id;
+    for (is = id = 0; is < _count; )
+    {
+        if (_tasks[is] == task)
+        {
+            ++is;
+            --_count;
+        }
+        else if (id < is)
+            _tasks[id++] = _tasks[is++];
+        else
+            id = ++is;
+    }
+}
