@@ -42,11 +42,11 @@ void Observer::update(void)
 {}
 
 
-MoveOnButtonRelease::MoveOnButtonRelease(ButtonSubject *subject, Moveable *move)
+MoveOnButtonRelease::MoveOnButtonRelease(ButtonSubject *subject)
 :   _factory(Robot::instance()->factory()),
     _scheduler(Robot::instance()->scheduler()),
+    _move(Robot::instance()->movement()),
     _subject(subject),
-    _move(move),
     _timer(NULL)
 {
     _subject->attach(this);

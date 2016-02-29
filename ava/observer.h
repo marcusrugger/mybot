@@ -9,7 +9,7 @@ class MoveOnButtonRelease : public Observer,
 {
 public:
 
-    MoveOnButtonRelease(ButtonSubject *subject, Moveable *move);
+    MoveOnButtonRelease(ButtonSubject *subject);
 
 private:
 

@@ -115,4 +115,14 @@ private:
 };
 
 
+class UltrasonicSensor
+{
+public:
+
+    // Returns distance in mm
+    long distance(void);
+
+};
+
+
 #endif

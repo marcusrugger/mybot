@@ -20,9 +20,6 @@ private:
     RobotFactory &_factory;
     Robot *_robot;
 
-
-    void buildButtonProcessor(void);
-
 };
 
 

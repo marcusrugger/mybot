@@ -5,7 +5,10 @@
 
 
 class PinReader;
+class UltrasonicSensor;
+
 class ButtonSubject;
+class UltrasonicSubject;
 
 
 class Motor
@@ -78,15 +81,13 @@ class RobotFactory
 {
 public:
 
-    virtual Scheduler       *createScheduler(void) = 0;
-    virtual Tickable        *createIdleloop(void) = 0;
-    virtual Tickable        *createTimer(Tickable *tickee, uint16_t milli) = 0;
+    virtual Scheduler           *createScheduler(void) = 0;
+    virtual Tickable            *createIdleloop(void) = 0;
+    virtual Tickable            *createTimer(Tickable *tickee, uint16_t milli) = 0;
+    virtual Moveable            *createMotionControl(void) = 0;
 
-    virtual Moveable        *createMotionControl(void) = 0;
-    virtual PinReader       *createPinReader(uint8_t pin, uint8_t mode) = 0;
-    virtual ButtonSubject   *createButtonSubject(PinReader *pin) = 0;
-
-    virtual Observer        *createButtonProcessor(ButtonSubject *subject, Moveable *move) = 0;
+    virtual void buildButtonProcessor(void) = 0;
+    virtual void buildUltrasonicProcessor(void) = 0;
 
 };
 

@@ -5,6 +5,8 @@
 #include "scheduler.h"
 #include "subject.h"
 #include "observer.h"
+#include "robot.h"
+#include "ultrasonic.h"
 
 
 MBotFactory::MBotFactory(void)
@@ -37,19 +39,22 @@ Moveable *MBotFactory::createMotionControl(void)
 }
 
 
-PinReader *MBotFactory::createPinReader(uint8_t pin, uint8_t mode)
+void MBotFactory::buildButtonProcessor(void)
 {
-    return new ControllerPin(pin, mode);
+    Scheduler       *scheduler  = Robot::instance()->scheduler();
+    PinReader       *pin        = new ControllerPin(PIN_MCORE_BUTTON, INPUT_PULLUP);
+    ButtonSubject   *subject    = new ButtonSubject(pin);
+    Observer        *observer   = new MoveOnButtonRelease(subject);
+    scheduler->schedule(subject);
 }
 
 
-ButtonSubject *MBotFactory::createButtonSubject(PinReader *pin)
+void MBotFactory::buildUltrasonicProcessor(void)
 {
-    return new ButtonSubject(pin);
-}
-
-
-Observer *MBotFactory::createButtonProcessor(ButtonSubject *subject, Moveable *move)
-{
-    return new MoveOnButtonRelease(subject, move);
+    Scheduler               *scheduler  = Robot::instance()->scheduler();
+    Moveable                *move       = Robot::instance()->movement();
+    MBotUltrasonicSubject   *subject    = MBotUltrasonicSubject::instance();
+    Observer                *observer   = new MBotUltrasonicObserver(move);
+    subject->attach(observer);
+    scheduler->schedule(subject);
 }

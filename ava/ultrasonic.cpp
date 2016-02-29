@@ -20,7 +20,7 @@ void MBotUltrasonicSubject::tick(void)
     // Serial.print("MBotUltrasonicSubject::tick: distance: ");
     // Serial.println(d);
 
-    if (d < 100)
+    if (d > 0 && d < 100)
         notify();
 }
 
