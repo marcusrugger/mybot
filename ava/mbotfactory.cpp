@@ -31,30 +31,21 @@ Tickable *MBotFactory::createTimer(Tickable *tickee, uint16_t milli)
 }
 
 
+PinReader *MBotFactory::createPinReader(uint8_t pin, uint8_t mode)
+{
+    return new ControllerPin(pin, mode);
+}
+
+
+Motor *MBotFactory::createMotor(uint8_t pinPwm, uint8_t pinDir, bool reverse)
+{
+    return new MBotMotor(pinPwm, pinDir, reverse);
+}
+
+
 Moveable *MBotFactory::createMotionControl(void)
 {
-    Motor *motorLeft    = new MBotMotor(PIN_MOTOR_LEFT_PWM, PIN_MOTOR_LEFT_DIR, MOTOR_LEFT_REVERSE);
-    Motor *motorRight   = new MBotMotor(PIN_MOTOR_RIGHT_PWM, PIN_MOTOR_RIGHT_DIR, MOTOR_RIGHT_REVERSE);
+    Motor *motorLeft    = createMotor(PIN_MOTOR_LEFT_PWM, PIN_MOTOR_LEFT_DIR, MOTOR_LEFT_REVERSE);
+    Motor *motorRight   = createMotor(PIN_MOTOR_RIGHT_PWM, PIN_MOTOR_RIGHT_DIR, MOTOR_RIGHT_REVERSE);
     return new MBotMotion(motorLeft, motorRight);
-}
-
-
-void MBotFactory::buildButtonProcessor(void)
-{
-    Scheduler       *scheduler  = Robot::instance()->scheduler();
-    PinReader       *pin        = new ControllerPin(PIN_MCORE_BUTTON, INPUT_PULLUP);
-    ButtonSubject   *subject    = new ButtonSubject(pin);
-    Observer        *observer   = new MoveOnButtonRelease(subject);
-    scheduler->schedule(subject);
-}
-
-
-void MBotFactory::buildUltrasonicProcessor(void)
-{
-    Scheduler               *scheduler  = Robot::instance()->scheduler();
-    Moveable                *move       = Robot::instance()->movement();
-    MBotUltrasonicSubject   *subject    = MBotUltrasonicSubject::instance();
-    Observer                *observer   = new MBotUltrasonicObserver(move);
-    subject->attach(observer);
-    scheduler->schedule(subject);
 }

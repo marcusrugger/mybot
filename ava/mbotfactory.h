@@ -16,10 +16,9 @@ public:
     Scheduler   *createScheduler(void);
     Tickable    *createIdleloop(void);
     Tickable    *createTimer(Tickable *tickee, uint16_t milli);
+    PinReader   *createPinReader(uint8_t pin, uint8_t mode);
+    Motor       *createMotor(uint8_t pinPwm, uint8_t pinDir, bool reverse);
     Moveable    *createMotionControl(void);
-
-    void buildButtonProcessor(void);
-    void buildUltrasonicProcessor(void);
 
 };
 

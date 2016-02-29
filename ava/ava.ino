@@ -9,6 +9,7 @@
 #include "interfaces.h"
 #include "mbotfactory.h"
 #include "mbotbuilder.h"
+#include "mbotdirector.h"
 #include "scheduler.h"
 #include "subject.h"
 #include "robot.h"
@@ -22,9 +23,10 @@ MBotFactory factory;
 
 void createRobot(void)
 {
-    MBotBuilder builder(factory);
+    MBotBuilder     builder(factory);
+    MBotDirector    director(builder);
 
-    builder.buildRobot();
+    director.buildRobot();
 
     idleloop = Robot::instance()->idleloop();
 }

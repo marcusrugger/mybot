@@ -81,10 +81,19 @@ class RobotFactory
 {
 public:
 
-    virtual Scheduler           *createScheduler(void) = 0;
-    virtual Tickable            *createIdleloop(void) = 0;
-    virtual Tickable            *createTimer(Tickable *tickee, uint16_t milli) = 0;
-    virtual Moveable            *createMotionControl(void) = 0;
+    virtual Scheduler   *createScheduler(void) = 0;
+    virtual Tickable    *createIdleloop(void) = 0;
+    virtual Tickable    *createTimer(Tickable *tickee, uint16_t milli) = 0;
+    virtual PinReader   *createPinReader(uint8_t pin, uint8_t mode) = 0;
+    virtual Motor       *createMotor(uint8_t pinPwm, uint8_t pinDir, bool reverse = false) = 0;
+    virtual Moveable    *createMotionControl(void) = 0;
+
+};
+
+
+class RobotBuilder
+{
+public:
 
     virtual void buildButtonProcessor(void) = 0;
     virtual void buildUltrasonicProcessor(void) = 0;

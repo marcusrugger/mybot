@@ -1,7 +1,12 @@
-#include "mcore.h"
 #include "mbotbuilder.h"
-#include "robot.h"
+#include "mcore.h"
+#include "motor.h"
+#include "motion.h"
+#include "scheduler.h"
 #include "subject.h"
+#include "observer.h"
+#include "robot.h"
+#include "ultrasonic.h"
 
 
 MBotBuilder::MBotBuilder(RobotFactory &factory)
@@ -10,8 +15,22 @@ MBotBuilder::MBotBuilder(RobotFactory &factory)
 {}
 
 
-void MBotBuilder::buildRobot(void)
+void MBotBuilder::buildButtonProcessor(void)
 {
-    _factory.buildButtonProcessor();
-    _factory.buildUltrasonicProcessor();
+    Scheduler       *scheduler  = _robot->scheduler();
+    PinReader       *pin        = _factory.createPinReader(PIN_MCORE_BUTTON, INPUT_PULLUP);
+    ButtonSubject   *subject    = new ButtonSubject(pin);
+    Observer        *observer   = new MoveOnButtonRelease(subject);
+    scheduler->schedule(subject);
+}
+
+
+void MBotBuilder::buildUltrasonicProcessor(void)
+{
+    Scheduler               *scheduler  = _robot->scheduler();
+    Moveable                *move       = _robot->movement();
+    MBotUltrasonicSubject   *subject    = MBotUltrasonicSubject::instance();
+    Observer                *observer   = new MBotUltrasonicObserver(move);
+    subject->attach(observer);
+    scheduler->schedule(subject);
 }
