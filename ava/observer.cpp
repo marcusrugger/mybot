@@ -1,4 +1,5 @@
 #include "mcore.h"
+#include "robot.h"
 #include "subject.h"
 #include "observer.h"
 #include "motion.h"
@@ -41,15 +42,17 @@ void Observer::update(void)
 {}
 
 
-ButtonObserver::ButtonObserver(ButtonSubject *subject, Moveable *move)
-:   _subject(subject),
+MoveOnButtonRelease::MoveOnButtonRelease(ButtonSubject *subject, Moveable *move)
+:   _factory(Robot::instance()->factory()),
+    _scheduler(Robot::instance()->scheduler()),
+    _subject(subject),
     _move(move),
     _timer(NULL)
 {
     _subject->attach(this);
 }
 
-void ButtonObserver::update(void)
+void MoveOnButtonRelease::update(void)
 {
     ButtonSubject::ButtonState state = _subject->getState();
 
@@ -57,8 +60,9 @@ void ButtonObserver::update(void)
     {
         Serial.println("Button changed state: up");
         _move->forward();
-        _timer = new Timer(this, 5000);
-        TaskRunner::instance()->schedule(_timer);
+
+        _timer = _factory.createTimer(this, 5000);
+        _scheduler->schedule(_timer);
     }
     else if (ButtonSubject::BUTTON_DOWN == state)
     {
@@ -67,10 +71,10 @@ void ButtonObserver::update(void)
     }
 }
 
-void ButtonObserver::tick(void)
+void MoveOnButtonRelease::tick(void)
 {
     _move->stop();
-    TaskRunner::instance()->unschedule(_timer);
+    _scheduler->unschedule(_timer);
     delete _timer;
     _timer = NULL;
 }

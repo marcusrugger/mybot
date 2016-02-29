@@ -1,32 +1,27 @@
 #ifndef OBSERVER_H
 #define OBSERVER_H
 
-class ButtonSubject;
-class Moveable;
+#include "interfaces.h"
 
-class Observer
+
+class MoveOnButtonRelease : public Observer,
+                            public Tickable
 {
 public:
 
-    virtual void update(void);
-
-};
-
-class ButtonObserver : public Observer,
-                       public Tickable
-{
-public:
-
-    ButtonObserver(ButtonSubject *subject, Moveable *move);
+    MoveOnButtonRelease(ButtonSubject *subject, Moveable *move);
 
 private:
 
     void update(void);
     void tick(void);
 
+    RobotFactory &_factory;
+    Scheduler *_scheduler;
+
     ButtonSubject *_subject;
     Moveable *_move;
-    Timer *_timer;
+    Tickable *_timer;
 
 };
 

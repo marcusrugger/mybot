@@ -2,25 +2,7 @@
 #define SCHEDULER_H
 
 #include "mcore.h"
-
-
-class Tickable
-{
-public:
-
-    virtual void tick(void) = 0;
-
-};
-
-
-class Scheduler
-{
-public:
-
-    virtual void schedule(Tickable *task) = 0;
-    virtual void unschedule(Tickable *task) = 0;
-
-};
+#include "interfaces.h"
 
 
 class TaskRunner : public Tickable,

@@ -3,20 +3,7 @@
 
 
 #include <Arduino.h>
-
-
-class Motor
-{
-public:
-
-    static const int MAX_SPEED = 255;
-    static const int MAX_FORWARD = MAX_SPEED;
-    static const int MAX_REVERSE = -MAX_SPEED;
-
-    virtual void run(int speed) = 0;
-    virtual void stop(void) = 0;
-
-};
+#include "interfaces.h"
 
 
 class MBotMotor : public Motor

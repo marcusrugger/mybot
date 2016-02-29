@@ -6,38 +6,27 @@
 #include <Arduino.h>
 
 #include "mcore.h"
+#include "interfaces.h"
+#include "mbotfactory.h"
+#include "mbotbuilder.h"
 #include "scheduler.h"
 #include "subject.h"
-#include "motor.h"
+#include "robot.h"
 #include "motion.h"
 #include "ultrasonic.h"
 
 
-Moveable *movement;
-ButtonObserver *button;
-MBotUltrasonicObserver *ultrasonic_observer;
+Tickable *idleloop;
+MBotFactory factory;
 
 
-void createMotors(void)
+void createRobot(void)
 {
-    Motor *motorLeft    = new MBotMotor(PIN_MOTOR_LEFT_PWM, PIN_MOTOR_LEFT_DIR, MOTOR_LEFT_REVERSE);
-    Motor *motorRight   = new MBotMotor(PIN_MOTOR_RIGHT_PWM, PIN_MOTOR_RIGHT_DIR, MOTOR_RIGHT_REVERSE);
-    movement            = new MBotMotion(motorLeft, motorRight);
-}
+    MBotBuilder builder(factory);
 
+    builder.buildRobot();
 
-void createButtonObserver(void)
-{
-    button = new ButtonObserver(MCoreButtonSubject::instance(), movement);
-}
-
-
-void createUltrasonicObserver(void)
-{
-    TaskRunner::instance()->schedule(MBotUltrasonicSubject::instance());
-
-    ultrasonic_observer = new MBotUltrasonicObserver(movement);
-    MBotUltrasonicSubject::instance()->attach(ultrasonic_observer);
+    idleloop = Robot::instance()->idleloop();
 }
 
 
@@ -45,9 +34,7 @@ void setup()
 {
     Serial.begin(9600);
 
-    createMotors();
-    createButtonObserver();
-    createUltrasonicObserver();
+    createRobot();
 
     Serial.println("Setup complete.");
 }
@@ -57,7 +44,7 @@ void loop()
 {
     uint16_t enter_tick = millis();
 
-    TaskRunner::instance()->tick();
+    idleloop->tick();
 
     uint16_t tick_time = millis() - enter_tick;
     if (tick_time < tick_delay)

@@ -2,21 +2,8 @@
 #define MOTION_H
 
 #include <Arduino.h>
+#include "interfaces.h"
 #include "motor.h"
-
-
-class Moveable
-{
-public:
-
-    virtual void forward(void) = 0;
-    virtual void backward(void) = 0;
-    virtual void rotateLeft(void) = 0;
-    virtual void rotateRight(void) = 0;
-
-    virtual void stop(void) = 0;
-
-};
 
 
 class MBotMotion : public Moveable

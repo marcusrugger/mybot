@@ -1,17 +1,14 @@
 #include "subject.h"
 
 
-MCoreButtonSubject *MCoreButtonSubject::_instance = NULL;
-
-
-void Subject::attach(Observer *observer)
+void BaseSubject::attach(Observer *observer)
 {
     if (_count < MAX_OBSERVERS)
         _observers[_count++] = observer;
 }
 
 
-void Subject::detach(const Observer *observer)
+void BaseSubject::detach(const Observer *observer)
 {
     unsigned int is, id;
     for (is = id = 0; is < _count; )
@@ -29,7 +26,7 @@ void Subject::detach(const Observer *observer)
 }
 
 
-void Subject::notify(void) const
+void BaseSubject::notify(void) const
 {
     for (unsigned int index = 0; index < _count; index++)
         _observers[index]->update();

@@ -84,7 +84,7 @@ inline void disableInterrupts(void)
 { noInterrupts(); }
 
 
-class PinReadable
+class PinReader
 {
 public:
 
@@ -93,7 +93,7 @@ public:
 };
 
 
-class ControllerPin : public PinReadable
+class ControllerPin : public PinReader
 {
 public:
 

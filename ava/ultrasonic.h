@@ -8,7 +8,7 @@
 #include "motion.h"
 
 
-class MBotUltrasonicSubject : public Subject,
+class MBotUltrasonicSubject : public BaseSubject,
                               public Tickable
 {
 public:

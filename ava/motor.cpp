@@ -15,9 +15,9 @@ void MBotMotor::run(int speed)
     speed = translateDirection(speed);
 
     if (speed >= 0)
-        setMotor(HIGH, limitSpeed(speed));
+        setMotor(HIGH, speed);
     else
-        setMotor(LOW, limitSpeed(-speed));
+        setMotor(LOW, -speed);
 }
 
 
