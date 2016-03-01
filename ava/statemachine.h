@@ -35,6 +35,9 @@ public:
 
 public:
 
+    bool isButtonPressed(void);
+    void setButtonPressed(bool flag);
+
     bool isPathBlocked(void);
     void setPathBlocked(bool flag);
 
@@ -43,6 +46,8 @@ private:
 
     static MBotStateContext *_instance;
     MBotStateMachine *_state;
+
+    bool _isButtonPressed;    
     bool _isPathBlocked;
 
 };

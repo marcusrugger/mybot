@@ -4,11 +4,15 @@
 
 
 void MBotStateMachine::buttonPressed(MBotStateContext *context)
-{}
+{
+    context->setButtonPressed(true);
+}
 
 
 void MBotStateMachine::buttonReleased(MBotStateContext *context)
-{}
+{
+    context->setButtonPressed(false);
+}
 
 
 void MBotStateMachine::frontPathBlocked(MBotStateContext *context)
@@ -38,6 +42,7 @@ MBotStateMachine *MBotIdleState::instance(void)
 
 void MBotIdleState::buttonReleased(MBotStateContext *context)
 {
+    MBotStateMachine::buttonReleased(context);
     Robot::instance()->movement()->forward();
     context->changeState(MBotMovingState::instance());
 }
@@ -65,6 +70,7 @@ MBotStateMachine *MBotMovingState::instance(void)
 
 void MBotMovingState::buttonPressed(MBotStateContext *context)
 {
+    MBotStateMachine::buttonPressed(context);
     Robot::instance()->movement()->stop();
     context->changeState(MBotIdleState::instance());
 }
@@ -142,6 +148,18 @@ void MBotStateContext::frontPathCleared(void)
 void MBotStateContext::changeState(MBotStateMachine *state)
 {
     _state = state;
+}
+
+
+bool MBotStateContext::isButtonPressed(void)
+{
+    return _isButtonPressed;
+}
+
+
+void MBotStateContext::setButtonPressed(bool flag)
+{
+    _isButtonPressed = flag;
 }
 
 
