@@ -4,27 +4,18 @@
 
 
 void MBotStateMachine::buttonPressed(MBotStateContext *context)
-{
-    context->setButtonPressed(true);
-}
-
+{}
 
 void MBotStateMachine::buttonReleased(MBotStateContext *context)
-{
-    context->setButtonPressed(false);
-}
+{}
 
 
 void MBotStateMachine::frontPathBlocked(MBotStateContext *context)
-{
-    context->setPathBlocked(true);
-}
+{}
 
 
 void MBotStateMachine::frontPathCleared(MBotStateContext *context)
-{
-    context->setPathBlocked(false);
-}
+{}
 
 
 /**************************************************************************
@@ -42,14 +33,12 @@ MBotStateMachine *MBotIdleState::instance(void)
 
 void MBotIdleState::buttonReleased(MBotStateContext *context)
 {
-    MBotStateMachine::buttonReleased(context);
     Robot::instance()->movement()->forward();
     context->changeState(MBotMovingState::instance());
 }
 
 void MBotIdleState::frontPathCleared(MBotStateContext *context)
 {
-    MBotStateMachine::frontPathCleared(context);
     Robot::instance()->movement()->forward();
     context->changeState(MBotMovingState::instance());
 }
@@ -70,14 +59,12 @@ MBotStateMachine *MBotMovingState::instance(void)
 
 void MBotMovingState::buttonPressed(MBotStateContext *context)
 {
-    MBotStateMachine::buttonPressed(context);
     Robot::instance()->movement()->stop();
     context->changeState(MBotIdleState::instance());
 }
 
 void MBotMovingState::frontPathBlocked(MBotStateContext *context)
 {
-    MBotStateMachine::frontPathBlocked(context);
     Moveable *move = Robot::instance()->movement();
     move->stop();
     delay(1000);
@@ -123,24 +110,28 @@ MBotStateContext::MBotStateContext()
 
 void MBotStateContext::buttonPressed(void)
 {
+    setButtonPressed(true);
     _state->buttonPressed(this);
 }
 
 
 void MBotStateContext::buttonReleased(void)
 {
+    setButtonPressed(false);
     _state->buttonReleased(this);
 }
 
 
 void MBotStateContext::frontPathBlocked(void)
 {
+    setPathBlocked(true);
     _state->frontPathBlocked(this);
 }
 
 
 void MBotStateContext::frontPathCleared(void)
 {
+    setPathBlocked(false);
     _state->frontPathCleared(this);
 }
 
