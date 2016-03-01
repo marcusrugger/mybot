@@ -9,10 +9,10 @@ class MBotStateMachine
 {
 public:
 
-    virtual void buttonPressed(MBotStateContext *context) = 0;
-    virtual void buttonReleased(MBotStateContext *context) = 0;
-    virtual void frontPathBlocked(MBotStateContext *context) = 0;
-    virtual void frontPathCleared(MBotStateContext *context) = 0;
+    virtual void buttonPressed(MBotStateContext *context);
+    virtual void buttonReleased(MBotStateContext *context);
+    virtual void frontPathBlocked(MBotStateContext *context);
+    virtual void frontPathCleared(MBotStateContext *context);
 
 };
 
@@ -29,7 +29,6 @@ public:
     void buttonReleased(void);
     void frontPathBlocked(void);
     void frontPathCleared(void);
-
 
     void changeState(MBotStateMachine *state);
 
@@ -55,9 +54,7 @@ public:
 
     static MBotStateMachine *instance(void);
 
-    void buttonPressed(MBotStateContext *context);
     void buttonReleased(MBotStateContext *context);
-    void frontPathBlocked(MBotStateContext *context);
     void frontPathCleared(MBotStateContext *context);
 
 private:
@@ -74,9 +71,7 @@ public:
     static MBotStateMachine *instance(void);
 
     void buttonPressed(MBotStateContext *context);
-    void buttonReleased(MBotStateContext *context);
     void frontPathBlocked(MBotStateContext *context);
-    void frontPathCleared(MBotStateContext *context);
 
 private:
 
@@ -90,11 +85,6 @@ class MBotBlockedPathState : public MBotStateMachine
 public:
 
     static MBotStateMachine *instance(void);
-
-    void buttonPressed(MBotStateContext *context);
-    void buttonReleased(MBotStateContext *context);
-    void frontPathBlocked(MBotStateContext *context);
-    void frontPathCleared(MBotStateContext *context);
 
 private:
 

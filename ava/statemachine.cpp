@@ -3,11 +3,31 @@
 #include "robot.h"
 
 
+void MBotStateMachine::buttonPressed(MBotStateContext *context)
+{}
+
+
+void MBotStateMachine::buttonReleased(MBotStateContext *context)
+{}
+
+
+void MBotStateMachine::frontPathBlocked(MBotStateContext *context)
+{
+    context->setPathBlocked(true);
+}
+
+
+void MBotStateMachine::frontPathCleared(MBotStateContext *context)
+{
+    context->setPathBlocked(false);
+}
+
+
+/**************************************************************************
+ ***** MBotIdleState
+ **************************************************************************/
+
 MBotStateMachine *MBotIdleState::_instance = NULL;
-MBotStateMachine *MBotMovingState::_instance = NULL;
-MBotStateMachine *MBotBlockedPathState::_instance = NULL;
-
-
 
 MBotStateMachine *MBotIdleState::instance(void)
 {
@@ -16,32 +36,25 @@ MBotStateMachine *MBotIdleState::instance(void)
     return _instance;
 }
 
-void MBotIdleState::buttonPressed(MBotStateContext *context)
-{
-    Serial.println("MBotIdleState::buttonPressed");
-}
-
 void MBotIdleState::buttonReleased(MBotStateContext *context)
 {
-    Serial.println("MBotIdleState::buttonReleased");
     Robot::instance()->movement()->forward();
     context->changeState(MBotMovingState::instance());
-}
-
-void MBotIdleState::frontPathBlocked(MBotStateContext *context)
-{
-    Serial.println("MBotIdleState::frontPathBlocked");
 }
 
 void MBotIdleState::frontPathCleared(MBotStateContext *context)
 {
-    Serial.println("MBotIdleState::frontPathCleared");
+    MBotStateMachine::frontPathCleared(context);
     Robot::instance()->movement()->forward();
     context->changeState(MBotMovingState::instance());
 }
 
 
+/**************************************************************************
+ ***** MBotMovingState
+ **************************************************************************/
 
+MBotStateMachine *MBotMovingState::_instance = NULL;
 
 MBotStateMachine *MBotMovingState::instance(void)
 {
@@ -52,19 +65,13 @@ MBotStateMachine *MBotMovingState::instance(void)
 
 void MBotMovingState::buttonPressed(MBotStateContext *context)
 {
-    Serial.println("MBotMovingState::buttonPressed");
     Robot::instance()->movement()->stop();
     context->changeState(MBotIdleState::instance());
 }
 
-void MBotMovingState::buttonReleased(MBotStateContext *context)
-{
-    Serial.println("MBotMovingState::buttonReleased");
-}
-
 void MBotMovingState::frontPathBlocked(MBotStateContext *context)
 {
-    Serial.println("MBotMovingState::frontPathBlocked");
+    MBotStateMachine::frontPathBlocked(context);
     Moveable *move = Robot::instance()->movement();
     move->stop();
     delay(1000);
@@ -74,13 +81,12 @@ void MBotMovingState::frontPathBlocked(MBotStateContext *context)
     context->changeState(MBotIdleState::instance());
 }
 
-void MBotMovingState::frontPathCleared(MBotStateContext *context)
-{
-    Serial.println("MBotMovingState::frontPathCleared");
-}
 
+/**************************************************************************
+ ***** MBotBlockedPathState
+ **************************************************************************/
 
-
+MBotStateMachine *MBotBlockedPathState::_instance = NULL;
 
 MBotStateMachine *MBotBlockedPathState::instance(void)
 {
@@ -89,28 +95,10 @@ MBotStateMachine *MBotBlockedPathState::instance(void)
     return _instance;
 }
 
-void MBotBlockedPathState::buttonPressed(MBotStateContext *context)
-{
-    Serial.println("MBotBlockedPathState::buttonPressed");
-}
 
-void MBotBlockedPathState::buttonReleased(MBotStateContext *context)
-{
-    Serial.println("MBotBlockedPathState::buttonReleased");
-}
-
-void MBotBlockedPathState::frontPathBlocked(MBotStateContext *context)
-{
-    Serial.println("MBotBlockedPathState::frontPathBlocked");
-}
-
-void MBotBlockedPathState::frontPathCleared(MBotStateContext *context)
-{
-    Serial.println("MBotBlockedPathState::frontPathCleared");
-}
-
-
-
+/**************************************************************************
+ ***** MBotStateContext
+ **************************************************************************/
 
 MBotStateContext *MBotStateContext::_instance = NULL;
 
