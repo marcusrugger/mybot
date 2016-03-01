@@ -30,8 +30,8 @@ void MBotMotion::rotateLeft(void)
 
 void MBotMotion::rotateRight(void)
 {
-    _motorLeft->run(-Motor::MAX_FORWARD);
-    _motorRight->run(-Motor::MAX_REVERSE);
+    _motorLeft->run(Motor::MAX_FORWARD);
+    _motorRight->run(Motor::MAX_REVERSE);
 }
 
 

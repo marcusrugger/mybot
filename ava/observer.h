@@ -4,24 +4,22 @@
 #include "interfaces.h"
 
 
-class MoveOnButtonRelease : public Observer,
-                            public Tickable
+class MBotButtonObserver : public Observer
 {
 public:
 
-    MoveOnButtonRelease(ButtonSubject *subject);
+    MBotButtonObserver(ButtonSubject *subject,
+                       Command *buttonPressed,
+                       Command *buttonReleased);
+
 
 private:
 
     void update(void);
-    void tick(void);
-
-    RobotFactory &_factory;
-    Scheduler *_scheduler;
 
     ButtonSubject *_subject;
-    Moveable *_move;
-    Tickable *_timer;
+    Command *_buttonPressed;
+    Command *_buttonReleased;
 
 };
 

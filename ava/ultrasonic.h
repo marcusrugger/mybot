@@ -17,32 +17,46 @@ public:
 
     void tick(void);
 
+    bool isBlocked(void);
+
 private:
 
     const uint8_t _pin = PIN_MCORE_ULTRASONIC_SENSOR;
     static MBotUltrasonicSubject *_instance;
+
+    bool _isBlocked = false;
 
     long distance(void);
     long readSensor(unsigned long timeout);
 };
 
 
-class MBotUltrasonicObserver : public Observer
+class MBotPathSensor : public Observer
 {
 public:
 
-    MBotUltrasonicObserver(Moveable *move) : _move(move) {}
+    MBotPathSensor(MBotUltrasonicSubject *subject, Command *pathBlocked, Command *pathCleared)
+    :   _subject(subject),
+        _pathBlocked(pathBlocked),
+        _pathCleared(pathCleared)
+    {}
 
 
     void update(void)
     {
-        _move->stop();
+        if (_subject->isBlocked())
+            _pathBlocked->execute();
+        else
+            _pathCleared->execute();
     }
 
 
 private:
 
-    Moveable *_move;
+    MBotUltrasonicSubject *_subject;
+    Command *_pathBlocked;
+    Command *_pathCleared;
+
 };
 
 #endif

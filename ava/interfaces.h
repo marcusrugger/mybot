@@ -77,6 +77,17 @@ public:
 };
 
 
+class Command
+{
+public:
+
+    virtual ~Command(void) {}
+
+    virtual void execute(void) = 0;
+
+};
+
+
 class RobotFactory
 {
 public:
