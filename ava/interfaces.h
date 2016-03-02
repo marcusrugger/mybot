@@ -29,6 +29,16 @@ class Moveable
 {
 public:
 
+    enum SPEED
+    {
+        STOP,
+        SLOW,
+        MEDIUM,
+        FAST
+    };
+
+    virtual void speed(SPEED speed) = 0;
+
     virtual void forward(void) = 0;
     virtual void backward(void) = 0;
     virtual void rotateLeft(void) = 0;

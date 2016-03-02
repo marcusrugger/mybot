@@ -12,6 +12,8 @@ public:
 
     MBotMotion(Motor *motorLeft, Motor *motorRight);
 
+    void speed(SPEED speed);
+
     void forward(void);
     void backward(void);
     void rotateLeft(void);
@@ -24,6 +26,9 @@ private:
 
     Motor *_motorLeft;
     Motor *_motorRight;
+
+    int _speed_forward;
+    int _speed_reverse;
 
 };
 
