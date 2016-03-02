@@ -76,6 +76,8 @@ public:
         ROTATE_RIGHT
     };
 
+    static bool queue(DIRECTION dir, int milli = 0);
+
     MoveCommand(DIRECTION dir, Moveable *move, CommandQueue *queue = NULL, int milli = 0);
     MoveCommand(DIRECTION dir, int milli = 0);
 

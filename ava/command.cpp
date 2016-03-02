@@ -32,6 +32,13 @@ void FrontPathClearedCommand::execute(void)
 }
 
 
+
+bool MoveCommand::queue(DIRECTION dir, int milli)
+{
+    CommandQueue *queue = Robot::instance()->commandQueue();
+    return queue->add(new MoveCommand(dir, milli));
+}
+
 MoveCommand::MoveCommand(DIRECTION dir, Moveable *move, CommandQueue *queue, int milli)
 :   _direction(dir),
     _move(move),

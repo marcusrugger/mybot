@@ -35,15 +35,13 @@ MBotStateMachine *MBotIdleState::instance(void)
 
 void MBotIdleState::buttonReleased(MBotStateContext *context)
 {
-    CommandQueue *queue = Robot::instance()->commandQueue();
-    queue->add(new MoveCommand(MoveCommand::FORWARD, 1000));
+    MoveCommand::queue(MoveCommand::FORWARD);
     context->changeState(MBotMovingState::instance());
 }
 
 void MBotIdleState::frontPathCleared(MBotStateContext *context)
 {
-    CommandQueue *queue = Robot::instance()->commandQueue();
-    queue->add(new MoveCommand(MoveCommand::FORWARD, 1000));
+    MoveCommand::queue(MoveCommand::FORWARD);
     context->changeState(MBotMovingState::instance());
 }
 
@@ -63,18 +61,15 @@ MBotStateMachine *MBotMovingState::instance(void)
 
 void MBotMovingState::buttonPressed(MBotStateContext *context)
 {
-    CommandQueue *queue = Robot::instance()->commandQueue();
-    queue->add(new MoveCommand(MoveCommand::STOP, 1000));
+    MoveCommand::queue(MoveCommand::STOP, 1000);
     context->changeState(MBotIdleState::instance());
 }
 
 void MBotMovingState::frontPathBlocked(MBotStateContext *context)
 {
-    CommandQueue *queue = Robot::instance()->commandQueue();
-
-    queue->add(new MoveCommand(MoveCommand::STOP, 1000));
-    queue->add(new MoveCommand(MoveCommand::ROTATE_RIGHT, 300));
-    queue->add(new MoveCommand(MoveCommand::STOP));
+    MoveCommand::queue(MoveCommand::STOP, 1000);
+    MoveCommand::queue(MoveCommand::ROTATE_RIGHT, 300);
+    MoveCommand::queue(MoveCommand::STOP);
 
     context->changeState(MBotIdleState::instance());
 }
