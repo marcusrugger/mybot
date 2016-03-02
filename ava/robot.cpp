@@ -29,7 +29,8 @@ Robot *Robot::instance(void)
 Robot::Robot(RobotFactory &factory)
 :   _factory(factory)
 {
-    _scheduler  = factory.createScheduler();
-    _idleloop   = factory.createIdleloop();
-    _movement   = factory.createMotionControl();
+    _scheduler      = factory.createScheduler();
+    _idleloop       = factory.createIdleloop();
+    _movement       = factory.createMotionControl();
+    _commandQueue   = factory.createCommandQueue();
 }

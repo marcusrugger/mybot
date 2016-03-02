@@ -34,5 +34,9 @@ void CommandQueue::tick(void)
     }
 
     if (_queue.isMore())
-        _queue.pull()->execute();
+    {
+        Command *cmd = _queue.pull();
+        cmd->execute();
+        delete cmd;
+    }
 }

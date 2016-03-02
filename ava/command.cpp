@@ -1,5 +1,6 @@
 #include "commands.h"
 #include "statemachine.h"
+#include "robot.h"
 
 
 MBotCommand::MBotCommand(MBotStateContext *machine)
@@ -38,6 +39,13 @@ MoveCommand::MoveCommand(DIRECTION dir, Moveable *move, CommandQueue *queue, int
     _milli(milli)
 {}
 
+MoveCommand::MoveCommand(DIRECTION dir, int milli)
+:   _direction(dir),
+    _move(Robot::instance()->movement()),
+    _queue(Robot::instance()->commandQueue()),
+    _milli(milli)
+{}
+
 void MoveCommand::execute(void)
 {
     switch (_direction)
@@ -62,6 +70,7 @@ void MoveCommand::execute(void)
             _move->rotateRight();
         break;
     }
-    
-    _queue->pause(_milli);
+
+    if (_queue && _milli)
+        _queue->pause(_milli);
 }

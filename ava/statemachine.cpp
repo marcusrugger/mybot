@@ -1,6 +1,8 @@
 #include <Arduino.h>
 #include "statemachine.h"
 #include "robot.h"
+#include "commandqueue.h"
+#include "commands.h"
 
 
 void MBotStateMachine::buttonPressed(MBotStateContext *context)
@@ -33,13 +35,15 @@ MBotStateMachine *MBotIdleState::instance(void)
 
 void MBotIdleState::buttonReleased(MBotStateContext *context)
 {
-    Robot::instance()->movement()->forward();
+    CommandQueue *queue = Robot::instance()->commandQueue();
+    queue->add(new MoveCommand(MoveCommand::FORWARD, 1000));
     context->changeState(MBotMovingState::instance());
 }
 
 void MBotIdleState::frontPathCleared(MBotStateContext *context)
 {
-    Robot::instance()->movement()->forward();
+    CommandQueue *queue = Robot::instance()->commandQueue();
+    queue->add(new MoveCommand(MoveCommand::FORWARD, 1000));
     context->changeState(MBotMovingState::instance());
 }
 
@@ -59,18 +63,19 @@ MBotStateMachine *MBotMovingState::instance(void)
 
 void MBotMovingState::buttonPressed(MBotStateContext *context)
 {
-    Robot::instance()->movement()->stop();
+    CommandQueue *queue = Robot::instance()->commandQueue();
+    queue->add(new MoveCommand(MoveCommand::STOP, 1000));
     context->changeState(MBotIdleState::instance());
 }
 
 void MBotMovingState::frontPathBlocked(MBotStateContext *context)
 {
-    Moveable *move = Robot::instance()->movement();
-    move->stop();
-    delay(1000);
-    move->rotateRight();
-    delay(300);
-    move->stop();
+    CommandQueue *queue = Robot::instance()->commandQueue();
+
+    queue->add(new MoveCommand(MoveCommand::STOP, 1000));
+    queue->add(new MoveCommand(MoveCommand::ROTATE_RIGHT, 300));
+    queue->add(new MoveCommand(MoveCommand::STOP));
+
     context->changeState(MBotIdleState::instance());
 }
 
