@@ -2,6 +2,7 @@
 #define COMMANDS_H
 
 #include "interfaces.h"
+#include "commandqueue.h"
 
 
 class MBotStateContext;
@@ -58,6 +59,34 @@ public:
     FrontPathClearedCommand(MBotStateContext *machine) : MBotCommand(machine) {}
 
     void execute(void);
+
+};
+
+
+class MoveCommand : public Command
+{
+public:
+
+    enum DIRECTION
+    {
+        STOP,
+        FORWARD,
+        REVERSE,
+        ROTATE_LEFT,
+        ROTATE_RIGHT
+    };
+
+    MoveCommand(DIRECTION dir, Moveable *move, CommandQueue *queue, int milli);
+
+    void execute(void);
+
+
+private:
+
+    DIRECTION _direction;
+    Moveable *_move;
+    CommandQueue *_queue;
+    int _milli;
 
 };
 

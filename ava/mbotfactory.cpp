@@ -7,6 +7,7 @@
 #include "observer.h"
 #include "robot.h"
 #include "ultrasonic.h"
+#include "commandqueue.h"
 
 
 MBotFactory::MBotFactory(void)
@@ -28,6 +29,12 @@ Tickable *MBotFactory::createIdleloop(void)
 Tickable *MBotFactory::createTimer(Tickable *tickee, uint16_t milli)
 {
     return new Timer(tickee, milli);
+}
+
+
+CommandQueue *MBotFactory::createCommandQueue(void)
+{
+    return new CommandQueue();
 }
 
 
