@@ -17,6 +17,12 @@ MBotBuilder::MBotBuilder(RobotFactory &factory)
 {}
 
 
+void MBotBuilder::buildCommandQueue(void)
+{
+    _robot->scheduler()->schedule(_robot->commandQueue());
+}
+
+
 void MBotBuilder::buildButtonProcessor(void)
 {
     Scheduler       *scheduler  = _robot->scheduler();

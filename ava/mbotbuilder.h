@@ -14,6 +14,7 @@ public:
 
     MBotBuilder(RobotFactory &factory);
 
+    void buildCommandQueue(void);
     void buildButtonProcessor(void);
     void buildUltrasonicProcessor(void);
 

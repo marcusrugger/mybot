@@ -24,22 +24,43 @@ void MBotUltrasonicSubject::tick(void)
 
     if (d > 0 && d < DISTANCE_BLOCKED && _state != BLOCKED)
     {
-        _isBlocked = true;
-        _state = BLOCKED;
-        notify();
+        changeStateToBlocked();
     }
     else if (d >= DISTANCE_BLOCKED  && d < DISTANCE_FAR && _state != NEAR)
     {
-        _isBlocked = false;
-        _state = NEAR;
-        notify();
+        changeStateToNear();
     }
     else if ((d == 0 || d >= DISTANCE_FAR) && _state != FAR)
     {
-        _isBlocked = false;
-        _state = FAR;
-        notify();
+        changeStateToFar();
     }
+}
+
+
+void MBotUltrasonicSubject::changeStateToBlocked(void)
+{
+    _isBlocked = true;
+    _lastState = _state;
+    _state = BLOCKED;
+    notify();
+}
+
+
+void MBotUltrasonicSubject::changeStateToNear(void)
+{
+    _isBlocked = false;
+    _lastState = _state;
+    _state = NEAR;
+    notify();
+}
+
+
+void MBotUltrasonicSubject::changeStateToFar(void)
+{
+    _isBlocked = false;
+    _lastState = _state;
+    _state = FAR;
+    notify();
 }
 
 

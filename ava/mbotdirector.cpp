@@ -11,6 +11,7 @@ MBotDirector::MBotDirector(RobotBuilder &builder)
 
 void MBotDirector::buildRobot(void)
 {
+    _builder.buildCommandQueue();
     _builder.buildButtonProcessor();
     _builder.buildUltrasonicProcessor();
 }

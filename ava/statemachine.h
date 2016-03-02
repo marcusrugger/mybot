@@ -1,6 +1,9 @@
 #ifndef STATEMACHINE_H
 #define STATEMACHINE_H
 
+#include "interfaces.h"
+#include "robot.h"
+#include "commandqueue.h"
 
 class MBotStateContext;
 
@@ -31,6 +34,7 @@ public:
     void frontPathCleared(void);
 
     void changeState(MBotStateMachine *state);
+    bool queueChangeState(MBotStateMachine *state);
 
 
 public:
@@ -49,6 +53,31 @@ private:
 
     bool _isButtonPressed;    
     bool _isPathBlocked;
+
+
+    class ChangeStateCommand : public Command
+    {
+    public:
+
+        static bool queue(MBotStateContext *context, MBotStateMachine *state)
+        {
+            return Robot::instance()->commandQueue()->add(new ChangeStateCommand(context, state));
+        }
+
+        void execute(void)
+        {
+            Serial.println("MBotStateContext::ChangeStateCommand::execute: changing state");
+            _context->changeState(_state);
+        }
+
+    private:
+
+        ChangeStateCommand(MBotStateContext *context, MBotStateMachine *state) : _context(context) {}
+
+        MBotStateContext *_context;
+        MBotStateMachine *_state;
+
+    };
 
 };
 
