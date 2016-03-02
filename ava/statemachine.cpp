@@ -61,13 +61,17 @@ MBotStateMachine *MBotMovingState::instance(void)
 
 void MBotMovingState::buttonPressed(MBotStateContext *context)
 {
+    Robot::instance()->commandQueue()->reset();
     MoveCommand::queue(MoveCommand::STOP, 1000);
     context->changeState(MBotIdleState::instance());
 }
 
 void MBotMovingState::frontPathBlocked(MBotStateContext *context)
 {
+    Robot::instance()->commandQueue()->reset();
+
     MoveCommand::queue(MoveCommand::STOP, 1000);
+    MoveCommand::queue(MoveCommand::REVERSE, 1000);
     MoveCommand::queue(MoveCommand::ROTATE_RIGHT, 300);
     MoveCommand::queue(MoveCommand::STOP);
 

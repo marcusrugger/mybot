@@ -21,6 +21,7 @@ void CommandQueue::pause(int milli)
 
 void CommandQueue::reset(void)
 {
+    _paused = 0;
     _queue.reset();
 }
 
