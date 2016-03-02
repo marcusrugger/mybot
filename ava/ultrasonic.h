@@ -15,9 +15,17 @@ public:
 
     static MBotUltrasonicSubject *instance(void);
 
+    enum DISTANCE
+    {
+        BLOCKED,
+        NEAR,
+        FAR
+    };
+
     void tick(void);
 
-    bool isBlocked(void);
+    bool isBlocked(void)    { return _isBlocked; };
+    DISTANCE getState(void) { return _state;     }
 
 private:
 
@@ -25,6 +33,7 @@ private:
     static MBotUltrasonicSubject *_instance;
 
     bool _isBlocked = false;
+    DISTANCE _state = BLOCKED;
 
     long distance(void);
     long readSensor(unsigned long timeout);

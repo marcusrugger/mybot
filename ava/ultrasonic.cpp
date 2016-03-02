@@ -15,28 +15,31 @@ MBotUltrasonicSubject *MBotUltrasonicSubject::instance(void)
 
 void MBotUltrasonicSubject::tick(void)
 {
-    const int TRIGGER_DISTANCE = 100;
+    const int DISTANCE_BLOCKED  = 100;
+    const int DISTANCE_FAR      = 1000;
     long d = distance();
 
     // Serial.print("MBotUltrasonicSubject::tick: distance: ");
     // Serial.println(d);
 
-    if (d > 0 && d < TRIGGER_DISTANCE && !_isBlocked)
+    if (d > 0 && d < DISTANCE_BLOCKED && _state != BLOCKED)
     {
         _isBlocked = true;
+        _state = BLOCKED;
         notify();
     }
-    else if (d >= TRIGGER_DISTANCE && _isBlocked)
+    else if (d >= DISTANCE_BLOCKED  && d < DISTANCE_FAR && _state != NEAR)
     {
         _isBlocked = false;
+        _state = NEAR;
         notify();
     }
-}
-
-
-bool MBotUltrasonicSubject::isBlocked(void)
-{
-    return _isBlocked;
+    else if ((d == 0 || d >= DISTANCE_FAR) && _state != FAR)
+    {
+        _isBlocked = false;
+        _state = FAR;
+        notify();
+    }
 }
 
 
