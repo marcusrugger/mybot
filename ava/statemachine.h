@@ -72,7 +72,7 @@ private:
 
     private:
 
-        ChangeStateCommand(MBotStateContext *context, MBotStateMachine *state) : _context(context) {}
+        ChangeStateCommand(MBotStateContext *context, MBotStateMachine *state) : _context(context), _state(state) {}
 
         MBotStateContext *_context;
         MBotStateMachine *_state;

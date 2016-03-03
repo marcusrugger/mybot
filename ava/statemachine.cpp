@@ -6,18 +6,27 @@
 
 
 void MBotStateMachine::buttonPressed(MBotStateContext *context)
-{}
+{
+    Serial.println("MBotStateMachine::buttonPressed");
+}
+
 
 void MBotStateMachine::buttonReleased(MBotStateContext *context)
-{}
+{
+    Serial.println("MBotStateMachine::buttonReleased");
+}
 
 
 void MBotStateMachine::frontPathBlocked(MBotStateContext *context)
-{}
+{
+    Serial.println("MBotStateMachine::frontPathBlocked");
+}
 
 
 void MBotStateMachine::frontPathCleared(MBotStateContext *context)
-{}
+{
+    Serial.println("MBotStateMachine::frontPathCleared");
+}
 
 
 /**************************************************************************
@@ -35,12 +44,14 @@ MBotStateMachine *MBotIdleState::instance(void)
 
 void MBotIdleState::buttonReleased(MBotStateContext *context)
 {
+    Serial.println("MBotIdleState::buttonReleased");
     MoveCommand::queue(MoveCommand::FORWARD);
     context->changeState(MBotMovingState::instance());
 }
 
 void MBotIdleState::frontPathCleared(MBotStateContext *context)
 {
+    Serial.println("MBotIdleState::frontPathCleared");
     MoveCommand::queue(MoveCommand::FORWARD);
     context->changeState(MBotMovingState::instance());
 }
@@ -61,6 +72,7 @@ MBotStateMachine *MBotMovingState::instance(void)
 
 void MBotMovingState::buttonPressed(MBotStateContext *context)
 {
+    Serial.println("MBotMovingState::buttonPressed");
     Robot::instance()->commandQueue()->reset();
     MoveCommand::queue(MoveCommand::STOP);
     context->changeState(MBotIdleState::instance());
@@ -68,6 +80,7 @@ void MBotMovingState::buttonPressed(MBotStateContext *context)
 
 void MBotMovingState::frontPathBlocked(MBotStateContext *context)
 {
+    Serial.println("MBotMovingState::frontPathBlocked");
     Robot::instance()->commandQueue()->reset();
 
     MoveCommand::queue(MoveCommand::STOP, 100);
