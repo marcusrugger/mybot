@@ -78,12 +78,12 @@ inline void disableInterrupts(void)
 { noInterrupts(); }
 
 
-class UltrasonicSensor
+class DistanceProvider
 {
 public:
 
     // Returns distance in mm
-    long distance(void);
+    virtual unsigned long distance(void) = 0;
 
 };
 

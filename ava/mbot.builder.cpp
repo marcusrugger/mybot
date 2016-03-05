@@ -9,6 +9,7 @@
 #include "ultrasonic.h"
 #include "commands.h"
 #include "mbot.statemachine.h"
+#include "sensor.ultrasonic.h"
 
 
 MBotBuilder::MBotBuilder(RobotFactory &factory)
@@ -48,7 +49,8 @@ void MBotBuilder::buildUltrasonicProcessor(void)
 {
     Scheduler               *scheduler  = _robot->scheduler();
     DigitalPin              *pin        = new ControllerDigitalPin(PIN_MCORE_ULTRASONIC_SENSOR);
-    MBotUltrasonicSubject   *subject    = MBotUltrasonicSubject::instance(pin);
+    DistanceProvider        *sensor     = UltrasonicSensor::create(pin);
+    MBotUltrasonicSubject   *subject    = MBotUltrasonicSubject::create(sensor);
 
     MBotStateContext *context = MBotStateContext::instance();
     Command     *pathBlocked    = context->frontPathBlockedCommand();

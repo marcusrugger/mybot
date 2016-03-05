@@ -74,7 +74,6 @@ private:
 
         void execute(void)
         {
-            Serial.println("MBotStateContext::ChangeStateCommand::execute: changing state");
             _context->changeState(_state);
         }
 

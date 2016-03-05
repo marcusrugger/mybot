@@ -1,48 +1,58 @@
 #include "ultrasonic.h"
 
 
-MBotUltrasonicSubject *MBotUltrasonicSubject::_instance;
-
-
-MBotUltrasonicSubject *MBotUltrasonicSubject::instance(DigitalPin *pin)
+MBotUltrasonicSubject *MBotUltrasonicSubject::create(DistanceProvider *distanceProvider)
 {
-    if (NULL == _instance)
-        _instance = new MBotUltrasonicSubject(pin);
-
-    return _instance;
+    return new MBotUltrasonicSubject(distanceProvider);
 }
 
 
-MBotUltrasonicSubject::MBotUltrasonicSubject(DigitalPin *pin)
-:   _pin(pin)
+MBotUltrasonicSubject::MBotUltrasonicSubject(DistanceProvider *distanceProvider)
+:   _distanceProvider(distanceProvider)
 {}
 
 
 void MBotUltrasonicSubject::tick(void)
 {
-    const int DISTANCE_BLOCKED  = 100;
-    const int DISTANCE_FAR      = 1000;
-    long d = distance();
+    unsigned long d = _distanceProvider->distance();
 
     // Serial.print("MBotUltrasonicSubject::tick: distance: ");
     // Serial.println(d);
 
-    if (d > 0 && d < DISTANCE_BLOCKED && _state != BLOCKED)
+    if (changeStateToBlocked(d))
     {
-        changeStateToBlocked();
+        setStateToBlocked();
     }
-    else if (d >= DISTANCE_BLOCKED  && d < DISTANCE_FAR && _state != NEAR)
+    else if (changeStateToNear(d))
     {
-        changeStateToNear();
+        setStateToNear();
     }
-    else if ((d == 0 || d >= DISTANCE_FAR) && _state != FAR)
+    else if (changeStateToFar(d))
     {
-        changeStateToFar();
+        setStateToFar();
     }
 }
 
 
-void MBotUltrasonicSubject::changeStateToBlocked(void)
+bool MBotUltrasonicSubject::changeStateToBlocked(unsigned long d)
+{
+    return _state != BLOCKED && d > 0 && d <= MAX_DISTANCE_BLOCKED;
+}
+
+
+bool MBotUltrasonicSubject::changeStateToNear(unsigned long d)
+{
+    return _state != NEAR && d > MAX_DISTANCE_BLOCKED  && d <= MAX_DISTANCE_NEAR;
+}
+
+
+bool MBotUltrasonicSubject::changeStateToFar(unsigned long d)
+{
+    return _state != FAR && (d == 0 || d > MAX_DISTANCE_NEAR);
+}
+
+
+void MBotUltrasonicSubject::setStateToBlocked(void)
 {
     _isBlocked = true;
     _lastState = _state;
@@ -51,7 +61,7 @@ void MBotUltrasonicSubject::changeStateToBlocked(void)
 }
 
 
-void MBotUltrasonicSubject::changeStateToNear(void)
+void MBotUltrasonicSubject::setStateToNear(void)
 {
     _isBlocked = false;
     _lastState = _state;
@@ -60,26 +70,10 @@ void MBotUltrasonicSubject::changeStateToNear(void)
 }
 
 
-void MBotUltrasonicSubject::changeStateToFar(void)
+void MBotUltrasonicSubject::setStateToFar(void)
 {
     _isBlocked = false;
     _lastState = _state;
     _state = FAR;
     notify();
-}
-
-
-long MBotUltrasonicSubject::distance(void)
-{
-    return readSensor(22200) / 6;
-}
-
-
-long MBotUltrasonicSubject::readSensor(unsigned long timeout)
-{
-    _pin->setLow();     delayMicroseconds(2);
-    _pin->setHigh();    delayMicroseconds(10);
-    _pin->setLow();
-
-    return _pin->readPulse(HIGH, timeout);
 }

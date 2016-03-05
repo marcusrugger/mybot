@@ -26,10 +26,10 @@ MoveCommand::MoveCommand(DIRECTION dir, int milli)
 
 void MoveCommand::execute(void)
 {
-    Serial.print("MoveCommand::execute: direction: ");
-    Serial.print(_direction);
-    Serial.print(", millis: ");
-    Serial.println(millis());
+    // Serial.print("MoveCommand::execute: direction: ");
+    // Serial.print(_direction);
+    // Serial.print(", millis: ");
+    // Serial.println(millis());
     switch (_direction)
     {
         case STOP:

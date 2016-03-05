@@ -5,7 +5,6 @@
 
 
 class AnalogPinReader;
-class UltrasonicSensor;
 
 class ButtonSubject;
 class UltrasonicSubject;

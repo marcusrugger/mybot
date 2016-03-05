@@ -10,8 +10,6 @@ Robot *Robot::createRobot(RobotFactory &factory)
 {
     if (NULL == _instance)
         _instance = new Robot(factory);
-    else
-        Serial.println("Robot::createRobot: Error, Robot already exists.");
 
     return _instance;
 }
@@ -19,9 +17,6 @@ Robot *Robot::createRobot(RobotFactory &factory)
 
 Robot *Robot::instance(void)
 {
-    if (NULL == _instance)
-        Serial.println("Robot::instance: Error, Robot does not exist.");
-
     return _instance;
 }
 
