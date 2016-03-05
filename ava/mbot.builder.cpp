@@ -6,7 +6,7 @@
 #include "subject.h"
 #include "observer.h"
 #include "robot.h"
-#include "ultrasonic.h"
+#include "subject.distance.h"
 #include "commands.h"
 #include "mbot.statemachine.h"
 #include "sensor.ultrasonic.h"
@@ -50,12 +50,12 @@ void MBotBuilder::buildUltrasonicProcessor(void)
     Scheduler               *scheduler  = _robot->scheduler();
     DigitalPin              *pin        = new ControllerDigitalPin(PIN_MCORE_ULTRASONIC_SENSOR);
     DistanceProvider        *sensor     = UltrasonicSensor::create(pin);
-    MBotUltrasonicSubject   *subject    = MBotUltrasonicSubject::create(sensor);
+    DistanceSubject   *subject    = DistanceSubject::create(sensor);
 
     MBotStateContext *context = MBotStateContext::instance();
     Command     *pathBlocked    = context->frontPathBlockedCommand();
     Command     *pathCleared    = context->frontPathClearedCommand();
-    Observer    *observer       = new MBotPathSensor(subject, pathBlocked, pathCleared);
+    Observer    *observer       = new DistanceObserver(subject, pathBlocked, pathCleared);
     subject->attach(observer);
     scheduler->schedule(subject);
 }

@@ -6,7 +6,7 @@
 #include "subject.h"
 #include "observer.h"
 #include "robot.h"
-#include "ultrasonic.h"
+#include "subject.distance.h"
 #include "commandqueue.h"
 
 

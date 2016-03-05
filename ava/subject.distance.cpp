@@ -1,22 +1,22 @@
-#include "ultrasonic.h"
+#include "subject.distance.h"
 
 
-MBotUltrasonicSubject *MBotUltrasonicSubject::create(DistanceProvider *distanceProvider)
+DistanceSubject *DistanceSubject::create(DistanceProvider *distanceProvider)
 {
-    return new MBotUltrasonicSubject(distanceProvider);
+    return new DistanceSubject(distanceProvider);
 }
 
 
-MBotUltrasonicSubject::MBotUltrasonicSubject(DistanceProvider *distanceProvider)
+DistanceSubject::DistanceSubject(DistanceProvider *distanceProvider)
 :   _distanceProvider(distanceProvider)
 {}
 
 
-void MBotUltrasonicSubject::tick(void)
+void DistanceSubject::tick(void)
 {
     unsigned long d = _distanceProvider->distance();
 
-    // Serial.print("MBotUltrasonicSubject::tick: distance: ");
+    // Serial.print("DistanceSubject::tick: distance: ");
     // Serial.println(d);
 
     if (changeStateToBlocked(d))
@@ -34,25 +34,25 @@ void MBotUltrasonicSubject::tick(void)
 }
 
 
-bool MBotUltrasonicSubject::changeStateToBlocked(unsigned long d)
+bool DistanceSubject::changeStateToBlocked(unsigned long d)
 {
     return _state != BLOCKED && d > 0 && d <= MAX_DISTANCE_BLOCKED;
 }
 
 
-bool MBotUltrasonicSubject::changeStateToNear(unsigned long d)
+bool DistanceSubject::changeStateToNear(unsigned long d)
 {
     return _state != NEAR && d > MAX_DISTANCE_BLOCKED  && d <= MAX_DISTANCE_NEAR;
 }
 
 
-bool MBotUltrasonicSubject::changeStateToFar(unsigned long d)
+bool DistanceSubject::changeStateToFar(unsigned long d)
 {
     return _state != FAR && (d == 0 || d > MAX_DISTANCE_NEAR);
 }
 
 
-void MBotUltrasonicSubject::setStateToBlocked(void)
+void DistanceSubject::setStateToBlocked(void)
 {
     _isBlocked = true;
     _lastState = _state;
@@ -61,7 +61,7 @@ void MBotUltrasonicSubject::setStateToBlocked(void)
 }
 
 
-void MBotUltrasonicSubject::setStateToNear(void)
+void DistanceSubject::setStateToNear(void)
 {
     _isBlocked = false;
     _lastState = _state;
@@ -70,7 +70,7 @@ void MBotUltrasonicSubject::setStateToNear(void)
 }
 
 
-void MBotUltrasonicSubject::setStateToFar(void)
+void DistanceSubject::setStateToFar(void)
 {
     _isBlocked = false;
     _lastState = _state;

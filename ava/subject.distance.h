@@ -8,12 +8,12 @@
 #include "motion.h"
 
 
-class MBotUltrasonicSubject : public BaseSubject,
-                              public Tickable
+class DistanceSubject : public BaseSubject,
+                        public Tickable
 {
 public:
 
-    static MBotUltrasonicSubject *create(DistanceProvider *distanceProvider);
+    static DistanceSubject *create(DistanceProvider *distanceProvider);
 
     enum DISTANCE
     {
@@ -30,7 +30,7 @@ public:
 
 private:
 
-    MBotUltrasonicSubject(DistanceProvider *distanceProvider);
+    DistanceSubject(DistanceProvider *distanceProvider);
 
     DistanceProvider *_distanceProvider;
     bool _isBlocked = false;
@@ -50,11 +50,11 @@ private:
 };
 
 
-class MBotPathSensor : public Observer
+class DistanceObserver : public Observer
 {
 public:
 
-    MBotPathSensor(MBotUltrasonicSubject *subject, Command *pathBlocked, Command *pathCleared)
+    DistanceObserver(DistanceSubject *subject, Command *pathBlocked, Command *pathCleared)
     :   _subject(subject),
         _pathBlocked(pathBlocked),
         _pathCleared(pathCleared)
@@ -72,7 +72,7 @@ public:
 
 private:
 
-    MBotUltrasonicSubject *_subject;
+    DistanceSubject *_subject;
     Command *_pathBlocked;
     Command *_pathCleared;
 

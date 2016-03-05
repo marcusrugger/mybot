@@ -10,11 +10,7 @@
 #include "mbot.factory.h"
 #include "mbot.builder.h"
 #include "mbot.director.h"
-#include "scheduler.h"
-#include "subject.h"
 #include "robot.h"
-#include "motion.h"
-#include "ultrasonic.h"
 
 
 Tickable *idleloop;
