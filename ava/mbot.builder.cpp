@@ -34,12 +34,12 @@ void MBotBuilder::buildCommandButtonProcessor(void)
         scheduler->schedule(subject);
     }
 
-    Observer *observer;
+    // create observer
     {
         MBotStateContext *context = MBotStateContext::instance();
         Command *buttonPressed = context->buttonPressedCommand();
         Command *buttonReleased = context->buttonReleasedCommand();
-        observer = new MBotButtonObserver(subject, buttonPressed, buttonReleased);
+        new MBotButtonObserver(subject, buttonPressed, buttonReleased);
     }
 }
 
@@ -47,7 +47,6 @@ void MBotBuilder::buildCommandButtonProcessor(void)
 void MBotBuilder::buildUltrasonicProcessor(void)
 {
     Scheduler               *scheduler  = _robot->scheduler();
-    Moveable                *move       = _robot->movement();
     MBotUltrasonicSubject   *subject    = MBotUltrasonicSubject::instance();
 
     MBotStateContext *context = MBotStateContext::instance();

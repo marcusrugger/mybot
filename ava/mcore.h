@@ -2,6 +2,7 @@
 #define MCORE_H
 
 #include <Arduino.h>
+#include "controller.pin.h"
 
 
 enum ATmega328P_AU
@@ -82,37 +83,6 @@ inline void enableInterrupts(void)
 
 inline void disableInterrupts(void)
 { noInterrupts(); }
-
-
-class PinReader
-{
-public:
-
-    virtual int16_t readPin(void) = 0;
-
-};
-
-
-class ControllerPin : public PinReader
-{
-public:
-
-    ControllerPin(uint8_t pin, uint8_t mode)
-    :   _pin(pin)
-    {
-        pinMode(_pin, mode);
-    }
-
-    int16_t readPin(void)
-    {
-        return analogRead(_pin);
-    }
-
-private:
-
-    uint8_t _pin;
-
-};
 
 
 class UltrasonicSensor
