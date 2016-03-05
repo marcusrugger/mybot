@@ -1,4 +1,4 @@
-#include "mbotbuilder.h"
+#include "mbot.builder.h"
 #include "mcore.h"
 #include "motor.h"
 #include "motion.h"
@@ -8,7 +8,7 @@
 #include "robot.h"
 #include "ultrasonic.h"
 #include "commands.h"
-#include "statemachine.h"
+#include "mbot.statemachine.h"
 
 
 MBotBuilder::MBotBuilder(RobotFactory &factory)
@@ -23,9 +23,9 @@ void MBotBuilder::buildCommandQueue(void)
 }
 
 
-void MBotBuilder::buildButtonProcessor(void)
+void MBotBuilder::buildCommandButtonProcessor(void)
 {
-    Scheduler       *scheduler  = _robot->scheduler();
+    Scheduler *scheduler = _robot->scheduler();
 
     ButtonSubject *subject;
     {
@@ -34,10 +34,13 @@ void MBotBuilder::buildButtonProcessor(void)
         scheduler->schedule(subject);
     }
 
-    MBotStateContext *context = MBotStateContext::instance();
-    ButtonPressedCommand *buttonPressed = new ButtonPressedCommand(context);
-    ButtonReleasedCommand *buttonReleased = new ButtonReleasedCommand(context);
-    Observer *observer = new MBotButtonObserver(subject, buttonPressed, buttonReleased);
+    Observer *observer;
+    {
+        MBotStateContext *context = MBotStateContext::instance();
+        Command *buttonPressed = context->buttonPressedCommand();
+        Command *buttonReleased = context->buttonReleasedCommand();
+        observer = new MBotButtonObserver(subject, buttonPressed, buttonReleased);
+    }
 }
 
 
@@ -48,8 +51,8 @@ void MBotBuilder::buildUltrasonicProcessor(void)
     MBotUltrasonicSubject   *subject    = MBotUltrasonicSubject::instance();
 
     MBotStateContext *context = MBotStateContext::instance();
-    Command     *pathBlocked    = new FrontPathBlockedCommand(context);
-    Command     *pathCleared    = new FrontPathClearedCommand(context);
+    Command     *pathBlocked    = context->frontPathBlockedCommand();
+    Command     *pathCleared    = context->frontPathClearedCommand();
     Observer    *observer       = new MBotPathSensor(subject, pathBlocked, pathCleared);
     subject->attach(observer);
     scheduler->schedule(subject);

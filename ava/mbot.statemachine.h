@@ -39,6 +39,14 @@ public:
 
 public:
 
+    Command *buttonPressedCommand(void);
+    Command *buttonReleasedCommand(void);
+    Command *frontPathBlockedCommand(void);
+    Command *frontPathClearedCommand(void);
+
+
+public:
+
     bool isButtonPressed(void);
     void setButtonPressed(bool flag);
 
@@ -76,6 +84,65 @@ private:
 
         MBotStateContext *_context;
         MBotStateMachine *_state;
+
+    };
+
+
+    class MBotCommand : public Command
+    {
+    protected:
+
+        MBotCommand(MBotStateContext *machine) : _machine(machine) {}
+
+        MBotStateContext *_machine;
+
+    };
+
+
+    class ButtonPressedCommand : public MBotCommand
+    {
+    public:
+
+        ButtonPressedCommand(MBotStateContext *machine) : MBotCommand(machine) {}
+
+        void execute(void)
+        { _machine->buttonPressed(); }
+
+    };
+
+
+    class ButtonReleasedCommand : public MBotCommand
+    {
+    public:
+
+        ButtonReleasedCommand(MBotStateContext *machine) : MBotCommand(machine) {}
+
+        void execute(void)
+        { _machine->buttonReleased(); }
+
+    };
+
+
+    class FrontPathBlockedCommand : public MBotCommand
+    {
+    public:
+
+        FrontPathBlockedCommand(MBotStateContext *machine) : MBotCommand(machine) {}
+
+        void execute(void)
+        { _machine->frontPathBlocked(); }
+
+    };
+
+
+    class FrontPathClearedCommand : public MBotCommand
+    {
+    public:
+
+        FrontPathClearedCommand(MBotStateContext *machine) : MBotCommand(machine) {}
+
+        void execute(void)
+        { _machine->frontPathCleared(); }
 
     };
 

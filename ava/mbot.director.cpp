@@ -1,5 +1,5 @@
 #include "mcore.h"
-#include "mbotdirector.h"
+#include "mbot.director.h"
 #include "robot.h"
 #include "subject.h"
 
@@ -12,6 +12,6 @@ MBotDirector::MBotDirector(RobotBuilder &builder)
 void MBotDirector::buildRobot(void)
 {
     _builder.buildCommandQueue();
-    _builder.buildButtonProcessor();
+    _builder.buildCommandButtonProcessor();
     _builder.buildUltrasonicProcessor();
 }

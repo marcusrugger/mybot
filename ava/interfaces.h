@@ -120,7 +120,7 @@ class RobotBuilder
 public:
 
     virtual void buildCommandQueue(void) = 0;
-    virtual void buildButtonProcessor(void) = 0;
+    virtual void buildCommandButtonProcessor(void) = 0;
     virtual void buildUltrasonicProcessor(void) = 0;
 
 };

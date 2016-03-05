@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include "statemachine.h"
+#include "mbot.statemachine.h"
 #include "robot.h"
 #include "commandqueue.h"
 #include "commands.h"
@@ -162,6 +162,30 @@ void MBotStateContext::changeState(MBotStateMachine *state)
 bool MBotStateContext::queueChangeState(MBotStateMachine *state)
 {
     return ChangeStateCommand::queue(this, state);
+}
+
+
+Command *MBotStateContext::buttonPressedCommand(void)
+{
+    return new ButtonPressedCommand(this);
+}
+
+
+Command *MBotStateContext::buttonReleasedCommand(void)
+{
+    return new ButtonReleasedCommand(this);
+}
+
+
+Command *MBotStateContext::frontPathBlockedCommand(void)
+{
+    return new FrontPathBlockedCommand(this);
+}
+
+
+Command *MBotStateContext::frontPathClearedCommand(void)
+{
+    return new FrontPathClearedCommand(this);
 }
 
 
