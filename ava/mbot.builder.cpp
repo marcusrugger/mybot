@@ -29,7 +29,7 @@ void MBotBuilder::buildCommandButtonProcessor(void)
 
     ButtonSubject *subject;
     {
-        PinReader *pin = _factory.createPinReader(PIN_MCORE_BUTTON, INPUT_PULLUP);
+        AnalogPinReader *pin = _factory.createAnalogPinReader(PIN_MCORE_BUTTON, INPUT_PULLUP);
         subject = new ButtonSubject(pin);
         scheduler->schedule(subject);
     }
@@ -47,7 +47,8 @@ void MBotBuilder::buildCommandButtonProcessor(void)
 void MBotBuilder::buildUltrasonicProcessor(void)
 {
     Scheduler               *scheduler  = _robot->scheduler();
-    MBotUltrasonicSubject   *subject    = MBotUltrasonicSubject::instance();
+    DigitalPin              *pin        = new ControllerDigitalPin(PIN_MCORE_ULTRASONIC_SENSOR);
+    MBotUltrasonicSubject   *subject    = MBotUltrasonicSubject::instance(pin);
 
     MBotStateContext *context = MBotStateContext::instance();
     Command     *pathBlocked    = context->frontPathBlockedCommand();

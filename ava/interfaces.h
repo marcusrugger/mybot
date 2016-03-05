@@ -4,7 +4,7 @@
 #include <Arduino.h>
 
 
-class PinReader;
+class AnalogPinReader;
 class UltrasonicSensor;
 
 class ButtonSubject;
@@ -104,7 +104,7 @@ class HardwareFactory
 {
 public:
 
-    virtual PinReader       *createPinReader(uint8_t pin, uint8_t mode) = 0;
+    virtual AnalogPinReader       *createAnalogPinReader(uint8_t pin, uint8_t mode) = 0;
     virtual Motor           *createMotor(uint8_t pinPwm, uint8_t pinDir, bool reverse = false) = 0;
 
 };
@@ -131,7 +131,7 @@ public:
     virtual Tickable        *createIdleloop(void) = 0;
     virtual Tickable        *createTimer(Tickable *tickee, uint16_t milli) = 0;
     virtual CommandQueue    *createCommandQueue(void);
-    virtual PinReader       *createPinReader(uint8_t pin, uint8_t mode) = 0;
+    virtual AnalogPinReader       *createAnalogPinReader(uint8_t pin, uint8_t mode) = 0;
     virtual Motor           *createMotor(uint8_t pinPwm, uint8_t pinDir, bool reverse = false) = 0;
     virtual Moveable        *createMotionControl(void) = 0;
 

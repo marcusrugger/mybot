@@ -53,13 +53,6 @@ inline uint16_t milli_to_ticks(uint16_t milliseconds)
 }
 
 
-// Timings for motor control
-const uint16_t rotation_time    = 850 * tick_delay;
-const uint16_t turn_full        = rotation_time;
-const uint16_t turn_half        = rotation_time / 2;
-const uint16_t turn_quarter     = rotation_time / 4;
-
-
 // Motor pinouts
 const uint8_t PIN_MOTOR_RIGHT_DIR   = 4;
 const uint8_t PIN_MOTOR_RIGHT_PWM   = 5;

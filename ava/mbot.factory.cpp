@@ -38,7 +38,7 @@ CommandQueue *MBotFactory::createCommandQueue(void)
 }
 
 
-PinReader *MBotFactory::createPinReader(uint8_t pin, uint8_t mode)
+AnalogPinReader *MBotFactory::createAnalogPinReader(uint8_t pin, uint8_t mode)
 {
     return new ControllerPin(pin, mode);
 }

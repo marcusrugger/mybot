@@ -4,13 +4,18 @@
 MBotUltrasonicSubject *MBotUltrasonicSubject::_instance;
 
 
-MBotUltrasonicSubject *MBotUltrasonicSubject::instance(void)
+MBotUltrasonicSubject *MBotUltrasonicSubject::instance(DigitalPin *pin)
 {
     if (NULL == _instance)
-        _instance = new MBotUltrasonicSubject();
+        _instance = new MBotUltrasonicSubject(pin);
 
     return _instance;
 }
+
+
+MBotUltrasonicSubject::MBotUltrasonicSubject(DigitalPin *pin)
+:   _pin(pin)
+{}
 
 
 void MBotUltrasonicSubject::tick(void)
@@ -72,11 +77,9 @@ long MBotUltrasonicSubject::distance(void)
 
 long MBotUltrasonicSubject::readSensor(unsigned long timeout)
 {
-    digitalWrite(_pin, LOW);
-    delayMicroseconds(2);
-    digitalWrite(_pin, HIGH);
-    delayMicroseconds(10);
-    digitalWrite(_pin, LOW);
-    pinMode(_pin, INPUT);
-    return pulseIn(_pin, HIGH, timeout);
+    _pin->setLow();     delayMicroseconds(2);
+    _pin->setHigh();    delayMicroseconds(10);
+    _pin->setLow();
+
+    return _pin->readPulse(HIGH, timeout);
 }

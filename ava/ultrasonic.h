@@ -13,7 +13,7 @@ class MBotUltrasonicSubject : public BaseSubject,
 {
 public:
 
-    static MBotUltrasonicSubject *instance(void);
+    static MBotUltrasonicSubject *instance(DigitalPin *pin);
 
     enum DISTANCE
     {
@@ -30,9 +30,11 @@ public:
 
 private:
 
-    const uint8_t _pin = PIN_MCORE_ULTRASONIC_SENSOR;
+    MBotUltrasonicSubject(DigitalPin *pin);
+
     static MBotUltrasonicSubject *_instance;
 
+    DigitalPin *_pin;
     bool _isBlocked = false;
     DISTANCE _state = BLOCKED;
     DISTANCE _lastState = BLOCKED;

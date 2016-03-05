@@ -40,7 +40,7 @@ public:
         BUTTON_DOWN
     };
 
-    ButtonSubject(PinReader *pin) : _pin(pin)
+    ButtonSubject(AnalogPinReader *pin) : _pin(pin)
     {}
 
     ButtonState getState(void)
@@ -62,7 +62,7 @@ protected:
 
 private:
 
-    PinReader *_pin;
+    AnalogPinReader *_pin;
     ButtonState _state;
 
 };

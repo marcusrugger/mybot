@@ -4,7 +4,7 @@
 #include <Arduino.h>
 
 
-class PinReader
+class AnalogPinReader
 {
 public:
 
@@ -13,7 +13,7 @@ public:
 };
 
 
-class ControllerPin : public PinReader
+class ControllerPin : public AnalogPinReader
 {
 public:
 
@@ -47,6 +47,7 @@ class DigitalPinReader
 public:
 
     virtual bool get(void) = 0;
+    virtual unsigned long readPulse(bool state, unsigned long timeout) = 0;
 
 };
 
@@ -63,7 +64,7 @@ class ControllerDigitalPin : public DigitalPin
 {
 public:
 
-    ControllerDigitalPin(uint8_t pin, bool pullup)
+    ControllerDigitalPin(uint8_t pin, bool pullup = false)
     :   _pin(pin),
         _pullup(pullup)
     { setMode(pullupMode()); }
@@ -79,6 +80,9 @@ public:
 
     bool get(void)
     { setReadMode(); return digitalRead(_pin) == HIGH; }
+
+    unsigned long readPulse(bool state, unsigned long timeout)
+    { setMode(INPUT); return pulseIn(_pin, state ? HIGH : LOW, timeout); }
 
 
 private:
