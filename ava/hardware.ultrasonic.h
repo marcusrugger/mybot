@@ -1,5 +1,5 @@
-#ifndef SENSOR_ULTRASONIC_H
-#define SENSOR_ULTRASONIC_H
+#ifndef HARDWARE_ULTRASONIC_H
+#define HARDWARE_ULTRASONIC_H
 
 #include "mcore.h"
 

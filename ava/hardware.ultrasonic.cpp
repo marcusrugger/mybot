@@ -1,4 +1,4 @@
-#include "sensor.ultrasonic.h"
+#include "hardware.ultrasonic.h"
 
 
 UltrasonicSensor *UltrasonicSensor::create(DigitalPin *pin)
