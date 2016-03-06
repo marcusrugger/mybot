@@ -11,6 +11,7 @@
 #include "mbot.statemachine.h"
 #include "hardware.ultrasonic.h"
 #include "subject.distance.h"
+#include "subject.lightlatch.h"
 
 
 MBotBuilder::MBotBuilder(RobotFactory &factory)
@@ -52,4 +53,11 @@ void MBotBuilder::buildUltrasonicProcessor(void)
 
     subject->attach(observer);
     scheduler->schedule(subject);
+}
+
+
+void MBotBuilder::buildLightProcessor(void)
+{
+    LightLatchSubject *subject = _factory.assembleLightLatchSubject(PIN_MCORE_LIGHT_SENSOR);    
+    _robot->scheduler()->schedule(subject);
 }

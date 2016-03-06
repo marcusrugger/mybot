@@ -27,7 +27,18 @@ private:
 
     LightLatchSubject(AnalogPinReader *pin);
 
+    const int MAX_DARK  = 100;
+    const int MAX_DIM   = 1000;
+
     AnalogPinReader *_pin;
+    LIGHTLEVEL _state;
+    LIGHTLEVEL _lastState;
+
+    bool changeStateToDark(int value);
+    bool changeStateToDim(int value);
+    bool changeStateToBright(int value);
+
+    void setState(LIGHTLEVEL state);
 
 };
 

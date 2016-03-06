@@ -7,6 +7,7 @@
 #include "observer.button.h"
 #include "robot.h"
 #include "subject.distance.h"
+#include "subject.lightlatch.h"
 #include "commandqueue.h"
 #include "hardware.button.h"
 #include "hardware.ultrasonic.h"
@@ -73,4 +74,11 @@ DistanceSubject *MBotFactory::assembleUltrasonicSubject(int pinNumber)
     DigitalPin        *pin      = new ControllerDigitalPin(PIN_MCORE_ULTRASONIC_SENSOR);
     DistanceProvider  *sensor   = UltrasonicSensor::create(pin);
     return DistanceSubject::create(sensor);
+}
+
+
+LightLatchSubject *MBotFactory::assembleLightLatchSubject(int pinNumber)
+{
+    AnalogPinReader *pin = createAnalogPinReader(pinNumber, INPUT);
+    return LightLatchSubject::create(pin);
 }

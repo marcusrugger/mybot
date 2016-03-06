@@ -8,6 +8,7 @@ class AnalogPinReader;
 
 class ButtonSubject;
 class DistanceSubject;
+class LightLatchSubject;
 
 class CommandQueue;
 
@@ -103,7 +104,7 @@ class HardwareFactory
 {
 public:
 
-    virtual AnalogPinReader       *createAnalogPinReader(uint8_t pin, uint8_t mode) = 0;
+    virtual AnalogPinReader *createAnalogPinReader(uint8_t pin, uint8_t mode) = 0;
     virtual Motor           *createMotor(uint8_t pinPwm, uint8_t pinDir, bool reverse = false) = 0;
 
 };
@@ -136,6 +137,7 @@ public:
     virtual Moveable            *assembleMotionControl(void) = 0;
     virtual ButtonSubject       *assembleButtonSubject(int pinNumber) = 0;
     virtual DistanceSubject     *assembleUltrasonicSubject(int pinNumber) = 0;
+    virtual LightLatchSubject   *assembleLightLatchSubject(int pinNumber) = 0;
 
 };
 
@@ -147,6 +149,7 @@ public:
     virtual void buildCommandQueue(void) = 0;
     virtual void buildCommandButtonProcessor(void) = 0;
     virtual void buildUltrasonicProcessor(void) = 0;
+    virtual void buildLightProcessor(void) = 0;
 
 };
 

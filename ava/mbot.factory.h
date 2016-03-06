@@ -23,6 +23,7 @@ public:
     Moveable            *assembleMotionControl(void);
     ButtonSubject       *assembleButtonSubject(int pinNumber);
     DistanceSubject     *assembleUltrasonicSubject(int pinNumber);
+    LightLatchSubject   *assembleLightLatchSubject(int pinNumber);
 
 };
 

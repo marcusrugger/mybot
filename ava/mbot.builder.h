@@ -16,6 +16,7 @@ public:
     void buildCommandQueue(void);
     void buildCommandButtonProcessor(void);
     void buildUltrasonicProcessor(void);
+    void buildLightProcessor(void);
 
 private:
 
