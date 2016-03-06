@@ -7,14 +7,12 @@
 
 
 ButtonObserver::ButtonObserver(ButtonSubject *subject,
-                                       Command *buttonPressed,
-                                       Command *buttonReleased)
+                               Command *buttonPressed,
+                               Command *buttonReleased)
 :   _subject(subject),
     _buttonPressed(buttonPressed),
     _buttonReleased(buttonReleased)
-{
-    _subject->attach(this);
-}
+{}
 
 
 void ButtonObserver::update(void)

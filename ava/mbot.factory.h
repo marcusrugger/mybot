@@ -19,7 +19,10 @@ public:
     CommandQueue        *createCommandQueue(void);
     AnalogPinReader     *createAnalogPinReader(uint8_t pin, uint8_t mode);
     Motor               *createMotor(uint8_t pinPwm, uint8_t pinDir, bool reverse);
-    Moveable            *createMotionControl(void);
+
+    Moveable            *assembleMotionControl(void);
+    ButtonSubject       *assembleButtonSubject(int pinNumber);
+    DistanceSubject     *assembleUltrasonicSubject(int pinNumber);
 
 };
 

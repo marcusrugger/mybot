@@ -5,7 +5,6 @@
 #include "interfaces.h"
 
 class Robot;
-class Moveable;
 
 
 class MBotBuilder : public RobotBuilder

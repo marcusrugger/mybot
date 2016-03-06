@@ -27,37 +27,29 @@ void MBotBuilder::buildCommandQueue(void)
 
 void MBotBuilder::buildCommandButtonProcessor(void)
 {
-    Scheduler *scheduler = _robot->scheduler();
+    Scheduler       *scheduler  = _robot->scheduler();
+    ButtonSubject   *subject    = _factory.assembleButtonSubject(PIN_MCORE_BUTTON);
 
-    ButtonSubject *subject;
-    {
-        AnalogPinReader *pin    = _factory.createAnalogPinReader(PIN_MCORE_BUTTON, INPUT_PULLUP);
-        ButtonProvider  *button = new HardwareButton(pin);
-        subject = new ButtonSubject(button);
-        scheduler->schedule(subject);
-    }
+    MBotStateContext *context = MBotStateContext::instance();
+    Command     *buttonPressed  = context->buttonPressedCommand();
+    Command     *buttonReleased = context->buttonReleasedCommand();
+    Observer    *observer       = new ButtonObserver(subject, buttonPressed, buttonReleased);
 
-    // create observer
-    {
-        MBotStateContext *context = MBotStateContext::instance();
-        Command *buttonPressed = context->buttonPressedCommand();
-        Command *buttonReleased = context->buttonReleasedCommand();
-        new ButtonObserver(subject, buttonPressed, buttonReleased);
-    }
+    subject->attach(observer);
+    scheduler->schedule(subject);
 }
 
 
 void MBotBuilder::buildUltrasonicProcessor(void)
 {
     Scheduler         *scheduler  = _robot->scheduler();
-    DigitalPin        *pin        = new ControllerDigitalPin(PIN_MCORE_ULTRASONIC_SENSOR);
-    DistanceProvider  *sensor     = UltrasonicSensor::create(pin);
-    DistanceSubject   *subject    = DistanceSubject::create(sensor);
+    DistanceSubject   *subject    = _factory.assembleUltrasonicSubject(PIN_MCORE_ULTRASONIC_SENSOR);
 
     MBotStateContext *context = MBotStateContext::instance();
     Command     *pathBlocked    = context->frontPathBlockedCommand();
     Command     *pathCleared    = context->frontPathClearedCommand();
     Observer    *observer       = new DistanceObserver(subject, pathBlocked, pathCleared);
+
     subject->attach(observer);
     scheduler->schedule(subject);
 }

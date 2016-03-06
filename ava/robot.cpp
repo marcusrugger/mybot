@@ -26,6 +26,6 @@ Robot::Robot(RobotFactory &factory)
 {
     _scheduler      = factory.createScheduler();
     _idleloop       = factory.createIdleloop();
-    _movement       = factory.createMotionControl();
+    _movement       = factory.assembleMotionControl();
     _commandQueue   = factory.createCommandQueue();
 }

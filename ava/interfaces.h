@@ -6,8 +6,8 @@
 
 class AnalogPinReader;
 
-// class ButtonSubject;
-class UltrasonicSubject;
+class ButtonSubject;
+class DistanceSubject;
 
 class CommandQueue;
 
@@ -117,7 +117,7 @@ public:
     virtual Tickable        *createIdleloop(void) = 0;
     virtual Tickable        *createTimer(Tickable *tickee, uint16_t milli) = 0;
     virtual CommandQueue    *createCommandQueue(void);
-    virtual Moveable        *createMotionControl(void) = 0;
+    virtual Moveable        *assembleMotionControl(void) = 0;
 
 };
 
@@ -126,13 +126,16 @@ class RobotFactory
 {
 public:
 
-    virtual Scheduler       *createScheduler(void) = 0;
-    virtual Tickable        *createIdleloop(void) = 0;
-    virtual Tickable        *createTimer(Tickable *tickee, uint16_t milli) = 0;
-    virtual CommandQueue    *createCommandQueue(void);
-    virtual AnalogPinReader       *createAnalogPinReader(uint8_t pin, uint8_t mode) = 0;
-    virtual Motor           *createMotor(uint8_t pinPwm, uint8_t pinDir, bool reverse = false) = 0;
-    virtual Moveable        *createMotionControl(void) = 0;
+    virtual Scheduler           *createScheduler(void) = 0;
+    virtual Tickable            *createIdleloop(void) = 0;
+    virtual Tickable            *createTimer(Tickable *tickee, uint16_t milli) = 0;
+    virtual CommandQueue        *createCommandQueue(void);
+    virtual AnalogPinReader     *createAnalogPinReader(uint8_t pin, uint8_t mode) = 0;
+    virtual Motor               *createMotor(uint8_t pinPwm, uint8_t pinDir, bool reverse = false) = 0;
+
+    virtual Moveable            *assembleMotionControl(void) = 0;
+    virtual ButtonSubject       *assembleButtonSubject(int pinNumber) = 0;
+    virtual DistanceSubject     *assembleUltrasonicSubject(int pinNumber) = 0;
 
 };
 

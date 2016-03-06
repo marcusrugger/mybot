@@ -8,6 +8,8 @@
 #include "robot.h"
 #include "subject.distance.h"
 #include "commandqueue.h"
+#include "hardware.button.h"
+#include "hardware.ultrasonic.h"
 
 
 MBotFactory::MBotFactory(void)
@@ -50,9 +52,25 @@ Motor *MBotFactory::createMotor(uint8_t pinPwm, uint8_t pinDir, bool reverse)
 }
 
 
-Moveable *MBotFactory::createMotionControl(void)
+Moveable *MBotFactory::assembleMotionControl(void)
 {
     Motor *motorLeft    = createMotor(PIN_MOTOR_LEFT_PWM, PIN_MOTOR_LEFT_DIR, MOTOR_LEFT_REVERSE);
     Motor *motorRight   = createMotor(PIN_MOTOR_RIGHT_PWM, PIN_MOTOR_RIGHT_DIR, MOTOR_RIGHT_REVERSE);
     return new MBotMotion(motorLeft, motorRight);
+}
+
+
+ButtonSubject *MBotFactory::assembleButtonSubject(int pinNumber)
+{
+    AnalogPinReader *pin    = createAnalogPinReader(pinNumber, INPUT_PULLUP);
+    ButtonProvider  *button = new HardwareButton(pin);
+    return new ButtonSubject(button);
+}
+
+
+DistanceSubject *MBotFactory::assembleUltrasonicSubject(int pinNumber)
+{
+    DigitalPin        *pin      = new ControllerDigitalPin(PIN_MCORE_ULTRASONIC_SENSOR);
+    DistanceProvider  *sensor   = UltrasonicSensor::create(pin);
+    return DistanceSubject::create(sensor);
 }
