@@ -29,3 +29,7 @@ Robot::Robot(RobotFactory &factory)
     _movement       = factory.assembleMotionControl();
     _commandQueue   = factory.createCommandQueue();
 }
+
+
+void Robot::alertUser(void)
+{}

@@ -3,7 +3,9 @@
 
 
 CommandQueue::CommandQueue(void)
-:   _paused(0)
+:   _paused(false),
+    _wait_time(0),
+    _wait_start(0)
 {}
 
 
@@ -13,9 +15,11 @@ bool CommandQueue::add(Command *cmd)
 }
 
 
-void CommandQueue::pause(int milli)
+void CommandQueue::pause(unsigned long milli)
 {
-    _paused = milli_to_ticks(milli);
+    _wait_start = millis();
+    _wait_time = milli;
+    _paused = true;
 }
 
 
@@ -28,11 +32,8 @@ void CommandQueue::reset(void)
 
 void CommandQueue::tick(void)
 {
-    if (_paused > 0)
-    {
-        --_paused;
+    if (isPaused())
         return;
-    }
 
     if (_queue.isMore())
     {
@@ -40,4 +41,10 @@ void CommandQueue::tick(void)
         cmd->execute();
         delete cmd;
     }
+}
+
+
+bool CommandQueue::isPaused(void)
+{
+    return _paused = _paused ? millis() - _wait_start < _wait_time : false;
 }

@@ -33,24 +33,24 @@ class Timer : public Tickable
 {
 public:
 
-    Timer(Tickable *tickee, uint16_t milli)
+    Timer(Tickable *tickee, unsigned long milli)
     :   _tickee(tickee)
     {
         setTimer(milli);
     }
 
-    void setTimer(uint16_t milli)
+    void setTimer(unsigned long milli)
     {
-        _ticks      = milli_to_ticks(milli);
-        _countdown  = _ticks;
+        _wait_start = millis();
+        _wait_time = milli;
     }
 
     void tick(void)
     {
-        if (0 == --_countdown)
+        if (isTriggered())
         {
+            _wait_start = millis();
             _tickee->tick();
-            _countdown = _ticks;
         }
     }
 
@@ -58,8 +58,13 @@ public:
 private:
 
     Tickable *_tickee;
-    uint16_t _ticks;
-    uint16_t _countdown;
+    unsigned long _wait_time;
+    unsigned long _wait_start;
+    bool _paused;
+
+
+    bool isTriggered(void)
+    { return millis() - _wait_start < _wait_time; }
 
 };
 

@@ -40,11 +40,11 @@ void setup()
 
 void loop()
 {
-    uint16_t enter_tick = millis();
+    // uint16_t enter_tick = millis();
 
     idleloop->tick();
 
-    uint16_t tick_time = millis() - enter_tick;
-    if (tick_time < tick_delay)
-        delay(tick_delay - tick_time);
+    // uint16_t tick_time = millis() - enter_tick;
+    // if (tick_time < tick_delay)
+    //     delay(tick_delay - tick_time);
 }

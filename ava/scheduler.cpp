@@ -40,7 +40,8 @@ void TaskRunner::unschedule(Tickable *task)
     {
         if (_tasks[is] == task)
         {
-            ++is;
+            if (++is < _count)
+                _tasks[id++] = _tasks[is++];
             --_count;
         }
         else if (id < is)

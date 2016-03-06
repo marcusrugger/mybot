@@ -21,6 +21,8 @@ public:
     Moveable        *movement(void)     { return _movement;     }
     CommandQueue    *commandQueue(void) { return _commandQueue; }
 
+    void alertUser(void);
+
 private:
 
     Robot(RobotFactory &factory);

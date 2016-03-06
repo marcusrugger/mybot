@@ -15,7 +15,8 @@ void BaseSubject::detach(const Observer *observer)
     {
         if (_observers[is] == observer)
         {
-            ++is;
+            if (++is < _count)
+                _observers[id++] = _observers[is++];
             --_count;
         }
         else if (id < is)
