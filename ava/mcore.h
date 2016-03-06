@@ -53,6 +53,16 @@ inline uint16_t milli_to_ticks(uint16_t milliseconds)
 }
 
 
+/************************************************************************
+ * Pin mapping: http://forum.makeblock.cc/t/mbot-pin-mapping/3261
+ */
+
+
+const uint8_t PIN_MCORE_ULTRASONIC_SENSOR   = A3;
+const uint8_t PIN_MCORE_LIGHT_SENSOR        = A6;
+const uint8_t PIN_MCORE_BUTTON              = A7;
+
+
 // Motor pinouts
 const uint8_t PIN_MOTOR_RIGHT_DIR   = 4;
 const uint8_t PIN_MOTOR_RIGHT_PWM   = 5;
@@ -64,11 +74,9 @@ const bool MOTOR_RIGHT_REVERSE      = false;
 const bool MOTOR_LEFT_REVERSE       = true;
 
 
-const uint8_t PIN_MCORE_ULTRASONIC_SENSOR   = A3;
-const uint8_t PIN_MCORE_LIGHT_SENSOR        = A6;
-const uint8_t PIN_MCORE_BUTTON              = A7;
-
-const uint8_t PIN_MCORE_BUZZER              = 8;   // unverified
+const uint8_t PIN_MCORE_IR_RCV              = 2;
+const uint8_t PIN_MCORE_IR_TX               = 3;
+const uint8_t PIN_MCORE_BUZZER              = 8;
 
 
 inline void enableInterrupts(void)
