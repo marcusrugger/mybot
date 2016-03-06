@@ -1,12 +1,12 @@
 #include "mcore.h"
 #include "robot.h"
-#include "subject.h"
-#include "observer.h"
+#include "subject.button.h"
+#include "observer.button.h"
 #include "motion.h"
 #include "scheduler.h"
 
 
-MBotButtonObserver::MBotButtonObserver(ButtonSubject *subject,
+ButtonObserver::ButtonObserver(ButtonSubject *subject,
                                        Command *buttonPressed,
                                        Command *buttonReleased)
 :   _subject(subject),
@@ -17,12 +17,12 @@ MBotButtonObserver::MBotButtonObserver(ButtonSubject *subject,
 }
 
 
-void MBotButtonObserver::update(void)
+void ButtonObserver::update(void)
 {
-    ButtonSubject::ButtonState state = _subject->getState();
+    ButtonProvider::ButtonState state = _subject->getButtonState();
 
-    if (ButtonSubject::BUTTON_UP == state)
+    if (ButtonProvider::BUTTON_UP == state)
         _buttonReleased->execute();
-    else if (ButtonSubject::BUTTON_DOWN == state)
+    else if (ButtonProvider::BUTTON_DOWN == state)
         _buttonPressed->execute();
 }

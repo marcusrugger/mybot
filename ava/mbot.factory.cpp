@@ -4,7 +4,7 @@
 #include "motion.h"
 #include "scheduler.h"
 #include "subject.h"
-#include "observer.h"
+#include "observer.button.h"
 #include "robot.h"
 #include "subject.distance.h"
 #include "commandqueue.h"

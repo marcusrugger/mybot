@@ -33,7 +33,7 @@ uint8_t MBotMotor::limitSpeed(int speed)
 }
 
 
-int MBotMotor::setMotor(uint8_t state, uint8_t speed)
+void MBotMotor::setMotor(uint8_t state, uint8_t speed)
 {
     digitalWrite(_pinDir, state);
     analogWrite(_pinPwm, limitSpeed(speed));

@@ -22,7 +22,7 @@ private:
 
     int translateDirection(int speed);
     uint8_t limitSpeed(int speed);
-    int setMotor(uint8_t state, uint8_t speed);
+    void setMotor(uint8_t state, uint8_t speed);
 
     uint8_t _pinPwm;
     uint8_t _pinDir;

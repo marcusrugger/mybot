@@ -88,4 +88,19 @@ public:
 };
 
 
+class ButtonProvider
+{
+public:
+
+    enum ButtonState
+    {
+        BUTTON_UP,
+        BUTTON_DOWN
+    };
+
+    virtual ButtonState getButtonState(void) = 0;
+
+};
+
+
 #endif

@@ -3,13 +3,14 @@
 #include "motor.h"
 #include "motion.h"
 #include "scheduler.h"
-#include "subject.h"
-#include "observer.h"
+#include "hardware.button.h"
+#include "subject.button.h"
+#include "observer.button.h"
 #include "robot.h"
-#include "subject.distance.h"
 #include "commands.h"
 #include "mbot.statemachine.h"
 #include "hardware.ultrasonic.h"
+#include "subject.distance.h"
 
 
 MBotBuilder::MBotBuilder(RobotFactory &factory)
@@ -30,8 +31,9 @@ void MBotBuilder::buildCommandButtonProcessor(void)
 
     ButtonSubject *subject;
     {
-        AnalogPinReader *pin = _factory.createAnalogPinReader(PIN_MCORE_BUTTON, INPUT_PULLUP);
-        subject = new ButtonSubject(pin);
+        AnalogPinReader *pin    = _factory.createAnalogPinReader(PIN_MCORE_BUTTON, INPUT_PULLUP);
+        ButtonProvider  *button = new HardwareButton(pin);
+        subject = new ButtonSubject(button);
         scheduler->schedule(subject);
     }
 
@@ -40,7 +42,7 @@ void MBotBuilder::buildCommandButtonProcessor(void)
         MBotStateContext *context = MBotStateContext::instance();
         Command *buttonPressed = context->buttonPressedCommand();
         Command *buttonReleased = context->buttonReleasedCommand();
-        new MBotButtonObserver(subject, buttonPressed, buttonReleased);
+        new ButtonObserver(subject, buttonPressed, buttonReleased);
     }
 }
 
