@@ -1,7 +1,7 @@
 #include "commands.h"
 #include "mbot.statemachine.h"
 #include "robot.h"
-
+#include "latch.timer.h"
 
 
 bool MoveCommand::queue(DIRECTION dir, int milli)
@@ -54,5 +54,5 @@ void MoveCommand::execute(void)
     }
 
     if (_queue && _milli)
-        _queue->pause(_milli);
+        _queue->setLatch(new TimerLatch(_milli));
 }

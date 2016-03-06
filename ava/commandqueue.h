@@ -12,8 +12,8 @@ public:
     CommandQueue(void);
 
     bool add(Command *cmd);
-    void pause(unsigned long milli);
     void reset(void);
+    void setLatch(Latch *latch);
 
     void tick(void);
 
@@ -21,11 +21,10 @@ public:
 private:
 
     StdQueue<Command *> _queue;
-    bool _paused;
-    unsigned long _wait_time;
-    unsigned long _wait_start;
+    Latch *_latch;
 
-    bool isPaused(void);
+    bool isWaitingOnLatch(void);
+    void resetLatch(void);
 
 };
 

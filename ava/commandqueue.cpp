@@ -3,9 +3,7 @@
 
 
 CommandQueue::CommandQueue(void)
-:   _paused(false),
-    _wait_time(0),
-    _wait_start(0)
+:   _latch(NULL)
 {}
 
 
@@ -15,25 +13,28 @@ bool CommandQueue::add(Command *cmd)
 }
 
 
-void CommandQueue::pause(unsigned long milli)
+void CommandQueue::reset(void)
 {
-    _wait_start = millis();
-    _wait_time = milli;
-    _paused = true;
+    resetLatch();
+    _queue.reset();
 }
 
 
-void CommandQueue::reset(void)
+void CommandQueue::setLatch(Latch *latch)
 {
-    _paused = 0;
-    _queue.reset();
+    if (_latch && _latch != latch)
+        resetLatch();
+
+    _latch = latch;
 }
 
 
 void CommandQueue::tick(void)
 {
-    if (isPaused())
+    if (isWaitingOnLatch())
         return;
+
+    resetLatch();
 
     if (_queue.isMore())
     {
@@ -44,7 +45,17 @@ void CommandQueue::tick(void)
 }
 
 
-bool CommandQueue::isPaused(void)
+bool CommandQueue::isWaitingOnLatch(void)
 {
-    return _paused = _paused ? millis() - _wait_start < _wait_time : false;
+    return _latch ? !_latch->isLatched() : false;
+}
+
+
+void CommandQueue::resetLatch(void)
+{
+    if (_latch)
+    {
+        delete _latch;
+        _latch = NULL;
+    }
 }

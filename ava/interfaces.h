@@ -100,6 +100,17 @@ public:
 };
 
 
+class Latch
+{
+public:
+
+    virtual ~Latch(void) {}
+
+    virtual bool isLatched(void) = 0;
+
+};
+
+
 class HardwareFactory
 {
 public:
@@ -118,7 +129,18 @@ public:
     virtual Tickable        *createIdleloop(void) = 0;
     virtual Tickable        *createTimer(Tickable *tickee, uint16_t milli) = 0;
     virtual CommandQueue    *createCommandQueue(void);
-    virtual Moveable        *assembleMotionControl(void) = 0;
+
+};
+
+
+class AssemblyFactory
+{
+public:
+
+    virtual Moveable            *assembleMotionControl(void) = 0;
+    virtual ButtonSubject       *assembleButtonSubject(int pinNumber) = 0;
+    virtual DistanceSubject     *assembleUltrasonicSubject(int pinNumber) = 0;
+    virtual LightLatchSubject   *assembleLightLatchSubject(int pinNumber) = 0;
 
 };
 
