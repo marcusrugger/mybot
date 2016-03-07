@@ -1,4 +1,5 @@
 #include "hardware.buzzer.h"
+#include "robot.h"
 
 
 SimpleBuzzer *SimpleBuzzer::create(DigitalPinWriter *pin)
@@ -29,7 +30,7 @@ void SimpleBuzzer::setBuzzerOn(void)
 {
     _buzzerOn = true;
     _wait_time = 2;
-    _wait_start = millis();
+    _wait_start = Robot::getMillis();
 }
 
 
@@ -47,12 +48,12 @@ void SimpleBuzzer::tick(void)
     {
         _pinState = !_pinState;
         _pin->set(_pinState);
-        _wait_start = millis();
+        _wait_start = Robot::getMillis();
     }
 }
 
 
 bool SimpleBuzzer::isTimeExpired(void)
 {
-    return millis() - _wait_start > _wait_time;
+    return Robot::getMillis() - _wait_start > _wait_time;
 }

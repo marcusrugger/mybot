@@ -40,6 +40,5 @@ void setup()
 
 void loop()
 {
-    Robot::setMillis(millis());
     idleloop->tick();
 }

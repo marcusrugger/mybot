@@ -3,6 +3,7 @@
 
 #include "mcore.h"
 #include "interfaces.h"
+#include "robot.h"
 
 
 class TaskRunner : public Tickable,
@@ -41,7 +42,7 @@ public:
 
     void setTimer(unsigned long milli)
     {
-        _wait_start = millis();
+        _wait_start = Robot::getMillis();
         _wait_time = milli;
     }
 
@@ -49,7 +50,7 @@ public:
     {
         if (isTriggered())
         {
-            _wait_start = millis();
+            _wait_start = Robot::getMillis();
             _tickee->tick();
         }
     }
@@ -64,7 +65,7 @@ private:
 
 
     bool isTriggered(void)
-    { return millis() - _wait_start < _wait_time; }
+    { return Robot::getMillis() - _wait_start > _wait_time; }
 
 };
 

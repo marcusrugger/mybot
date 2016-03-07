@@ -30,7 +30,8 @@ void MBotBuilder::buildCommandQueue(void)
 void MBotBuilder::buildCommandButtonProcessor(void)
 {
     ButtonSubject *subject = _factory.assembleButtonSubject(PIN_MCORE_BUTTON);
-    _robot->scheduler()->schedule(subject);
+    Tickable      *timer   = _factory.createTimer(subject, 100);
+    _robot->scheduler()->schedule(timer);
 
     MBotStateContext *context = MBotStateContext::instance();
     Command     *buttonPressed  = context->buttonPressedCommand();
@@ -44,7 +45,8 @@ void MBotBuilder::buildCommandButtonProcessor(void)
 void MBotBuilder::buildUltrasonicProcessor(void)
 {
     DistanceSubject *subject = _factory.assembleUltrasonicSubject(PIN_MCORE_ULTRASONIC_SENSOR);
-    _robot->scheduler()->schedule(subject);
+    Tickable        *timer   = _factory.createTimer(subject, 100);
+    _robot->scheduler()->schedule(timer);
 
     MBotStateContext *context = MBotStateContext::instance();
     Command     *pathBlocked    = context->frontPathBlockedCommand();
@@ -52,13 +54,14 @@ void MBotBuilder::buildUltrasonicProcessor(void)
     Observer    *observer       = new DistanceObserver(subject, pathBlocked, pathCleared);
 
     subject->attach(observer);
-    }
+}
 
 
 void MBotBuilder::buildLightProcessor(void)
 {
     LightLatchSubject *subject = _factory.assembleLightLatchSubject(PIN_MCORE_LIGHT_SENSOR);
-    _robot->scheduler()->schedule(subject);
+    Tickable          *timer   = _factory.createTimer(subject, 100);
+    _robot->scheduler()->schedule(timer);
 }
 
 
