@@ -87,61 +87,20 @@ private:
     };
 
 
-    class MBotCommand : public Command
-    {
-    protected:
-
-        MBotCommand(MBotStateContext *machine) : _machine(machine) {}
-
-        MBotStateContext *_machine;
-
-    };
-
-
-    class ButtonPressedCommand : public MBotCommand
+    class ContextEventCommand : public Command
     {
     public:
 
-        ButtonPressedCommand(MBotStateContext *machine) : MBotCommand(machine) {}
+        typedef void (MBotStateContext::* MemberFunc)(void);
 
-        void execute(void)
-        { _machine->buttonPressed(); }
+        ContextEventCommand(MBotStateContext *obj, MemberFunc func) : _obj(obj), _func(func) {}
 
-    };
+        void execute(void) { (_obj->*_func)(); }
 
+    private:
 
-    class ButtonReleasedCommand : public MBotCommand
-    {
-    public:
-
-        ButtonReleasedCommand(MBotStateContext *machine) : MBotCommand(machine) {}
-
-        void execute(void)
-        { _machine->buttonReleased(); }
-
-    };
-
-
-    class FrontPathBlockedCommand : public MBotCommand
-    {
-    public:
-
-        FrontPathBlockedCommand(MBotStateContext *machine) : MBotCommand(machine) {}
-
-        void execute(void)
-        { _machine->frontPathBlocked(); }
-
-    };
-
-
-    class FrontPathClearedCommand : public MBotCommand
-    {
-    public:
-
-        FrontPathClearedCommand(MBotStateContext *machine) : MBotCommand(machine) {}
-
-        void execute(void)
-        { _machine->frontPathCleared(); }
+        MBotStateContext *_obj;
+        MemberFunc _func;
 
     };
 

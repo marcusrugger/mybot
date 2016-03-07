@@ -169,25 +169,25 @@ bool MBotStateContext::queueChangeState(MBotStateMachine *state)
 
 Command *MBotStateContext::buttonPressedCommand(void)
 {
-    return new ButtonPressedCommand(this);
+    return new ContextEventCommand(this, &MBotStateContext::buttonPressed);
 }
 
 
 Command *MBotStateContext::buttonReleasedCommand(void)
 {
-    return new ButtonReleasedCommand(this);
+    return new ContextEventCommand(this, &MBotStateContext::buttonReleased);
 }
 
 
 Command *MBotStateContext::frontPathBlockedCommand(void)
 {
-    return new FrontPathBlockedCommand(this);
+    return new ContextEventCommand(this, &MBotStateContext::frontPathBlocked);
 }
 
 
 Command *MBotStateContext::frontPathClearedCommand(void)
 {
-    return new FrontPathClearedCommand(this);
+    return new ContextEventCommand(this, &MBotStateContext::frontPathCleared);
 }
 
 
