@@ -21,8 +21,9 @@ TaskRunner::TaskRunner(void)
 
 void TaskRunner::tick(void)
 {
-    for (unsigned int i = 0; i < _count; ++i)
-        _tasks[i]->tick();
+    while (true)
+        for (unsigned int i = 0; i < _count; ++i)
+            _tasks[i]->tick();
 }
 
 

@@ -67,7 +67,7 @@ public:
     ControllerDigitalPin(uint8_t pin, bool pullup = false)
     :   _pin(pin),
         _pullup(pullup)
-    { setMode(pullupMode()); }
+    { setMode(OUTPUT); }
 
     void setLow(void)
     { setWriteMode(); digitalWrite(_pin, LOW); }

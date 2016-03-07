@@ -13,8 +13,8 @@
 #include "robot.h"
 
 
-Tickable *idleloop;
-MBotFactory factory;
+static Tickable *idleloop;
+static MBotFactory factory;
 
 
 void createRobot(void)
@@ -40,11 +40,6 @@ void setup()
 
 void loop()
 {
-    // uint16_t enter_tick = millis();
-
+    Robot::setMillis(millis());
     idleloop->tick();
-
-    // uint16_t tick_time = millis() - enter_tick;
-    // if (tick_time < tick_delay)
-    //     delay(tick_delay - tick_time);
 }

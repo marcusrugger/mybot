@@ -15,4 +15,5 @@ void MBotDirector::buildRobot(void)
     _builder.buildCommandButtonProcessor();
     _builder.buildUltrasonicProcessor();
     _builder.buildLightProcessor();
+    // _builder.buildBuzzer();
 }

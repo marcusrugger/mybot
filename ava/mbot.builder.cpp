@@ -10,6 +10,7 @@
 #include "commands.h"
 #include "mbot.statemachine.h"
 #include "hardware.ultrasonic.h"
+#include "hardware.buzzer.h"
 #include "subject.distance.h"
 #include "subject.lightlatch.h"
 
@@ -58,4 +59,11 @@ void MBotBuilder::buildLightProcessor(void)
 {
     LightLatchSubject *subject = _factory.assembleLightLatchSubject(PIN_MCORE_LIGHT_SENSOR);
     _robot->scheduler()->schedule(subject);
+}
+
+
+void MBotBuilder::buildBuzzer(void)
+{
+    SimpleBuzzer *buzzer = _factory.assembleBuzzer(PIN_MCORE_BUZZER);
+    _robot->scheduler()->schedule(buzzer);
 }

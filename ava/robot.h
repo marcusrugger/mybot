@@ -12,6 +12,11 @@ class Robot
 {
 public:
 
+    static void setMillis(unsigned long millis);
+    static unsigned long getMillis(void);
+
+public:
+
     static Robot *createRobot(RobotFactory &factory);
     static Robot *instance(void);
 
@@ -28,12 +33,14 @@ private:
     Robot(RobotFactory &factory);
 
     static Robot *_instance;
+    static unsigned long _millis;
 
     RobotFactory    &_factory;
     Scheduler       *_scheduler;
     Tickable        *_idleloop;
     Moveable        *_movement;
     CommandQueue    *_commandQueue;
+    SimpleBuzzer    *_buzzer;
 
 };
 

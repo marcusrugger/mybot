@@ -45,6 +45,8 @@ MBotStateMachine *MBotIdleState::instance(void)
 void MBotIdleState::buttonReleased(MBotStateContext *context)
 {
     // Serial.println("MBotIdleState::buttonReleased");
+    Robot::instance()->alertUser();
+
     MoveCommand::queue(MoveCommand::FORWARD);
     context->changeState(MBotMovingState::instance());
 }

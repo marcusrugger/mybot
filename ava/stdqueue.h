@@ -49,7 +49,12 @@ public:
     bool isEmpty(void) { return _count == 0;         }
     bool isFull(void)  { return _count == MAX_QUEUE; }
     bool isMore(void)  { return _count > 0;          }
-    void reset(void)   { _pushidx = _pullidx = _count = 0; }
+
+    void reset(void)
+    {
+        while (isMore())
+            delete pull();
+    }
 
 private:
 

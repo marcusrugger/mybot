@@ -9,6 +9,7 @@ class AnalogPinReader;
 class ButtonSubject;
 class DistanceSubject;
 class LightLatchSubject;
+class SimpleBuzzer;
 
 class CommandQueue;
 
@@ -141,6 +142,7 @@ public:
     virtual ButtonSubject       *assembleButtonSubject(int pinNumber) = 0;
     virtual DistanceSubject     *assembleUltrasonicSubject(int pinNumber) = 0;
     virtual LightLatchSubject   *assembleLightLatchSubject(int pinNumber) = 0;
+    virtual SimpleBuzzer        *assembleBuzzer(int pinNumber) = 0;
 
 };
 
@@ -160,6 +162,7 @@ public:
     virtual ButtonSubject       *assembleButtonSubject(int pinNumber) = 0;
     virtual DistanceSubject     *assembleUltrasonicSubject(int pinNumber) = 0;
     virtual LightLatchSubject   *assembleLightLatchSubject(int pinNumber) = 0;
+    virtual SimpleBuzzer        *assembleBuzzer(int pinNumber) = 0;
 
 };
 
@@ -172,6 +175,7 @@ public:
     virtual void buildCommandButtonProcessor(void) = 0;
     virtual void buildUltrasonicProcessor(void) = 0;
     virtual void buildLightProcessor(void) = 0;
+    virtual void buildBuzzer(void) = 0;
 
 };
 

@@ -39,4 +39,15 @@ private:
 };
 
 
+class BuzzerCommand : public Command
+{
+public:
+
+    static bool queue(void);
+
+    void execute(void);
+
+};
+
+
 #endif

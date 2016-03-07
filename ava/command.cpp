@@ -2,6 +2,7 @@
 #include "mbot.statemachine.h"
 #include "robot.h"
 #include "latch.timer.h"
+#include "hardware.buzzer.h"
 
 
 bool MoveCommand::queue(DIRECTION dir, int milli)
@@ -55,4 +56,17 @@ void MoveCommand::execute(void)
 
     if (_queue && _milli)
         _queue->setLatch(new TimerLatch(_milli));
+}
+
+
+bool BuzzerCommand::queue(void)
+{
+    CommandQueue *queue = Robot::instance()->commandQueue();
+    return queue->add(new BuzzerCommand());
+}
+
+
+void BuzzerCommand::execute(void)
+{
+    Robot::instance()->alertUser();
 }

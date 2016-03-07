@@ -11,6 +11,7 @@
 #include "commandqueue.h"
 #include "hardware.button.h"
 #include "hardware.ultrasonic.h"
+#include "hardware.buzzer.h"
 
 
 MBotFactory::MBotFactory(void)
@@ -81,4 +82,11 @@ LightLatchSubject *MBotFactory::assembleLightLatchSubject(int pinNumber)
 {
     AnalogPinReader *pin = createAnalogPinReader(pinNumber, INPUT);
     return LightLatchSubject::create(pin);
+}
+
+
+SimpleBuzzer *MBotFactory::assembleBuzzer(int pinNumber)
+{
+    DigitalPin *pin = new ControllerDigitalPin(PIN_MCORE_BUZZER);
+    return SimpleBuzzer::create(pin);
 }
