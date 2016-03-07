@@ -16,8 +16,8 @@ void LightLatchSubject::tick(void)
 {
     int value = _pin->readPin();
 
-    Serial.print("LatchLightSubject::tick: value: ");
-    Serial.println(value);
+    // Serial.print("LatchLightSubject::tick: value: ");
+    // Serial.println(value);
 
     if      (changeStateToDark(value))   setState(DARK);
     else if (changeStateToDim(value))    setState(DIM);

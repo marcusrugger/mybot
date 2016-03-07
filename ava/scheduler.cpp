@@ -23,7 +23,6 @@ void TaskRunner::tick(void)
 {
     while (true)
     {
-        Robot::setMillis(millis());
         for (unsigned int i = 0; i < _count; ++i)
             _tasks[i]->tick();
     }

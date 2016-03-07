@@ -12,11 +12,6 @@ class Robot
 {
 public:
 
-    static void setMillis(unsigned long millis);
-    static unsigned long getMillis(void);
-
-public:
-
     static Robot *createRobot(RobotFactory &factory);
     static Robot *instance(void);
 

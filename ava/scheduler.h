@@ -42,7 +42,7 @@ public:
 
     void setTimer(unsigned long milli)
     {
-        _wait_start = Robot::getMillis();
+        _wait_start = millis();
         _wait_time = milli;
     }
 
@@ -50,7 +50,7 @@ public:
     {
         if (isTriggered())
         {
-            _wait_start = Robot::getMillis();
+            _wait_start = millis();
             _tickee->tick();
         }
     }
@@ -65,7 +65,7 @@ private:
 
 
     bool isTriggered(void)
-    { return Robot::getMillis() - _wait_start > _wait_time; }
+    { return millis() - _wait_start > _wait_time; }
 
 };
 

@@ -8,14 +8,6 @@ Robot *Robot::_instance = NULL;
 unsigned long Robot::_millis;
 
 
-void Robot::setMillis(unsigned long millis)
-{ _millis = millis; }
-
-
-unsigned long Robot::getMillis(void)
-{ return _millis; }
-
-
 Robot *Robot::createRobot(RobotFactory &factory)
 {
     if (NULL == _instance)
