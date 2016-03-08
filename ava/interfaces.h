@@ -80,6 +80,14 @@ public:
 };
 
 
+class Latch
+{
+public:
+    virtual ~Latch(void) {}
+    virtual bool isLatched(void) = 0;
+};
+
+
 class Scheduler
 {
 public:
@@ -100,17 +108,6 @@ public:
 
     virtual void attach(Observer *observer) = 0;
     virtual void detach(const Observer *observer) = 0;
-
-};
-
-
-class Latch
-{
-public:
-
-    virtual ~Latch(void) {}
-
-    virtual bool isLatched(void) = 0;
 
 };
 

@@ -34,8 +34,8 @@ class Timer : public Runnable
 {
 public:
 
-    Timer(Runnable *tickee, unsigned long milli)
-    :   _tickee(tickee)
+    Timer(Runnable *task, unsigned long milli)
+    :   _task(task)
     {
         setTimer(milli);
     }
@@ -51,14 +51,14 @@ public:
         if (isTriggered())
         {
             _wait_start = millis();
-            _tickee->run();
+            _task->run();
         }
     }
 
 
 private:
 
-    Runnable *_tickee;
+    Runnable *_task;
     unsigned long _wait_time;
     unsigned long _wait_start;
     bool _paused;
