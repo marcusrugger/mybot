@@ -1,21 +1,21 @@
-#ifndef HARDWARE_RGBLED_H
-#define HARDWARE_RGBLED_H
+#ifndef HARDWARE_RGBLEDWRITER_H
+#define HARDWARE_RGBLEDWRITER_H
 
 #include <Arduino.h>
 
 
-class RGBLed
+class RGBLedWriter
 {
 public:
 
-    static RGBLed *create(int pinNumber);
+    static RGBLedWriter *create(int pinNumber);
 
     void writeData(uint8_t *array, uint16_t length);
 
 
 private:
 
-    RGBLed(int pinNumber);
+    RGBLedWriter(int pinNumber);
 
     const volatile uint8_t *_ws2812_port;
 

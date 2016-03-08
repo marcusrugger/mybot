@@ -1,13 +1,13 @@
-#include "hardware.rgbled.h"
+#include "hardware.rgbledwriter.h"
 
 
-RGBLed *RGBLed::create(int pinNumber)
+RGBLedWriter *RGBLedWriter::create(int pinNumber)
 {
-    return new RGBLed(pinNumber);
+    return new RGBLedWriter(pinNumber);
 }
 
 
-RGBLed::RGBLed(int pinNumber)
+RGBLedWriter::RGBLedWriter(int pinNumber)
 :   _ws2812_port(portOutputRegister(digitalPinToPort(pinNumber))),
     _pinNumber(pinNumber),
     _pinMask(digitalPinToBitMask(pinNumber))
@@ -16,7 +16,7 @@ RGBLed::RGBLed(int pinNumber)
 }
 
 
-void RGBLed::writeData(uint8_t *array, uint16_t length)
+void RGBLedWriter::writeData(uint8_t *array, uint16_t length)
 {
     rgbled_sendarray_mask(array, length, _pinMask, _ws2812_port);
 }
@@ -83,7 +83,7 @@ void RGBLed::writeData(uint8_t *array, uint16_t length)
 #define w_nop8  w_nop4 w_nop4
 #define w_nop16 w_nop8 w_nop8
 
-void  RGBLed::rgbled_sendarray_mask(uint8_t *data, uint16_t datlen, uint8_t maskhi, const volatile uint8_t *port)
+void  RGBLedWriter::rgbled_sendarray_mask(uint8_t *data, uint16_t datlen, uint8_t maskhi, const volatile uint8_t *port)
 {
     uint8_t curbyte, ctr, masklo;
     uint8_t oldSREG = SREG;
