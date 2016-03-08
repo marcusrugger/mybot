@@ -5,7 +5,7 @@
 #include "mcore.h"
 
 
-class SimpleBuzzer : public Tickable
+class SimpleBuzzer : public Runnable
 {
 public:
 
@@ -15,7 +15,7 @@ public:
     void setBuzzerOn(void);
     void setBuzzerOff(void);
 
-    void tick(void);
+    void run(void);
 
 private:
 

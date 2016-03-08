@@ -6,16 +6,16 @@
 #include "robot.h"
 
 
-class TaskRunner : public Tickable,
+class TaskRunner : public Runnable,
                    public Scheduler
 {
 public:
 
     static TaskRunner *instance(void);
 
-    void tick(void);
-    void schedule(Tickable *task);
-    void unschedule(Tickable *task);
+    void run(void);
+    void schedule(Runnable *task);
+    void unschedule(Runnable *task);
 
 private:
 
@@ -24,17 +24,17 @@ private:
     static TaskRunner *_instance;
 
     static const unsigned int MAX_TASKS = 8;
-    Tickable *_tasks[MAX_TASKS];
+    Runnable *_tasks[MAX_TASKS];
     unsigned int _count = 0;
 
 };
 
 
-class Timer : public Tickable
+class Timer : public Runnable
 {
 public:
 
-    Timer(Tickable *tickee, unsigned long milli)
+    Timer(Runnable *tickee, unsigned long milli)
     :   _tickee(tickee)
     {
         setTimer(milli);
@@ -46,19 +46,19 @@ public:
         _wait_time = milli;
     }
 
-    void tick(void)
+    void run(void)
     {
         if (isTriggered())
         {
             _wait_start = millis();
-            _tickee->tick();
+            _tickee->run();
         }
     }
 
 
 private:
 
-    Tickable *_tickee;
+    Runnable *_tickee;
     unsigned long _wait_time;
     unsigned long _wait_start;
     bool _paused;

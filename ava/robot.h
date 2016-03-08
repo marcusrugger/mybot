@@ -4,7 +4,7 @@
 #include "interfaces.h"
 
 class Scheduler;
-class Tickable;
+class Runnable;
 class CommandQueue;
 
 
@@ -17,7 +17,7 @@ public:
 
     RobotFactory    &factory(void)      { return _factory;      }
     Scheduler       *scheduler(void)    { return _scheduler;    }
-    Tickable        *idleloop(void)     { return _idleloop;     }
+    Runnable        *idleloop(void)     { return _idleloop;     }
     Moveable        *movement(void)     { return _movement;     }
     CommandQueue    *commandQueue(void) { return _commandQueue; }
 
@@ -32,7 +32,7 @@ private:
 
     RobotFactory    &_factory;
     Scheduler       *_scheduler;
-    Tickable        *_idleloop;
+    Runnable        *_idleloop;
     Moveable        *_movement;
     CommandQueue    *_commandQueue;
     SimpleBuzzer    *_buzzer;

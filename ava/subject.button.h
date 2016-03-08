@@ -5,7 +5,7 @@
 
 
 class ButtonSubject : public BaseSubject,
-                      public Tickable
+                      public Runnable
 {
 public:
 
@@ -15,7 +15,7 @@ public:
 
 protected:
 
-    void tick(void);
+    void run(void);
 
 private:
 

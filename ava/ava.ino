@@ -13,7 +13,7 @@
 #include "robot.h"
 
 
-static Tickable *idleloop;
+static Runnable *idleloop;
 static MBotFactory factory;
 
 
@@ -40,5 +40,5 @@ void setup()
 
 void loop()
 {
-    idleloop->tick();
+    idleloop->run();
 }

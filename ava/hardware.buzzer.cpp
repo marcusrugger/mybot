@@ -42,7 +42,7 @@ void SimpleBuzzer::setBuzzerOff(void)
 }
 
 
-void SimpleBuzzer::tick(void)
+void SimpleBuzzer::run(void)
 {
     if (_buzzerOn && isTimeExpired())
     {

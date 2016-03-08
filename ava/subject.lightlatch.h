@@ -5,7 +5,7 @@
 
 
 class LightLatchSubject : public BaseSubject,
-                          public Tickable
+                          public Runnable
 {
 public:
 
@@ -18,7 +18,7 @@ public:
 
     static LightLatchSubject *create(AnalogPinReader *pin);
 
-    void tick(void);
+    void run(void);
 
     LIGHTLEVEL getState(void);
 

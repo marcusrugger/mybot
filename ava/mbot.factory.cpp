@@ -24,13 +24,13 @@ Scheduler *MBotFactory::createScheduler(void)
 }
 
 
-Tickable *MBotFactory::createIdleloop(void)
+Runnable *MBotFactory::createIdleloop(void)
 {
     return TaskRunner::instance();
 }
 
 
-Tickable *MBotFactory::createTimer(Tickable *tickee, uint16_t milli)
+Runnable *MBotFactory::createTimer(Runnable *tickee, uint16_t milli)
 {
     return new Timer(tickee, milli);
 }

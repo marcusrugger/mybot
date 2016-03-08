@@ -12,11 +12,11 @@ DistanceSubject::DistanceSubject(DistanceProvider *distanceProvider)
 {}
 
 
-void DistanceSubject::tick(void)
+void DistanceSubject::run(void)
 {
     unsigned long d = _distanceProvider->distance();
 
-    // Serial.print("DistanceSubject::tick: distance: ");
+    // Serial.print("DistanceSubject::run: distance: ");
     // Serial.println(d);
 
     if (changeStateToBlocked(d))

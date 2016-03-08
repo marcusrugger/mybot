@@ -12,11 +12,11 @@ LightLatchSubject::LightLatchSubject(AnalogPinReader *pin)
 {}
 
 
-void LightLatchSubject::tick(void)
+void LightLatchSubject::run(void)
 {
     int value = _pin->readPin();
 
-    // Serial.print("LatchLightSubject::tick: value: ");
+    // Serial.print("LatchLightSubject::run: value: ");
     // Serial.println(value);
 
     if      (changeStateToDark(value))   setState(DARK);

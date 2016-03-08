@@ -12,7 +12,7 @@ ButtonProvider::ButtonState ButtonSubject::getButtonState(void)
 }
 
 
-void ButtonSubject::tick(void)
+void ButtonSubject::run(void)
 {
     ButtonProvider::ButtonState current_state = _provider->getButtonState();
     if (current_state != _state)

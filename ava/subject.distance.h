@@ -9,7 +9,7 @@
 
 
 class DistanceSubject : public BaseSubject,
-                        public Tickable
+                        public Runnable
 {
 public:
 
@@ -22,7 +22,7 @@ public:
         FAR         // Distances > MAX_DISTANCE_NEAR
     };
 
-    void tick(void);
+    void run(void);
 
     bool isBlocked(void)        { return _isBlocked; };
     DISTANCE getState(void)     { return _state;     }

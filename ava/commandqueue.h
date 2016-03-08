@@ -5,7 +5,7 @@
 #include "stdqueue.h"
 
 
-class CommandQueue : public Tickable
+class CommandQueue : public Runnable
 {
 public:
 
@@ -15,7 +15,7 @@ public:
     void reset(void);
     void setLatch(Latch *latch);
 
-    void tick(void);
+    void run(void);
 
 
 private:

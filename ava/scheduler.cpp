@@ -19,24 +19,24 @@ TaskRunner::TaskRunner(void)
 {}
 
 
-void TaskRunner::tick(void)
+void TaskRunner::run(void)
 {
     while (true)
     {
         for (unsigned int i = 0; i < _count; ++i)
-            _tasks[i]->tick();
+            _tasks[i]->run();
     }
 }
 
 
-void TaskRunner::schedule(Tickable *task)
+void TaskRunner::schedule(Runnable *task)
 {
     if (_count < MAX_TASKS)
         _tasks[_count++] = task;
 }
 
 
-void TaskRunner::unschedule(Tickable *task)
+void TaskRunner::unschedule(Runnable *task)
 {
     unsigned int is, id;
     for (is = id = 0; is < _count; )

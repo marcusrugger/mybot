@@ -29,7 +29,7 @@ void CommandQueue::setLatch(Latch *latch)
 }
 
 
-void CommandQueue::tick(void)
+void CommandQueue::run(void)
 {
     if (isWaitingOnLatch())
         return;
