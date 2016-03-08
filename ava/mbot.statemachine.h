@@ -26,13 +26,6 @@ public:
 
     static MBotStateContext *instance(void);
 
-    MBotStateContext(void);
-
-    void buttonPressed(void);
-    void buttonReleased(void);
-    void frontPathBlocked(void);
-    void frontPathCleared(void);
-
     void changeState(MBotStateMachine *state);
     bool queueChangeState(MBotStateMachine *state);
 
@@ -55,6 +48,13 @@ public:
 
 
 private:
+
+    MBotStateContext(void);
+
+    void buttonPressed(void);
+    void buttonReleased(void);
+    void frontPathBlocked(void);
+    void frontPathCleared(void);
 
     static MBotStateContext *_instance;
     MBotStateMachine *_state;
