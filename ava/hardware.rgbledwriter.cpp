@@ -16,9 +16,9 @@ RGBLedWriter::RGBLedWriter(int pinNumber)
 }
 
 
-void RGBLedWriter::writeData(uint8_t *array, uint16_t length)
+void RGBLedWriter::writeData(uint8_t *data, uint16_t length)
 {
-    rgbled_sendarray_mask(array, length, _pinMask, _ws2812_port);
+    rgbled_sendarray_mask(data, length, _pinMask, _ws2812_port);
 }
 
 
