@@ -16,7 +16,7 @@ RGBLedArray::RGBLedArray(DataSerializer *writer, uint8_t ledCount)
 }
 
 
-void RGBLedArray::writeArray(void)
+void RGBLedArray::show(void)
 {
     _writer->writeData((uint8_t *) _grbArray, sizeof(GRB) * _ledCount);
 }

@@ -16,20 +16,20 @@ public:
         uint8_t _red;
         uint8_t _blue;
 
-        void setRed(uint8_t red)
+        inline void setRed(uint8_t red)
         { _red = red; }
 
-        void setGreen(uint8_t green)
+        inline void setGreen(uint8_t green)
         { _green = green; }
 
-        void setBlue(uint8_t blue)
+        inline void setBlue(uint8_t blue)
         { _blue = blue; }
 
-        void setRGB(uint8_t red, uint8_t green, uint8_t blue)
+        inline void setRGB(uint8_t red, uint8_t green, uint8_t blue)
         { setRed(red); setGreen(green); setBlue(blue); }
     };
 
-    void writeArray(void);
+    void show(void);
     GRB &operator[](uint8_t index);
 
 private:
