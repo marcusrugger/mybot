@@ -11,6 +11,7 @@ public:
     static RGBLedArray *create(RGBLedWriter *writer, uint8_t ledCount);
 
     void writeArray(void);
+    RGBLedWriter::GRB &operator[](uint8_t index);
 
 private:
 
@@ -19,14 +20,7 @@ private:
     RGBLedWriter *_writer;
     uint8_t _ledCount;
 
-    struct GRB
-    {
-        uint8_t green;
-        uint8_t red;
-        uint8_t blue;
-    };
-
-    GRB *_grbArray;
+    RGBLedWriter::GRB *_grbArray;
 
 };
 
