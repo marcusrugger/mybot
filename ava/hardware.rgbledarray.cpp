@@ -11,7 +11,9 @@ RGBLedArray::RGBLedArray(DataSerializer *writer, uint8_t ledCount)
 :   _writer(writer),
     _ledCount(ledCount),
     _grbArray(new GRB[ledCount])
-{}
+{
+    for (int a = 0; a < _ledCount; _grbArray[a++].setRGB(0, 0, 0));
+}
 
 
 void RGBLedArray::writeArray(void)
