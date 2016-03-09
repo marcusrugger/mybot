@@ -88,6 +88,13 @@ public:
 };
 
 
+class DataSerializer
+{
+public:
+    virtual ~DataSerializer(void) {}
+    virtual void writeData(uint8_t *data, uint16_t length) = 0;
+};
+
 class Scheduler
 {
 public:

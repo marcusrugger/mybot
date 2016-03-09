@@ -2,15 +2,8 @@
 #define HARDWARE_RGBLEDWRITER_H
 
 #include <Arduino.h>
+#include "interfaces.h"
 
-
-class DataSerializer
-{
-public:
-
-    virtual ~DataSerializer(void) {}
-    virtual void writeData(uint8_t *data, uint16_t length) = 0;
-};
 
 
 class RGBLedWriter : public DataSerializer

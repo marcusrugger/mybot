@@ -1,7 +1,7 @@
 #ifndef HARDWARE_RGBLEDARRAY_H
 #define HARDWARE_RGBLEDARRAY_H
 
-#include "hardware.rgbledwriter.h"
+#include "interfaces.h"
 
 
 class RGBLedArray
