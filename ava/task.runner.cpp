@@ -21,11 +21,8 @@ TaskRunner::TaskRunner(void)
 
 void TaskRunner::run(void)
 {
-    while (true)
-    {
-        for (unsigned int i = 0; i < _count; ++i)
-            _tasks[i]->run();
-    }
+    for (unsigned int i = 0; i < _count; ++i)
+        _tasks[i]->run();
 }
 
 

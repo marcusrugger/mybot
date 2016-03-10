@@ -23,8 +23,6 @@ void createRobot(void)
     MBotDirector    director(builder);
 
     director.buildRobot();
-
-    idleloop = Robot::instance()->idleloop();
 }
 
 
@@ -33,6 +31,7 @@ void setup()
     Serial.begin(9600);
 
     createRobot();
+    idleloop = Robot::instance()->idleloop();
 
     Serial.println("Setup complete.");
 }
