@@ -11,8 +11,11 @@
 #include "mbot.statemachine.h"
 #include "hardware.ultrasonic.h"
 #include "hardware.buzzer.h"
+#include "hardware.rgbledwriter.h"
+#include "hardware.rgbledarray.h"
 #include "subject.distance.h"
 #include "subject.lightlatch.h"
+#include "task.blinker.h"
 
 
 MBotBuilder::MBotBuilder(RobotFactory &factory)
@@ -69,4 +72,14 @@ void MBotBuilder::buildBuzzer(void)
 {
     SimpleBuzzer *buzzer = _factory.assembleBuzzer(PIN_MCORE_BUZZER);
     _robot->scheduler()->schedule(buzzer);
+}
+
+
+void MBotBuilder::buildBlinker(void)
+{
+    RGBLedWriter *writer   = RGBLedWriter::create(PIN_MCORE_LEDS);
+    RGBLedArray  *ledArray = RGBLedArray::create(writer, 2);
+    BlinkerTask  *blinker  = BlinkerTask::create(ledArray);
+    Runnable     *timer    = _factory.createTimer(blinker, 1000);
+    _robot->scheduler()->schedule(timer);
 }

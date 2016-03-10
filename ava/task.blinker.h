@@ -8,7 +8,7 @@ class BlinkerTask : public Runnable
 {
 public:
 
-    BlinkerTask *create(RGBLedArray *leds);
+    static BlinkerTask *create(RGBLedArray *leds);
 
     void run(void);
 

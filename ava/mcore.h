@@ -77,6 +77,7 @@ const bool MOTOR_LEFT_REVERSE       = true;
 const uint8_t PIN_MCORE_IR_RCV              = 2;
 const uint8_t PIN_MCORE_IR_TX               = 3;
 const uint8_t PIN_MCORE_BUZZER              = 8;
+const uint8_t PIN_MCORE_LEDS                = 13;
 
 
 inline void enableInterrupts(void)

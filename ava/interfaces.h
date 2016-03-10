@@ -192,6 +192,7 @@ public:
     virtual void buildCommandButtonProcessor(void) = 0;
     virtual void buildUltrasonicProcessor(void) = 0;
     virtual void buildLightProcessor(void) = 0;
+    virtual void buildBlinker(void) = 0;
     virtual void buildBuzzer(void) = 0;
 
 };
