@@ -20,13 +20,13 @@ void BlinkerTask::run(void)
     flag = !flag;
     if (flag)
     {
-        (*_leds)[0].setRGB(0, 0, 0);
-        (*_leds)[1].setRGB(32, 32, 32);
+        (*_leds)[0].setRGB(32, 16, 8);
+        (*_leds)[1].setRGB(8, 16, 32);
     }
     else
     {
-        (*_leds)[0].setRGB(32, 32, 32);
-        (*_leds)[1].setRGB(0, 0, 0);
+        (*_leds)[0].setRGB(8, 16, 32);
+        (*_leds)[1].setRGB(32, 16, 8);
     }
 
     _leds->show();

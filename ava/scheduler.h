@@ -29,44 +29,4 @@ private:
 
 };
 
-
-class Timer : public Runnable
-{
-public:
-
-    Timer(Runnable *task, unsigned long milli)
-    :   _task(task)
-    {
-        setTimer(milli);
-    }
-
-    void setTimer(unsigned long milli)
-    {
-        _wait_start = millis();
-        _wait_time = milli;
-    }
-
-    void run(void)
-    {
-        if (isTriggered())
-        {
-            _wait_start = millis();
-            _task->run();
-        }
-    }
-
-
-private:
-
-    Runnable *_task;
-    unsigned long _wait_time;
-    unsigned long _wait_start;
-    bool _paused;
-
-
-    bool isTriggered(void)
-    { return millis() - _wait_start > _wait_time; }
-
-};
-
 #endif

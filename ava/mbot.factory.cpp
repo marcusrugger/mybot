@@ -12,6 +12,7 @@
 #include "hardware.button.h"
 #include "hardware.ultrasonic.h"
 #include "hardware.buzzer.h"
+#include "task.timer.h"
 
 
 MBotFactory::MBotFactory(void)
@@ -32,7 +33,7 @@ Runnable *MBotFactory::createIdleloop(void)
 
 Runnable *MBotFactory::createTimer(Runnable *tickee, uint16_t milli)
 {
-    return new Timer(tickee, milli);
+    return new TimerTask(tickee, milli);
 }
 
 

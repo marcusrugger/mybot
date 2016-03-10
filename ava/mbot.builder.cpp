@@ -80,6 +80,6 @@ void MBotBuilder::buildBlinker(void)
     RGBLedWriter *writer   = RGBLedWriter::create(PIN_MCORE_LEDS);
     RGBLedArray  *ledArray = RGBLedArray::create(writer, 2);
     BlinkerTask  *blinker  = BlinkerTask::create(ledArray);
-    Runnable     *timer    = _factory.createTimer(blinker, 1000);
+    Runnable     *timer    = _factory.createTimer(blinker, 200);
     _robot->scheduler()->schedule(timer);
 }
