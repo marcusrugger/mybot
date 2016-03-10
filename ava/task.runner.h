@@ -1,5 +1,5 @@
-#ifndef SCHEDULER_H
-#define SCHEDULER_H
+#ifndef TASK_RUNNER_H
+#define TASK_RUNNER_H
 
 #include "mcore.h"
 #include "interfaces.h"
