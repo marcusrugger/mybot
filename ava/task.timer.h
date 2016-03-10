@@ -22,7 +22,7 @@ private:
     bool _paused;
 
 
-    inline bool isTriggered(void)
+    inline bool isTimeExpired(void)
     { return millis() - _wait_start > _wait_time; }
 
 };

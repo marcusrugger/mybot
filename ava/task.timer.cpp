@@ -17,7 +17,7 @@ void TimerTask::setTimer(unsigned long milli)
 
 void TimerTask::run(void)
 {
-    if (isTriggered())
+    if (isTimeExpired())
     {
         _wait_start = millis();
         _task->run();

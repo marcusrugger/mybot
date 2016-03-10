@@ -1,10 +1,5 @@
 #include <Arduino.h>
 
-/* Includes ------------------------------------------------------------------*/
-#include <stdint.h>
-#include <stdbool.h>
-#include <Arduino.h>
-
 #include "mcore.h"
 #include "interfaces.h"
 #include "mbot.factory.h"

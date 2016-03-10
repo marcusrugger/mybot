@@ -13,6 +13,7 @@ RGBLedArray::RGBLedArray(DataSerializer *writer, uint8_t ledCount)
     _grbArray(new GRB[ledCount])
 {
     for (int a = 0; a < _ledCount; _grbArray[a++].setRGB(0, 0, 0));
+    show();
 }
 
 
