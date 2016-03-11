@@ -49,33 +49,4 @@ private:
     void setStateToFar(void);
 };
 
-
-class DistanceObserver : public Observer
-{
-public:
-
-    DistanceObserver(DistanceSubject *subject, Command *pathBlocked, Command *pathCleared)
-    :   _subject(subject),
-        _pathBlocked(pathBlocked),
-        _pathCleared(pathCleared)
-    {}
-
-
-    void update(void)
-    {
-        if (_subject->isBlocked())
-            _pathBlocked->execute();
-        else
-            _pathCleared->execute();
-    }
-
-
-private:
-
-    DistanceSubject *_subject;
-    Command *_pathBlocked;
-    Command *_pathCleared;
-
-};
-
 #endif

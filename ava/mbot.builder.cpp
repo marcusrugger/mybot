@@ -6,6 +6,7 @@
 #include "hardware.button.h"
 #include "subject.button.h"
 #include "observer.button.h"
+#include "observer.distance.h"
 #include "robot.h"
 #include "commands.h"
 #include "mbot.statemachine.h"
