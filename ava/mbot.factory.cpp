@@ -3,7 +3,7 @@
 #include "motor.h"
 #include "motion.h"
 #include "task.runner.h"
-#include "subject.h"
+#include "subject.base.h"
 #include "observer.button.h"
 #include "robot.h"
 #include "subject.distance.h"

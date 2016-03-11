@@ -1,4 +1,4 @@
-#include "subject.h"
+#include "subject.base.h"
 
 
 void BaseSubject::attach(Observer *observer)

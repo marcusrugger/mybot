@@ -1,7 +1,7 @@
 #ifndef SUBJECT_BUTTON_H
 #define SUBJECT_BUTTON_H
 
-#include "subject.h"
+#include "subject.base.h"
 
 
 class ButtonSubject : public BaseSubject,

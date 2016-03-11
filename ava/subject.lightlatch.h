@@ -1,7 +1,7 @@
 #ifndef SUBJECT_LIGHTLATCH_H
 #define SUBJECT_LIGHTLATCH_H
 
-#include "subject.h"
+#include "subject.base.h"
 
 
 class LightLatchSubject : public BaseSubject,

@@ -1,7 +1,7 @@
 #include "mcore.h"
 #include "mbot.director.h"
 #include "robot.h"
-#include "subject.h"
+#include "subject.base.h"
 
 
 MBotDirector::MBotDirector(RobotBuilder &builder)
