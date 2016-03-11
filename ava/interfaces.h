@@ -164,12 +164,12 @@ class RobotFactory
 {
 public:
 
-    // virtual ~RobotFactory(void) {}
+    virtual ~RobotFactory(void) {}
 
     virtual Scheduler           *createScheduler(void) = 0;
     virtual Runnable            *createIdleloop(void) = 0;
     virtual Runnable            *createTimer(Runnable *tickee, uint16_t milli) = 0;
-    virtual CommandQueue        *createCommandQueue(void);
+    virtual CommandQueue        *createCommandQueue(void) = 0;
     virtual AnalogPinReader     *createAnalogPinReader(uint8_t pin, uint8_t mode) = 0;
     virtual Motor               *createMotor(uint8_t pinPwm, uint8_t pinDir, bool reverse = false) = 0;
 
