@@ -8,7 +8,7 @@
 #include "observer.button.h"
 #include "observer.distance.h"
 #include "robot.h"
-#include "commands.h"
+#include "command.move.h"
 #include "mbot.statemachine.h"
 #include "hardware.ultrasonic.h"
 #include "hardware.buzzer.h"

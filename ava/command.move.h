@@ -1,5 +1,5 @@
-#ifndef COMMANDS_H
-#define COMMANDS_H
+#ifndef COMMAND_MOVE_H
+#define COMMAND_MOVE_H
 
 #include "interfaces.h"
 #include "commandqueue.h"
@@ -35,17 +35,6 @@ private:
     Moveable *_move;
     CommandQueue *_queue;
     int _milli;
-
-};
-
-
-class BuzzerCommand : public Command
-{
-public:
-
-    static bool queue(void);
-
-    void execute(void);
 
 };
 

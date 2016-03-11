@@ -2,7 +2,7 @@
 #include "mbot.statemachine.h"
 #include "robot.h"
 #include "commandqueue.h"
-#include "commands.h"
+#include "command.move.h"
 
 
 void MBotStateMachine::buttonPressed(MBotStateContext *context)
