@@ -3,31 +3,29 @@
 
 #include "interfaces.h"
 #include "mcore.h"
+#include "task.timer.h"
 
 
 class SimpleBuzzer : public Runnable
 {
 public:
 
-    static SimpleBuzzer *create(DigitalPinWriter *pin);
+    static SimpleBuzzer *create(int pinNumber, Scheduler *scheduler);
 
-    void setBuzzer(bool flag);
-    void setBuzzerOn(void);
-    void setBuzzerOff(void);
-
-    void run(void);
+    void soundUserAlert(void);
 
 private:
 
-    SimpleBuzzer(DigitalPinWriter *ping);
+    SimpleBuzzer(int pinNumber, Scheduler *scheduler);
 
-    bool isTimeExpired(void);
+    static const int TONE = 200;
+    static const int DURATION = 500;
+    Scheduler *_scheduler;
+    int _pinNumber;
+    TimerTask _timer;
+    int _countDown;
 
-    DigitalPinWriter *_pin;
-    bool _buzzerOn;
-    bool _pinState;
-    unsigned long _wait_time;
-    unsigned long _wait_start;
+    void run(void);
 
 };
 

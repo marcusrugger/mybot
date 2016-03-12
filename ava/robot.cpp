@@ -31,12 +31,12 @@ Robot::Robot(RobotFactory &factory)
     _commandQueue   = factory.createCommandQueue();
     _movement       = factory.assembleMotionControl();
 
-    _buzzer = factory.assembleBuzzer(PIN_MCORE_BUZZER);
-    _scheduler->schedule(_buzzer);
+    _buzzer = SimpleBuzzer::create(PIN_MCORE_BUZZER, _scheduler);
 }
 
 
 void Robot::alertUser(void)
 {
-    _buzzer->setBuzzerOn();
+    // Serial.println("Robot::alertUser");
+    _buzzer->soundUserAlert();
 }

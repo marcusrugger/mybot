@@ -17,7 +17,6 @@ public:
     void buildCommandButtonProcessor(void);
     void buildUltrasonicProcessor(void);
     void buildLightProcessor(void);
-    void buildBuzzer(void);
     void buildBlinker(void);
 
 private:

@@ -45,8 +45,6 @@ MBotStateMachine *MBotIdleState::instance(void)
 void MBotIdleState::buttonReleased(MBotStateContext *context)
 {
     // Serial.println("MBotIdleState::buttonReleased");
-    Robot::instance()->alertUser();
-
     MoveCommand::queue(MoveCommand::FORWARD);
     context->changeState(MBotMovingState::instance());
 }
@@ -84,6 +82,7 @@ void MBotMovingState::frontPathBlocked(MBotStateContext *context)
 {
     // Serial.println("MBotMovingState::frontPathBlocked");
     Robot::instance()->commandQueue()->reset();
+    Robot::instance()->alertUser();
 
     MoveCommand::queue(MoveCommand::STOP, 100);
     MoveCommand::queue(MoveCommand::REVERSE, 1000);

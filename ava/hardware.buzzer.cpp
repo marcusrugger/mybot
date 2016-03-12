@@ -2,58 +2,36 @@
 #include "robot.h"
 
 
-SimpleBuzzer *SimpleBuzzer::create(DigitalPinWriter *pin)
+SimpleBuzzer *SimpleBuzzer::create(int pinNumber, Scheduler *scheduler)
 {
-    return new SimpleBuzzer(pin);
+    return new SimpleBuzzer(pinNumber, scheduler);
 }
 
 
-SimpleBuzzer::SimpleBuzzer(DigitalPinWriter *pin)
-:   _pin(pin),
-    _buzzerOn(false),
-    _pinState(false)
+SimpleBuzzer::SimpleBuzzer(int pinNumber, Scheduler *scheduler)
+:   _scheduler(scheduler),
+    _pinNumber(pinNumber),
+    _timer(this, 2 * DURATION),
+    _countDown(0)
+{}
+
+
+void SimpleBuzzer::soundUserAlert(void)
 {
-    _pin->setLow();
-}
+    // If user alert is already sounding, just return.
+    if (_countDown)
+        return;
 
-
-void SimpleBuzzer::setBuzzer(bool flag)
-{
-    if (flag)
-        setBuzzerOn();
-    else
-        setBuzzerOff();
-}
-
-
-void SimpleBuzzer::setBuzzerOn(void)
-{
-    _buzzerOn = true;
-    _wait_time = 2;
-    _wait_start = millis();
-}
-
-
-void SimpleBuzzer::setBuzzerOff(void)
-{
-    _buzzerOn = false;
-    _pinState = false;
-    _pin->setLow();
+    tone(_pinNumber, TONE, DURATION);
+    _scheduler->schedule(&_timer);
+    _timer.setTimer(2 * DURATION);
+    _countDown = 2;
 }
 
 
 void SimpleBuzzer::run(void)
 {
-    if (_buzzerOn && isTimeExpired())
-    {
-        _pinState = !_pinState;
-        _pin->set(_pinState);
-        _wait_start = millis();
-    }
-}
-
-
-bool SimpleBuzzer::isTimeExpired(void)
-{
-    return millis() - _wait_start > _wait_time;
+    tone(_pinNumber, TONE, DURATION);
+    if (--_countDown == 0)
+        _scheduler->unschedule(&_timer);
 }

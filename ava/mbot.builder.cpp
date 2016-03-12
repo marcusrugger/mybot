@@ -69,13 +69,6 @@ void MBotBuilder::buildLightProcessor(void)
 }
 
 
-void MBotBuilder::buildBuzzer(void)
-{
-    SimpleBuzzer *buzzer = _factory.assembleBuzzer(PIN_MCORE_BUZZER);
-    _robot->scheduler()->schedule(buzzer);
-}
-
-
 void MBotBuilder::buildBlinker(void)
 {
     RGBLedWriter *writer   = RGBLedWriter::create(PIN_MCORE_LEDS);

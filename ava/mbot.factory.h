@@ -24,7 +24,6 @@ public:
     ButtonSubject       *assembleButtonSubject(int pinNumber);
     DistanceSubject     *assembleUltrasonicSubject(int pinNumber);
     LightLatchSubject   *assembleLightLatchSubject(int pinNumber);
-    SimpleBuzzer        *assembleBuzzer(int pinNumber);
 
 };
 
