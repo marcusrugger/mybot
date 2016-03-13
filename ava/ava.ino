@@ -9,15 +9,14 @@
 
 
 static Runnable *idleloop;
-static MBotFactory factory;
+static ORION_PINMAP pinmap;
+static MBotFactory factory(&pinmap);
 
 
 void createRobot(void)
 {
-    MBotBuilder     builder(factory);
-    MBotDirector    director(builder);
-
-    director.buildRobot();
+    MBotBuilder builder(factory);
+    MBotDirector::buildOrion(builder);
 }
 
 
@@ -27,8 +26,6 @@ void setup()
 
     createRobot();
     idleloop = Robot::instance()->idleloop();
-
-    Serial.println("Setup complete.");
 }
 
 

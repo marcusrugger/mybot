@@ -15,7 +15,8 @@
 #include "task.timer.h"
 
 
-MBotFactory::MBotFactory(void)
+MBotFactory::MBotFactory(PINMAP *pinmap)
+:   _pinmap(pinmap)
 {}
 
 
@@ -57,8 +58,8 @@ Motor *MBotFactory::createMotor(uint8_t pinPwm, uint8_t pinDir, bool reverse)
 
 Moveable *MBotFactory::assembleMotionControl(void)
 {
-    Motor *motorLeft    = createMotor(PIN_MOTOR_LEFT_PWM, PIN_MOTOR_LEFT_DIR, MOTOR_LEFT_REVERSE);
-    Motor *motorRight   = createMotor(PIN_MOTOR_RIGHT_PWM, PIN_MOTOR_RIGHT_DIR, MOTOR_RIGHT_REVERSE);
+    Motor *motorLeft    = createMotor(_pinmap->motor_left_pwm, _pinmap->motor_left_dir, _pinmap->motor_left_reverse);
+    Motor *motorRight   = createMotor(_pinmap->motor_right_pwm, _pinmap->motor_right_dir, _pinmap->motor_right_reverse);
     return new MBotMotion(motorLeft, motorRight);
 }
 

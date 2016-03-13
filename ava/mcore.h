@@ -74,10 +74,60 @@ const bool MOTOR_RIGHT_REVERSE      = false;
 const bool MOTOR_LEFT_REVERSE       = true;
 
 
-const uint8_t PIN_MCORE_IR_RCV              = 2;
-const uint8_t PIN_MCORE_IR_TX               = 3;
-const uint8_t PIN_MCORE_BUZZER              = 8;
-const uint8_t PIN_MCORE_LEDS                = 13;
+const uint8_t PIN_MCORE_IR_RCV      = 2;
+const uint8_t PIN_MCORE_IR_TX       = 3;
+const uint8_t PIN_MCORE_BUZZER      = 8;
+const uint8_t PIN_MCORE_LEDS        = 13;
+
+
+const uint8_t PIN_ORION_BUZZER      = SCL;
+
+
+
+
+struct PINMAP
+{
+    uint8_t motor_right_dir;
+    uint8_t motor_right_pwm;
+    uint8_t motor_left_dir;
+    uint8_t motor_left_pwm;
+    uint8_t motor_left_reverse;
+    uint8_t motor_right_reverse;
+    uint8_t buzzer;
+    uint8_t ultrasonic_sensor_1;
+    uint8_t ultrasonic_sensor_2;
+    uint8_t led_array;
+
+    PINMAP(void)
+    {
+        motor_right_dir     = PIN_MOTOR_RIGHT_DIR;
+        motor_right_pwm     = PIN_MOTOR_RIGHT_PWM;
+        motor_left_dir      = PIN_MOTOR_LEFT_DIR;
+        motor_left_pwm      = PIN_MOTOR_LEFT_PWM;
+        motor_right_reverse = MOTOR_RIGHT_REVERSE;
+        motor_left_reverse  = MOTOR_LEFT_REVERSE;
+        buzzer              = PIN_MCORE_BUZZER;
+        ultrasonic_sensor_1 = PIN_MCORE_ULTRASONIC_SENSOR;
+        ultrasonic_sensor_2 = PIN_MCORE_ULTRASONIC_SENSOR;
+        led_array           = PIN_MCORE_LEDS;
+    }
+};
+
+
+struct MCORE_PINMAP : public PINMAP
+{
+    MCORE_PINMAP(void) : PINMAP() {}
+};
+
+
+struct ORION_PINMAP : public PINMAP
+{
+    ORION_PINMAP(void)
+    {
+        buzzer  = PIN_ORION_BUZZER;
+    }
+};
+
 
 
 inline void enableInterrupts(void)

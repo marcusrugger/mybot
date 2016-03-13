@@ -3,21 +3,13 @@
 
 #include "interfaces.h"
 
-class Robot;
-
 
 class MBotDirector
 {
 public:
 
-    MBotDirector(RobotBuilder &builder);
-
-    void buildRobot(void);
-
-
-private:
-
-    RobotBuilder &_builder;
+    static void buildMBot(RobotBuilder &builder);
+    static void buildOrion(RobotBuilder &builder);
 
 };
 

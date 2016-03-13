@@ -4,17 +4,19 @@
 #include "subject.base.h"
 
 
-MBotDirector::MBotDirector(RobotBuilder &builder)
-:   _builder(builder)
-{}
-
-
-void MBotDirector::buildRobot(void)
+void MBotDirector::buildMBot(RobotBuilder &builder)
 {
-    _builder.buildCommandQueue();
-    _builder.buildCommandButtonProcessor();
-    _builder.buildUltrasonicProcessor();
-    _builder.buildLightProcessor();
-    _builder.buildBlinker();
-    // _builder.buildBuzzer();
+    builder.buildCommandQueue();
+    builder.buildCommandButtonProcessor();
+    builder.buildUltrasonicProcessor();
+    builder.buildLightProcessor();
+    builder.buildBlinker();
+    // builder.buildBuzzer();
+}
+
+
+void MBotDirector::buildOrion(RobotBuilder &builder)
+{
+    builder.buildCommandQueue();
+    builder.buildUltrasonicProcessor();
 }

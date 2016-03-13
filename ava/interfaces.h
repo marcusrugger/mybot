@@ -120,6 +120,17 @@ public:
 };
 
 
+class Buzzer
+{
+public:
+
+    virtual ~Buzzer(void) {}
+
+    virtual void soundUserAlert(void);
+
+};
+
+
 class HardwareFactory
 {
 public:

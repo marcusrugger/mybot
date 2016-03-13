@@ -2,6 +2,7 @@
 #define MBOTFACTORY_H
 
 
+#include "mcore.h"
 #include "interfaces.h"
 
 class Moveable;
@@ -11,7 +12,7 @@ class MBotFactory : public RobotFactory
 {
 public:
 
-    MBotFactory(void);
+    MBotFactory(PINMAP *pinmap);
 
     Scheduler           *createScheduler(void);
     Runnable            *createIdleloop(void);
@@ -24,6 +25,10 @@ public:
     ButtonSubject       *assembleButtonSubject(int pinNumber);
     DistanceSubject     *assembleUltrasonicSubject(int pinNumber);
     LightLatchSubject   *assembleLightLatchSubject(int pinNumber);
+
+private:
+
+    PINMAP *_pinmap;
 
 };
 
