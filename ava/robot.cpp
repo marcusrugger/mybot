@@ -29,9 +29,8 @@ Robot::Robot(RobotFactory &factory)
     _scheduler      = factory.createScheduler();
     _idleloop       = factory.createIdleloop();
     _commandQueue   = factory.createCommandQueue();
+    _buzzer         = factory.createBuzzer();
     _movement       = factory.assembleMotionControl();
-
-    _buzzer = SimpleBuzzer::create(PIN_ORION_BUZZER, _scheduler);
 }
 
 

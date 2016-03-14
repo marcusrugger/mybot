@@ -81,6 +81,7 @@ const uint8_t PIN_MCORE_LEDS        = 13;
 
 
 const uint8_t PIN_ORION_BUZZER      = SCL;
+const uint8_t PIN_ORION_FRONT_SERVO = 12;
 
 
 
@@ -93,6 +94,7 @@ struct PINMAP
     uint8_t motor_left_pwm;
     uint8_t motor_left_reverse;
     uint8_t motor_right_reverse;
+    uint8_t front_servo;
     uint8_t buzzer;
     uint8_t ultrasonic_sensor_1;
     uint8_t ultrasonic_sensor_2;
@@ -124,7 +126,8 @@ struct ORION_PINMAP : public PINMAP
 {
     ORION_PINMAP(void)
     {
-        buzzer  = PIN_ORION_BUZZER;
+        front_servo = PIN_ORION_FRONT_SERVO;
+        buzzer      = PIN_ORION_BUZZER;
     }
 };
 
@@ -160,6 +163,10 @@ public:
     virtual ButtonState getButtonState(void) = 0;
 
 };
+
+
+class ServoProvider
+{};
 
 
 #endif

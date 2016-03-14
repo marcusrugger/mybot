@@ -56,6 +56,12 @@ Motor *MBotFactory::createMotor(uint8_t pinPwm, uint8_t pinDir, bool reverse)
 }
 
 
+Buzzer *MBotFactory::createBuzzer(void)
+{
+    return SimpleBuzzer::create(_pinmap->buzzer, TaskRunner::instance());
+}
+
+
 Moveable *MBotFactory::assembleMotionControl(void)
 {
     Motor *motorLeft    = createMotor(_pinmap->motor_left_pwm, _pinmap->motor_left_dir, _pinmap->motor_left_reverse);

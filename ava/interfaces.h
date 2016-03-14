@@ -126,7 +126,7 @@ public:
 
     virtual ~Buzzer(void) {}
 
-    virtual void soundUserAlert(void);
+    virtual void soundUserAlert(void) = 0;
 
 };
 
@@ -184,6 +184,7 @@ public:
     virtual CommandQueue        *createCommandQueue(void) = 0;
     virtual AnalogPinReader     *createAnalogPinReader(uint8_t pin, uint8_t mode) = 0;
     virtual Motor               *createMotor(uint8_t pinPwm, uint8_t pinDir, bool reverse = false) = 0;
+    virtual Buzzer              *createBuzzer(void) = 0;
 
     virtual Moveable            *assembleMotionControl(void) = 0;
     virtual ButtonSubject       *assembleButtonSubject(int pinNumber) = 0;

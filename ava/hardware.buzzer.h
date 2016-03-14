@@ -6,7 +6,8 @@
 #include "task.timer.h"
 
 
-class SimpleBuzzer : public Runnable
+class SimpleBuzzer : public Buzzer,
+                     public Runnable
 {
 public:
 

@@ -35,7 +35,7 @@ private:
     Runnable        *_idleloop;
     Moveable        *_movement;
     CommandQueue    *_commandQueue;
-    SimpleBuzzer    *_buzzer;
+    Buzzer          *_buzzer;
 
 };
 
