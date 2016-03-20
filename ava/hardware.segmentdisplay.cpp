@@ -30,6 +30,11 @@ const uint8_t SegmentDisplay::_hexToSegmentMap[] =
     0b01110001      // F
 };
 
+//                              .GFEDCBA
+const uint8_t CHAR_SPACE    = 0b00000000;
+const uint8_t CHAR_DASH     = 0b01000000;
+const uint8_t CHAR_DEGREE   = 0b01100011;
+
 
 SegmentDisplay *SegmentDisplay::create(DataSerializer *writer)
 {
@@ -57,9 +62,9 @@ void SegmentDisplay::showDec(uint16_t number)
 {
     uint8_t digits[4];
     digits[0] = getDecDigitSegmentMap( number / 1000 );
-    digits[1] = getDecDigitSegmentMap( number / 100 );
-    digits[2] = getDecDigitSegmentMap( number / 10 );
-    digits[3] = getDecDigitSegmentMap( number );
+    digits[1] = getDecDigitSegmentMap( number / 100  );
+    digits[2] = getDecDigitSegmentMap( number / 10   );
+    digits[3] = getDecDigitSegmentMap( number        );
     _writer->writeData(digits, 4);
 }
 
@@ -70,7 +75,7 @@ uint8_t SegmentDisplay::getHexDigitSegmentMap(uint8_t n)
 }
 
 
-uint8_t SegmentDisplay::getDecDigitSegmentMap(uint8_t n)
+uint8_t SegmentDisplay::getDecDigitSegmentMap(uint16_t n)
 {
     int a = n / 10;
     int b = 10 * a;
