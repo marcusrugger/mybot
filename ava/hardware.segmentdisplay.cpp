@@ -50,10 +50,10 @@ SegmentDisplay::SegmentDisplay(DataSerializer *writer)
 void SegmentDisplay::showHex(uint16_t number)
 {
     uint8_t digits[4];
-    digits[0] = getHexDigitSegmentMap( (number & 0xf000) >> 12 );
-    digits[1] = getHexDigitSegmentMap( (number & 0x0f00) >> 8  );
-    digits[2] = getHexDigitSegmentMap( (number & 0x00f0) >> 4  );
-    digits[3] = getHexDigitSegmentMap(  number & 0x000f        );
+    digits[0] = getHexDigitSegmentMap( number >> 12 );
+    digits[1] = getHexDigitSegmentMap( number >> 8  );
+    digits[2] = getHexDigitSegmentMap( number >> 4  );
+    digits[3] = getHexDigitSegmentMap( number       );
     _writer->writeData(digits, 4);
 }
 

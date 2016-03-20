@@ -35,6 +35,6 @@ void loop()
 {
     static uint16_t value = 0;
     idleloop->run();
-    Robot::instance()->display()->showDec(value++);
+    Robot::instance()->display()->showHex(value++);
     delay(100);
 }
