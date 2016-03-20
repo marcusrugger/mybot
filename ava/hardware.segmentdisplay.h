@@ -5,14 +5,14 @@
 #include "interfaces.h"
 
 
-class SegmentDisplay
+class SegmentDisplay : public DataStream
 {
 public:
 
     static SegmentDisplay *create(DataSerializer *writer);
 
-    void showHex(uint16_t number);
-    void showDec(uint16_t number);
+    void writeHex(uint16_t number);
+    void writeDec(uint16_t number);
 
 
 private:

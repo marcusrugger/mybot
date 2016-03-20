@@ -18,6 +18,7 @@ public:
     void buildUltrasonicProcessor(void);
     void buildLightProcessor(void);
     void buildBlinker(void);
+    void buildDisplayCounter(void);
 
 private:
 

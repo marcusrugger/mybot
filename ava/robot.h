@@ -2,6 +2,7 @@
 #define ROBOT_H
 
 #include "interfaces.h"
+#include "hardware.segmentdisplay.h"
 
 class Scheduler;
 class Runnable;
@@ -20,7 +21,7 @@ public:
     Runnable        *idleloop(void)     { return _idleloop;     }
     Moveable        *movement(void)     { return _movement;     }
     CommandQueue    *commandQueue(void) { return _commandQueue; }
-    SegmentDisplay  *display(void)      { return _display;      }
+    DataStream      *display(void)      { return _display;      }
 
     void alertUser(void);
 

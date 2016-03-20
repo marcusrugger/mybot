@@ -49,24 +49,28 @@ SegmentDisplay::SegmentDisplay(DataSerializer *writer)
 {}
 
 
-void SegmentDisplay::showHex(uint16_t number)
+void SegmentDisplay::writeHex(uint16_t number)
 {
     uint8_t digits[4];
-    digits[0] = getHexDigitBitmap( number >> 12 );
-    digits[1] = getHexDigitBitmap( number >>  8 );
-    digits[2] = getHexDigitBitmap( number >>  4 );
+
     digits[3] = getHexDigitBitmap( number       );
+    digits[2] = getHexDigitBitmap( number >>= 4 );
+    digits[1] = getHexDigitBitmap( number >>= 4 );
+    digits[0] = getHexDigitBitmap( number >>= 4 );
+
     _writer->writeData(digits, 4);
 }
 
 
-void SegmentDisplay::showDec(uint16_t number)
+void SegmentDisplay::writeDec(uint16_t number)
 {
     uint8_t digits[4];
-    digits[0] = getDecDigitBitmap( number / 1000 );
-    digits[1] = getDecDigitBitmap( number /  100 );
-    digits[2] = getDecDigitBitmap( number /   10 );
-    digits[3] = getDecDigitBitmap( number        );
+
+    digits[3] = getDecDigitBitmap( number       );
+    digits[2] = getDecDigitBitmap( number /= 10 );
+    digits[1] = getDecDigitBitmap( number /= 10 );
+    digits[0] = getDecDigitBitmap( number /= 10 );
+
     _writer->writeData(digits, 4);
 }
 

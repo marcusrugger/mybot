@@ -17,6 +17,7 @@
 #include "subject.distance.h"
 #include "subject.lightlatch.h"
 #include "task.blinker.h"
+#include "task.displaycounter.h"
 
 
 MBotBuilder::MBotBuilder(RobotFactory &factory)
@@ -75,5 +76,14 @@ void MBotBuilder::buildBlinker(void)
     RGBLedArray  *ledArray = RGBLedArray::create(writer, 2);
     BlinkerTask  *blinker  = BlinkerTask::create(ledArray);
     Runnable     *timer    = _factory.createTimer(blinker, 200);
+    _robot->scheduler()->schedule(timer);
+}
+
+
+void MBotBuilder::buildDisplayCounter(void)
+{
+    DataStream *stream = _robot->display();
+    Runnable   *task   = DisplayCounterTask::create(stream);
+    Runnable   *timer  = _factory.createTimer(task, 100);
     _robot->scheduler()->schedule(timer);
 }

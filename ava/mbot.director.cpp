@@ -23,4 +23,6 @@ void MBotDirector::buildOrion(RobotBuilder &builder)
 
 
 void MBotDirector::buildThermometer(RobotBuilder &builder)
-{}
+{
+    builder.buildDisplayCounter();
+}

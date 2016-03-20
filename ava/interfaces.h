@@ -97,6 +97,16 @@ public:
     virtual void writeData(uint8_t *data, uint16_t length) = 0;
 };
 
+
+class DataStream
+{
+public:
+    virtual ~DataStream(void) {}
+    virtual void writeHex(uint16_t number) = 0;
+    virtual void writeDec(uint16_t number) = 0;
+};
+
+
 class Scheduler
 {
 public:
@@ -207,6 +217,7 @@ public:
     virtual void buildUltrasonicProcessor(void) = 0;
     virtual void buildLightProcessor(void) = 0;
     virtual void buildBlinker(void) = 0;
+    virtual void buildDisplayCounter(void) = 0;
 
 };
 
