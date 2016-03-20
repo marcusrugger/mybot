@@ -6,6 +6,7 @@
 #include "mbot.builder.h"
 #include "mbot.director.h"
 #include "robot.h"
+#include "hardware.segmentdisplay.h"
 
 
 static Runnable *idleloop;
@@ -16,7 +17,7 @@ static MBotFactory factory(&pinmap);
 void createRobot(void)
 {
     MBotBuilder builder(factory);
-    MBotDirector::buildOrion(builder);
+    MBotDirector::buildThermometer(builder);
 }
 
 
@@ -26,10 +27,13 @@ void setup()
 
     createRobot();
     idleloop = Robot::instance()->idleloop();
+    Robot::instance()->alertUser();
 }
 
 
 void loop()
 {
+    static uint16_t value = 0;
     idleloop->run();
+    Robot::instance()->display()->showHex(value++);
 }

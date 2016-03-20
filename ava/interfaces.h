@@ -11,6 +11,7 @@ class DistanceSubject;
 class LightLatchSubject;
 class PinWatcherSubject;
 class SimpleBuzzer;
+class SegmentDisplay;
 
 class CommandQueue;
 
@@ -167,7 +168,7 @@ public:
     virtual ButtonSubject       *assembleButtonSubject(int pinNumber) = 0;
     virtual DistanceSubject     *assembleUltrasonicSubject(int pinNumber) = 0;
     virtual LightLatchSubject   *assembleLightLatchSubject(int pinNumber) = 0;
-    virtual SimpleBuzzer        *assembleBuzzer(int pinNumber) = 0;
+    virtual SegmentDisplay      *assembleSegmentDisplay(int pinClock, int pinData) = 0;
 
 };
 
@@ -190,6 +191,7 @@ public:
     virtual ButtonSubject       *assembleButtonSubject(int pinNumber) = 0;
     virtual DistanceSubject     *assembleUltrasonicSubject(int pinNumber) = 0;
     virtual LightLatchSubject   *assembleLightLatchSubject(int pinNumber) = 0;
+    virtual SegmentDisplay      *assembleSegmentDisplay(int pinClock, int pinData) = 0;
 
 };
 

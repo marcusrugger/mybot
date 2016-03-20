@@ -20,6 +20,7 @@ public:
     Runnable        *idleloop(void)     { return _idleloop;     }
     Moveable        *movement(void)     { return _movement;     }
     CommandQueue    *commandQueue(void) { return _commandQueue; }
+    SegmentDisplay  *display(void)      { return _display;      }
 
     void alertUser(void);
 
@@ -36,6 +37,7 @@ private:
     Moveable        *_movement;
     CommandQueue    *_commandQueue;
     Buzzer          *_buzzer;
+    SegmentDisplay  *_display;
 
 };
 

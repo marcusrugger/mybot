@@ -20,3 +20,7 @@ void MBotDirector::buildOrion(RobotBuilder &builder)
     builder.buildCommandQueue();
     builder.buildUltrasonicProcessor();
 }
+
+
+void MBotDirector::buildThermometer(RobotBuilder &builder)
+{}

@@ -10,6 +10,7 @@ public:
 
     static void buildMBot(RobotBuilder &builder);
     static void buildOrion(RobotBuilder &builder);
+    static void buildThermometer(RobotBuilder &builder);
 
 };
 

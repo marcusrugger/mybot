@@ -26,6 +26,7 @@ public:
     ButtonSubject       *assembleButtonSubject(int pinNumber);
     DistanceSubject     *assembleUltrasonicSubject(int pinNumber);
     LightLatchSubject   *assembleLightLatchSubject(int pinNumber);
+    SegmentDisplay      *assembleSegmentDisplay(int pinClock, int pinData);
 
 private:
 

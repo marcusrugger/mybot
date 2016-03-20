@@ -12,6 +12,8 @@
 #include "hardware.button.h"
 #include "hardware.ultrasonic.h"
 #include "hardware.buzzer.h"
+#include "hardware.segmentdisplay.h"
+#include "protocol.segmentdisplay.h"
 #include "task.timer.h"
 
 
@@ -80,7 +82,7 @@ ButtonSubject *MBotFactory::assembleButtonSubject(int pinNumber)
 
 DistanceSubject *MBotFactory::assembleUltrasonicSubject(int pinNumber)
 {
-    DigitalPin        *pin      = new ControllerDigitalPin(PIN_MCORE_ULTRASONIC_SENSOR);
+    DigitalPin        *pin      = new ControllerDigitalPin(pinNumber);
     DistanceProvider  *sensor   = UltrasonicSensor::create(pin);
     return DistanceSubject::create(sensor);
 }
@@ -90,4 +92,14 @@ LightLatchSubject *MBotFactory::assembleLightLatchSubject(int pinNumber)
 {
     AnalogPinReader *pin = createAnalogPinReader(pinNumber, INPUT);
     return LightLatchSubject::create(pin);
+}
+
+
+SegmentDisplay *MBotFactory::assembleSegmentDisplay(int pinNumberClock, int pinNumberData)
+{
+    DigitalPin              *pinClock   = new ControllerDigitalPin(pinNumberClock);
+    DigitalPin              *pinData    = new ControllerDigitalPin(pinNumberData);
+    SegmentDisplayProtocol  *protocol   = SegmentDisplayProtocol::create(pinClock, pinData);
+
+    return SegmentDisplay::create(protocol);
 }
