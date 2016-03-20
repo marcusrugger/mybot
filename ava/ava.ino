@@ -35,7 +35,6 @@ void loop()
 {
     static uint16_t value = 0;
     idleloop->run();
-    if (((++value) % 1000) == 0)
-        Robot::instance()->display()->showDec(value);
-    // delay(100);
+    Robot::instance()->display()->showDec(value++);
+    delay(100);
 }

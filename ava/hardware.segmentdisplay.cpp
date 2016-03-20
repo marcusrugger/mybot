@@ -77,7 +77,5 @@ uint8_t SegmentDisplay::getHexDigitSegmentMap(uint8_t n)
 
 uint8_t SegmentDisplay::getDecDigitSegmentMap(uint16_t n)
 {
-    int a = n / 10;
-    int b = 10 * a;
-    return _hexToSegmentMap[n - b];
+    return _hexToSegmentMap[n % 10];
 }
