@@ -19,6 +19,7 @@ public:
     void buildLightProcessor(void);
     void buildBlinker(void);
     void buildDisplayCounter(void);
+    void buildCountDownTimer(void);
 
 private:
 

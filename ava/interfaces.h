@@ -218,6 +218,7 @@ public:
     virtual void buildLightProcessor(void) = 0;
     virtual void buildBlinker(void) = 0;
     virtual void buildDisplayCounter(void) = 0;
+    virtual void buildCountDownTimer(void) = 0;
 
 };
 

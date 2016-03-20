@@ -18,6 +18,7 @@
 #include "subject.lightlatch.h"
 #include "task.blinker.h"
 #include "task.displaycounter.h"
+#include "task.countdowntimer.h"
 
 
 MBotBuilder::MBotBuilder(RobotFactory &factory)
@@ -85,5 +86,14 @@ void MBotBuilder::buildDisplayCounter(void)
     DataStream *stream = _robot->display();
     Runnable   *task   = DisplayCounterTask::create(stream);
     Runnable   *timer  = _factory.createTimer(task, 100);
+    _robot->scheduler()->schedule(timer);
+}
+
+
+void MBotBuilder::buildCountDownTimer(void)
+{
+    DataStream *stream = _robot->display();
+    Runnable   *task   = CountDownTimerTask::create(stream, 60);
+    Runnable   *timer  = _factory.createTimer(task, 1000);
     _robot->scheduler()->schedule(timer);
 }
