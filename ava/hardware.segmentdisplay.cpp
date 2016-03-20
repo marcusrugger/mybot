@@ -53,7 +53,26 @@ void SegmentDisplay::showHex(uint16_t number)
 }
 
 
+void SegmentDisplay::showDec(uint16_t number)
+{
+    uint8_t digits[4];
+    digits[0] = getDecDigitSegmentMap( number / 1000 );
+    digits[1] = getDecDigitSegmentMap( number / 100 );
+    digits[2] = getDecDigitSegmentMap( number / 10 );
+    digits[3] = getDecDigitSegmentMap( number );
+    _writer->writeData(digits, 4);
+}
+
+
 uint8_t SegmentDisplay::getHexDigitSegmentMap(uint8_t n)
 {
     return _hexToSegmentMap[n & 0x0f];
+}
+
+
+uint8_t SegmentDisplay::getDecDigitSegmentMap(uint8_t n)
+{
+    int a = n / 10;
+    int b = 10 * a;
+    return _hexToSegmentMap[n - b];
 }

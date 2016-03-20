@@ -12,6 +12,7 @@ public:
     static SegmentDisplay *create(DataSerializer *writer);
 
     void showHex(uint16_t number);
+    void showDec(uint16_t number);
 
 
 private:
@@ -22,6 +23,7 @@ private:
     static const uint8_t _hexToSegmentMap[];
 
     uint8_t getHexDigitSegmentMap(uint8_t n);
+    uint8_t getDecDigitSegmentMap(uint8_t n);
 
 };
 

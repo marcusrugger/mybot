@@ -6,6 +6,8 @@
 #include "controller.pin.h"
 
 
+/* Writes LED-digits to display for TM1637 */
+
 class SegmentDisplayProtocol : public DataSerializer
 {
 public:
