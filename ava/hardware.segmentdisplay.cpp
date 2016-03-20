@@ -1,15 +1,16 @@
 #include "hardware.segmentdisplay.h"
 
 
-//
-//      A
-//     ---
-//  F |   | B
-//     -G-
-//  E |   | C
-//     ---
-//      D
-const uint8_t SegmentDisplay::_hexToSegmentMap[] =
+/*
+ *      A
+ *     ---
+ *  F |   | B
+ *     -G-
+ *  E |   | C
+ *     ---
+ *      D
+ */
+const uint8_t SegmentDisplay::_hexToSegmentBitmap[] =
 {
 //    .GFEDCBA
     0b00111111,     // 0
@@ -32,6 +33,7 @@ const uint8_t SegmentDisplay::_hexToSegmentMap[] =
 
 //                              .GFEDCBA
 const uint8_t CHAR_SPACE    = 0b00000000;
+const uint8_t CHAR_PERIOD   = 0b10000000;
 const uint8_t CHAR_DASH     = 0b01000000;
 const uint8_t CHAR_DEGREE   = 0b01100011;
 
@@ -50,10 +52,10 @@ SegmentDisplay::SegmentDisplay(DataSerializer *writer)
 void SegmentDisplay::showHex(uint16_t number)
 {
     uint8_t digits[4];
-    digits[0] = getHexDigitSegmentMap( number >> 12 );
-    digits[1] = getHexDigitSegmentMap( number >> 8  );
-    digits[2] = getHexDigitSegmentMap( number >> 4  );
-    digits[3] = getHexDigitSegmentMap( number       );
+    digits[0] = getHexDigitBitmap( number >> 12 );
+    digits[1] = getHexDigitBitmap( number >>  8 );
+    digits[2] = getHexDigitBitmap( number >>  4 );
+    digits[3] = getHexDigitBitmap( number       );
     _writer->writeData(digits, 4);
 }
 
@@ -61,21 +63,21 @@ void SegmentDisplay::showHex(uint16_t number)
 void SegmentDisplay::showDec(uint16_t number)
 {
     uint8_t digits[4];
-    digits[0] = getDecDigitSegmentMap( number / 1000 );
-    digits[1] = getDecDigitSegmentMap( number / 100  );
-    digits[2] = getDecDigitSegmentMap( number / 10   );
-    digits[3] = getDecDigitSegmentMap( number        );
+    digits[0] = getDecDigitBitmap( number / 1000 );
+    digits[1] = getDecDigitBitmap( number /  100 );
+    digits[2] = getDecDigitBitmap( number /   10 );
+    digits[3] = getDecDigitBitmap( number        );
     _writer->writeData(digits, 4);
 }
 
 
-uint8_t SegmentDisplay::getHexDigitSegmentMap(uint8_t n)
+uint8_t SegmentDisplay::getHexDigitBitmap(uint8_t n)
 {
-    return _hexToSegmentMap[n & 0x0f];
+    return _hexToSegmentBitmap[n & 0x0f];
 }
 
 
-uint8_t SegmentDisplay::getDecDigitSegmentMap(uint16_t n)
+uint8_t SegmentDisplay::getDecDigitBitmap(uint16_t n)
 {
-    return _hexToSegmentMap[n % 10];
+    return _hexToSegmentBitmap[n % 10];
 }

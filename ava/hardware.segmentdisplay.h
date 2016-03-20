@@ -20,10 +20,10 @@ private:
     SegmentDisplay(DataSerializer *writer);
 
     DataSerializer *_writer;
-    static const uint8_t _hexToSegmentMap[];
+    static const uint8_t _hexToSegmentBitmap[];
 
-    uint8_t getHexDigitSegmentMap(uint8_t n);
-    uint8_t getDecDigitSegmentMap(uint16_t n);
+    uint8_t getHexDigitBitmap(uint8_t n);
+    uint8_t getDecDigitBitmap(uint16_t n);
 
 };
 

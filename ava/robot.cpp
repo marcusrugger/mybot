@@ -31,7 +31,7 @@ Robot::Robot(RobotFactory &factory)
     _commandQueue   = factory.createCommandQueue();
     _buzzer         = factory.createBuzzer();
     _movement       = factory.assembleMotionControl();
-    _display        = factory.assembleSegmentDisplay(13, 12);
+    _display        = factory.assembleSegmentDisplay(2, 8);
 }
 
 
