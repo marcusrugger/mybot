@@ -36,26 +36,23 @@ void SegmentDisplayProtocol::writeData(uint8_t *data, uint16_t length)
 
 void SegmentDisplayProtocol::bitDelay(void)
 {
-    delayMicroseconds(50);
+    delayMicroseconds(5);
 }
 
 
 void SegmentDisplayProtocol::start(void)
 {
-    _pinClock->setHigh();
     _pinData->setHigh();
-
-    _pinData->setLow();
+    _pinClock->setHigh();   bitDelay();
+    _pinData->setLow();     bitDelay();
     _pinClock->setLow();
 }
 
 
 void SegmentDisplayProtocol::stop(void)
 {
-    _pinClock->setLow();
-    _pinData->setLow();
-
-    _pinClock->setHigh();
+    _pinData->setLow();     bitDelay();
+    _pinClock->setHigh();   bitDelay();
     _pinData->setHigh();
 }
 
@@ -67,6 +64,11 @@ void SegmentDisplayProtocol::writeByte(uint8_t data)
         _pinClock->setLow();
         _pinData->set(data & 0x01);
         _pinClock->setHigh();
+        bitDelay();
+
+        for (int cnt = 0; !_pinClock->get() && cnt < 20; cnt++)
+            bitDelay();
+
         data >>= 1;
     }
 
@@ -77,10 +79,10 @@ void SegmentDisplayProtocol::writeByte(uint8_t data)
 void SegmentDisplayProtocol::waitForAck(void)
 {
     _pinClock->setLow();
-    _pinData->setHigh();
+    _pinData->setHigh();    bitDelay();
     _pinClock->setHigh();
 
-    for (int cnt = 0; _pinData->get() && cnt < 20; cnt++)
+    for (int cnt = 0; !_pinClock->get() && cnt < 20; cnt++)
         bitDelay();
 
     _pinClock->setLow();
