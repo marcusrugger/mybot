@@ -224,4 +224,25 @@ public:
 };
 
 
+template<class T>
+class Translator
+{
+public:
+
+    virtual ~Translator<T>(void) {}
+
+    virtual T operator()(T n);
+};
+
+template<class T, class U>
+class Transformer
+{
+public:
+
+    virtual ~Transformer<T,U>(void) {}
+
+    virtual U operator()(T n);
+};
+
+
 #endif
