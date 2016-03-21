@@ -12,7 +12,7 @@ public:
 
     static RGBLedWriter *create(int pinNumber);
 
-    void writeData(uint8_t *data, uint16_t length);
+    void writeData(const uint8_t *data, uint16_t length);
 
 
 private:
@@ -24,7 +24,7 @@ private:
     int _pinNumber;
     uint8_t _pinMask;
 
-    void  rgbled_sendarray_mask(uint8_t *data, uint16_t datlen, uint8_t maskhi, const volatile uint8_t *port);
+    void  rgbled_sendarray_mask(const uint8_t *data, uint16_t datlen, uint8_t maskhi, const volatile uint8_t *port);
 
 };
 

@@ -17,7 +17,7 @@ public:
 
     void setDisplayOn(bool flag);
 
-    virtual void writeData(uint8_t *data, uint16_t length);
+    virtual void writeData(const uint8_t *data, uint16_t length);
 
 private:
 

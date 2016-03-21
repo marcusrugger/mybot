@@ -16,7 +16,7 @@ SegmentDisplayProtocol::SegmentDisplayProtocol(DigitalPin *pinClock, DigitalPin 
 }
 
 
-void SegmentDisplayProtocol::writeData(uint8_t *data, uint16_t length)
+void SegmentDisplayProtocol::writeData(const uint8_t *data, uint16_t length)
 {
     start();    // Start signal sent to TM1637 from MCU.
     writeByte(ADDR_AUTO);

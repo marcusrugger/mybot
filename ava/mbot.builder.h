@@ -20,6 +20,7 @@ public:
     void buildBlinker(void);
     void buildDisplayCounter(void);
     void buildCountDownTimer(void);
+    void buildDisplayAnimator(void);
 
 private:
 

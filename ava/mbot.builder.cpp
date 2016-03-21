@@ -19,6 +19,8 @@
 #include "task.blinker.h"
 #include "task.displaycounter.h"
 #include "task.countdowntimer.h"
+#include "task.displayanimator.h"
+#include "protocol.segmentdisplay.h"
 
 
 MBotBuilder::MBotBuilder(RobotFactory &factory)
@@ -95,5 +97,16 @@ void MBotBuilder::buildCountDownTimer(void)
     DataStream *stream = _robot->display();
     Runnable   *task   = CountDownTimerTask::create(stream, 60);
     Runnable   *timer  = _factory.createTimer(task, 1000);
+    _robot->scheduler()->schedule(timer);
+}
+
+
+void MBotBuilder::buildDisplayAnimator(void)
+{
+    DigitalPin      *pinClock   = new ControllerDigitalPin(2);
+    DigitalPin      *pinData    = new ControllerDigitalPin(8);
+    DataSerializer  *writer     = SegmentDisplayProtocol::create(pinClock, pinData);
+    Runnable        *task       = DisplayAnimatorTask::create(writer);
+    Runnable        *timer      = _factory.createTimer(task, 100);
     _robot->scheduler()->schedule(timer);
 }

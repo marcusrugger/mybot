@@ -16,7 +16,7 @@ RGBLedWriter::RGBLedWriter(int pinNumber)
 }
 
 
-void RGBLedWriter::writeData(uint8_t *data, uint16_t length)
+void RGBLedWriter::writeData(const uint8_t *data, uint16_t length)
 {
     rgbled_sendarray_mask(data, length, _pinMask, _ws2812_port);
 }
@@ -83,7 +83,7 @@ void RGBLedWriter::writeData(uint8_t *data, uint16_t length)
 #define w_nop8  w_nop4 w_nop4
 #define w_nop16 w_nop8 w_nop8
 
-void  RGBLedWriter::rgbled_sendarray_mask(uint8_t *data, uint16_t datlen, uint8_t maskhi, const volatile uint8_t *port)
+void  RGBLedWriter::rgbled_sendarray_mask(const uint8_t *data, uint16_t datlen, uint8_t maskhi, const volatile uint8_t *port)
 {
     uint8_t curbyte, ctr, masklo;
     uint8_t oldSREG = SREG;

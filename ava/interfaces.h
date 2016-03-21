@@ -94,7 +94,7 @@ class DataSerializer
 {
 public:
     virtual ~DataSerializer(void) {}
-    virtual void writeData(uint8_t *data, uint16_t length) = 0;
+    virtual void writeData(const uint8_t *data, uint16_t length) = 0;
 };
 
 
@@ -219,6 +219,7 @@ public:
     virtual void buildBlinker(void) = 0;
     virtual void buildDisplayCounter(void) = 0;
     virtual void buildCountDownTimer(void) = 0;
+    virtual void buildDisplayAnimator(void) = 0;
 
 };
 
